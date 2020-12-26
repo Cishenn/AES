@@ -1,11 +1,14 @@
 #This is README.md
 ===================
-project branch has two directories
 
-frontend codes place in frontend directory
+## Project Structure
+Project master branch has two directories
 
-bacnend codes place in backend directory
+Frontend codes place in frontend directory
 
-our project has add git hook to inspect commit message
+Backend codes place in backend directory
 
-commit message should like "Added some new feature. Ref #999"
+## 
+Our project has added commit-message in .git/hooks to inspect commit message
+
+Commit message should like "Added some new feature. Ref #999"
