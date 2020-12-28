@@ -1,24 +1,19 @@
 # arrange_examination_system
 
-## Project setup
+## 镜像建立
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+docker build . -t 镜像名//比如：test
 ```
 
-### Compiles and minifies for production
+## 运行镜像
 ```
-npm run build
+docker run -d -p 8080:80 镜像名 //test  注意8080是指你的电脑的运行端口 80是指镜像端口，可以变化
+```
+### 查看镜像
+```
+可以在镜像建立完成之后 docker images 查看镜像
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
