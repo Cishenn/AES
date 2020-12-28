@@ -5,13 +5,17 @@ import Register from '../views/Register.vue'
 import Inspector from '../views/Inspector.vue'
 import School from '../views/School.vue'
 import Recruit from '../views/Recruit.vue'
+import Test from '../views/Test.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '',
-    redirect: '/login',
+    redirect: '/login'
+  },
+  {
+    path: '/login',
     component: Login
   },
   {
@@ -29,6 +33,10 @@ const routes = [
   {
     path: '/recruit',
     component: Recruit
+  },
+  {
+    path: '/test',
+    component: Test
   }
 ]
 
