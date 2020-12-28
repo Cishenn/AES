@@ -2,19 +2,33 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Inspector from '../views/Inspector.vue'
+import School from '../views/School.vue'
+import Recruit from '../views/Recruit.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Login',
+    path: '',
+    redirect: '/login',
     component: Login
   },
   {
     path: '/register',
-    name: 'Register',
     component: Register
+  },
+  {
+    path: '/inspector',
+    component: Inspector
+  },
+  {
+    path: '/school',
+    component: School
+  },
+  {
+    path: '/recruit',
+    component: Recruit
   }
 ]
 
