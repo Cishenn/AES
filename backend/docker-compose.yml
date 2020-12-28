@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=k1181448472
+      - MYSQL_DATABASE=autoExam
+    ports:
+      - '3306:3306'
+  backend:
+    build: .
+    restart: always
+    environment:
+      - DATABASE_URL=db:3306
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+    volumes:
+      - 'db-data:/var/lib/mysql'
+
+volumes:
+  db-data:
