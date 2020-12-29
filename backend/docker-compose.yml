@@ -5,8 +5,8 @@ services:
     image: mysql
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=k1181448472
-      - MYSQL_DATABASE=autoExam
+      - MYSQL_ROOT_PASSWORD=123
+      - MYSQL_DATABASE=autoexam
     ports:
       - '3306:3306'
   backend:
