@@ -1,7 +1,7 @@
 <template>
   <div class="school">
     <side-menu />
-    <router-view />
+    <router-view class="routerv"/>
   </div>
 </template>
 
@@ -22,5 +22,9 @@ export default {
 </script>
 
 <style scoped>
-
+.routerv {
+  position: absolute;
+  top: 2%;
+  left: 20%;
+}
 </style>
