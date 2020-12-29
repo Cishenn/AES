@@ -6,6 +6,8 @@ import Inspector from '../views/Inspector.vue'
 import School from '../views/School.vue'
 import Recruit from '../views/Recruit.vue'
 import Test from '../views/Test.vue'
+import InfoCheck from '../components/school/InfoCheck.vue'
+import InfoUpload from '../components/school/InfoUpload.vue'
 
 Vue.use(VueRouter)
 
@@ -28,7 +30,18 @@ const routes = [
   },
   {
     path: '/school',
-    component: School
+    redirect: '/school/infoCheck',
+    component: School,
+    children: [
+      {
+        path: 'infoCheck',
+        component: InfoCheck
+      },
+      {
+        path: 'infoUpload',
+        component: InfoUpload
+      }
+    ]
   },
   {
     path: '/recruit',

@@ -4,17 +4,16 @@
       <el-avatar :src="avatarUrl" :size="60"></el-avatar>
     </div>
     <el-menu default-active="1" class="sideNav" router="true">
-      <el-menu-item index="/test">
+      <el-menu-item index="/school/infoCheck">
         <i class="el-icon-menu"></i>
         <span class="menuText">信息审核</span>
       </el-menu-item>
-      <el-menu-item index="/test">
+      <el-menu-item index="/school/infoUpload">
         <i class="el-icon-menu"></i>
         <span class="menuText">信息上传</span>
       </el-menu-item>
     </el-menu>
   </div>
-
 </template>
 
 <script>

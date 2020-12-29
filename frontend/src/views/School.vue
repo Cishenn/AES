@@ -1,8 +1,7 @@
 <template>
   <div class="school">
     <side-menu />
-    <div class="container">
-    </div>
+    <router-view />
   </div>
 </template>
 
