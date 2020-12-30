@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class StatusNotes {
     int stateId;
-    int pepId;
+    int esId;
     String stateMessage;
     String auditState;
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class History {
     int hsId;
-    int pepId;
+    int esId;
     int year;
     String hsMessage;
 }

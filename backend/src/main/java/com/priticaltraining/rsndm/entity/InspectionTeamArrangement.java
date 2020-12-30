@@ -3,10 +3,10 @@ package com.priticaltraining.rsndm.entity;
 import lombok.Data;
 
 @Data
-public class ExamRoom{
-    int exRoomId;
+public class InspectionTeamArrangement{
+    int itArrangeId;
+    int inspectionTeamId;
     int schoolId;
     int floorId;
-    String roomNum;
-    int isArrange;
+    int sessions;
 }

@@ -13,6 +13,8 @@ public class ExamStaff {
     String grade;
     String subject;
     int qualified;
-    int examine;
+    int schoolExamine;
+    int eduExamine;
+    String finalRejection;
     String photograph;
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ViolationRecord {
     int vrId;
-    int pepId;
+    int esId;
     int year;
     String vrMessage;
     String vrPunish;

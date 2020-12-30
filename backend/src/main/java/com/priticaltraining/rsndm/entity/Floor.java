@@ -3,9 +3,8 @@ package com.priticaltraining.rsndm.entity;
 import lombok.Data;
 
 @Data
-public class School{
+public class Floor{
+    int floorId;
+    String building;
     int schoolId;
-    String schoolName;
-    int eduId;
-    int exRoomExamine;
 }
