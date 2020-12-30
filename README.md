@@ -14,3 +14,7 @@ Our project has added commit-message in .git/hooks to inspect commit message
 Commit message should like "Added some new feature. Ref #999"
 
 ## 完成了数据库的创建
+2020.12.28
+
+## 进行前后端接口的讨论
+2020.12.30
