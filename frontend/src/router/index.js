@@ -8,7 +8,10 @@ import Recruit from '../views/Recruit.vue'
 import Test from '../views/Test.vue'
 import TeacherInfo from '../components/school/TeacherInfo.vue'
 import RoomInfo from '../components/school/RoomInfo.vue'
-
+import Addmissions from '../views/Addmissions.vue'
+import SchoolInfo from '../components/admissions/SchoolInfo.vue'
+import InputStudents from '../components/admissions/InputStudents.vue'
+import Allocation from '../components/admissions/Allocation.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -40,6 +43,25 @@ const routes = [
       {
         path: 'roomInfo',
         component: RoomInfo
+      }
+    ]
+  },
+  {
+    path: '/addmissions',
+    redirect: '/addmissions/SchoolInfo',
+    component: Addmissions,
+    children: [
+      {
+        path: 'schoolInfo',
+        component: SchoolInfo
+      },
+      {
+        path: 'inputStudents',
+        component: InputStudents
+      },
+      {
+        path: 'allocation',
+        component: Allocation
       }
     ]
   },
