@@ -51,7 +51,7 @@ export default {
 
 .sideNav {
   width: 15%;
-  height: 500px;
+  height: 700px;
 }
 
 .menuText {

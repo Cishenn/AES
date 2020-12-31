@@ -35,7 +35,9 @@
             <i class="el-icon-picture-outline"></i>
             <el-input v-model="identity" class="classifyitem" type="text" placeholder="请输入右中的验证码." />
           </div>
-          <img src="../assets/classify.jpg" class="yanzhengma-style"  />
+          <!-- <img src="../assets/classify.jpg"   /> -->
+          <div @click="refreshCode"><SIdentify :identifyCode="identifyCode"  class="yanzhengma-style"></SIdentify></div>
+
         </div>
         <div>
           <el-button type="primary" class="button-box" >Regist</el-button>
@@ -46,10 +48,17 @@
 </template>
 
 <script>
+import SIdentify from './identify.vue'
+
 export default {
+  components: {
+    SIdentify
+  },
   data () {
     return {
-      url: '../assets/classify.jpg',
+      identifyCodes: '1234567890',
+      identifyCode: '',
+      // url: '../assets/classify.jpg',
       phonenum: '',
       password: '',
       value: '',
@@ -66,7 +75,26 @@ export default {
       }]
     }
   },
+  mounted () {
+    this.identifyCode = ''
+    this.makeCode(this.identifyCodes, 4)
+  },
   methods: {
+    randomNum (min, max) {
+      return Math.floor(Math.random() * (max - min) + min)
+    },
+    refreshCode () {
+      this.identifyCode = ''
+      this.makeCode(this.identifyCodes, 4)
+    },
+    makeCode (o, l) {
+      for (let i = 0; i < l; i++) {
+        this.identifyCode += this.identifyCodes[
+          this.randomNum(0, this.identifyCodes.length)
+        ]
+      }
+      console.log(this.identifyCode)
+    }
   }
 }
 </script>
@@ -76,9 +104,9 @@ export default {
   display: flex;
 }
 .yanzhengma-style{
-  width: 90px;
+  /* width: 90px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 10px; */
   margin-top: 5px;
 }
 .form_font {

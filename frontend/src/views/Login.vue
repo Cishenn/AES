@@ -25,7 +25,7 @@
           <el-input v-model="password" class="item" type="text" placeholder="Please enter you pas." show-password />
         </div>
         <div >
-          <el-button type="primary" class="button-box">Login</el-button>
+          <el-button type="primary" class="button-box" @click="login">Login</el-button>
           <div v-if="this.istrue"
           style="
           margin: 5px;"
@@ -64,6 +64,13 @@ export default {
       console.log(selectValue)
       if (selectValue === 1) { this.istrue = true } else { this.istrue = false }
       console.log(this.istrue)
+    },
+    login () {
+      if (this.value === 1) { this.$router.push('/teacher') } else if (this.value === 2) {
+        this.$router.push('/school')
+      } else if (this.value === 3) {
+        this.$router.push('/addmission')
+      } else { alert('请选择身份登录！') }
     }
   }
 }
