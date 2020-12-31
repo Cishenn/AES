@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.praticaltraining.rsndm.mapper.schoolMapper">
+<mapper namespace="com.praticaltraining.rsndm.mapper.SchoolMapper">
     <select id="getAll" resultType="com.praticaltraining.rsndm.entity.School">
-        select * from school where schoolId=#{schoolId}
+        select * from school
     </select>
 
     <update id="examineExRoom">
@@ -11,7 +11,7 @@
         WHERE schoolId = #{schoolId}
     </update>
 
-    <update id="examineExRoom">
+    <update id="submitExRoom">
         UPDATE school
         SET school.exRoomExamine = 1
         WHERE schoolId = #{schoolId}
