@@ -27,7 +27,7 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="信息上传" class="second">
-        <el-table :data="tableData">
+        <el-table class="table" :data="tableData">
           <el-table-column type="selection" width="55"/>
           <el-table-column label="姓名" prop="name" width="120px"/>
           <el-table-column label="年龄" prop="age" width="120px"/>
@@ -42,11 +42,14 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="1000">
-        </el-pagination>
+        <div>
+          <el-pagination
+            class="pagination"
+            background
+            layout="prev, pager, next"
+            :total="1000">
+          </el-pagination>
+        </div>
         <div>
           <el-button>提交给上级招办</el-button>
         </div>
