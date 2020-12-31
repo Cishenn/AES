@@ -8,7 +8,7 @@ spring:
     date-format: 'yyyy-MM-dd HH:mm:ss'
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.priticaltraining.rsndm.entity
+  type-aliases-package: com.praticaltraining.rsndm.entity
 
 
 
