@@ -51,7 +51,7 @@
           </el-pagination>
         </div>
         <div>
-          <el-button>提交给上级招办</el-button>
+          <el-button class="submitBtn">提交给上级招办</el-button>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -89,6 +89,13 @@ export default {
 .pagination {
   width: 400px;
   margin: auto;
+}
+
+.submitBtn {
+  width: 140px;
+  display: block;
+  margin: auto;
+  margin-top: 1%;
 }
 
 </style>
