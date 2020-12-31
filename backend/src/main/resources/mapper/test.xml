@@ -4,4 +4,6 @@
     <select id="getTest" resultType="test">
         SELECT * FROM test;
     </select>
+
+
 </mapper>
