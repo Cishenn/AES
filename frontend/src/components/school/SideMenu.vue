@@ -43,8 +43,8 @@ export default {
 
 .myAvatar {
   width: 15%;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .avatarImg {
