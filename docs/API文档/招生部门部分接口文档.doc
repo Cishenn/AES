@@ -1,0 +1,464 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:w="urn:schemas-microsoft-com:office:word"
+    xmlns="http://www.w3.org/TR/REC-html40">
+    <head><meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <style type="text/css">
+        table  
+        {  
+            border-collapse: collapse;
+            border: none;  
+            width: 100%;  
+        }  
+        td,tr  
+        {  
+            border: solid #CCC 1px;
+            padding:3px;
+            font-size:9pt;
+        } 
+        .codestyle{
+            word-break: break-all;
+            mso-highlight:rgb(252, 252, 252);
+            padding-left: 5px; background-color: rgb(252, 252, 252); border: 1px solid rgb(225, 225, 232);
+        }
+        img {
+            width:100;
+        }
+    </style>
+    <meta name=ProgId content=Word.Document>
+    <meta name=Generator content="Microsoft Word 11">
+    <meta name=Originator content="Microsoft Word 11">
+    <xml><w:WordDocument><w:View>Print</w:View></xml></head>
+    <body><h1>1、获取全部学校信息</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>通过该接口直接获取所有学校信息</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/school/school</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">school</td>
+<td style="text-align: left;">school</td>
+<td>学校对象</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>2、通过学校id获得考场信息</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>根据学校id获得考场信息，包括所在楼、层及教室号</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/floor_exRoom/floor_exRoom/schoolId</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">schoolId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>学校id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">floor_exRoom</td>
+<td style="text-align: left;">floor_exRoom</td>
+<td>该对象包含两个对象：楼层对象floor以及考场对象exRoom</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>3、根据学校id获得考场数</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>根据学校id获得该学校的考场总数</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exRoom/count_exRoom/schoolId</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">schoolId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>学校id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">count（exRoom）</td>
+<td style="text-align: left;">int</td>
+<td>考场数</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>4、获取已通过招生部门审核的考务人员信息</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>获取已通过本级招生部门审核的考务人员信息</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/examStaff/examStaff/eduId</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">eduId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>招生部门id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">examStaff</td>
+<td style="text-align: left;">examStaff</td>
+<td>考务人员对象</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>5、获取三类考生数目信息</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>获取当年三类考生数目信息</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost/numberOfCandidates/Candidates</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET</li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>年份</td>
+</tr>
+<tr>
+<td style="text-align: left;">eduId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>招生部门id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">numberOfCandidates</td>
+<td style="text-align: left;">numberOfCandidates</td>
+<td>考生数目对象</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>6、修改当年三类考生数目信息</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>修改当年三类考生数目信息</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/numberOfCandidates/Candidates</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>UPDATE</li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>年份</td>
+</tr>
+<tr>
+<td style="text-align: left;">eduId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>招生部门id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;"></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>7、招生部门审核考务人员信息</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>招生部门审核考务人员信息</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/examStaff/eduExamine/esId_eduExamine</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>UPDATE </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">esId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考务人员id</td>
+</tr>
+<tr>
+<td style="text-align: left;">eduExamine</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>招生部门审核状态</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;"></td>
+<td>修改考务人员的招生部门审核状态</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>8、招生部门审核考场信息</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>招生部门审核考场信息</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/school/exRoomExamine/schoolId_exRoomExamine</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>UPDATE </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">schoolId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>学校id</td>
+</tr>
+<tr>
+<td style="text-align: left;">exRoomExamine</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考场审核状态</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;"></td>
+<td>修改学校的考场审核状态</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div></body></html>
