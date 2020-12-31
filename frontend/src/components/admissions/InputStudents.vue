@@ -25,9 +25,9 @@
 export default {
   data () {
     return {
-      liNum:'100000',
-      wenNum:'100000',
-      teNum:'100000'
+      liNum: '100000',
+      wenNum: '100000',
+      teNum: '100000'
     }
   },
   methods: {
