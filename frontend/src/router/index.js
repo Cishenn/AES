@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Inspector from '../views/Inspector.vue'
 import School from '../views/School.vue'
+import Teacher from '../views/Teacher.vue'
 import Recruit from '../views/Recruit.vue'
 import Test from '../views/Test.vue'
 import TeacherInfo from '../components/school/TeacherInfo.vue'
@@ -12,6 +13,10 @@ import Addmissions from '../views/Addmissions.vue'
 import SchoolInfo from '../components/admissions/SchoolInfo.vue'
 import InputStudents from '../components/admissions/InputStudents.vue'
 import Allocation from '../components/admissions/Allocation.vue'
+import Personalinfo from '../components/teacher/Personalinfo.vue'
+import history from '../components/teacher/History.vue'
+import feedback from '../components/teacher/Feedback.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -62,6 +67,25 @@ const routes = [
       {
         path: 'allocation',
         component: Allocation
+      }
+    ]
+  },
+  {
+    path: '/teacher',
+    redirect: '/teacher/personalinfo',
+    component: Teacher,
+    children: [
+      {
+        path: 'personalinfo',
+        component: Personalinfo
+      },
+      {
+        path: 'history',
+        component: history
+      },
+      {
+        path: 'feedback',
+        component: feedback
       }
     ]
   },
