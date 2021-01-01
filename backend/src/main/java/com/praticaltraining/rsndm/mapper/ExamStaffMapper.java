@@ -1,5 +1,9 @@
 package com.praticaltraining.rsndm.mapper;
 
-public interface Exam_staffMapper {
-    void register(String telephoneNumber);
+import com.praticaltraining.rsndm.entity.ExamStaff;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface ExamStaffMapper {
+    int register(ExamStaff examStaff);
 }

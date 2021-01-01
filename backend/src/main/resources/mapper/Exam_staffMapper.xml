@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.praticaltraining.rsndm.mapper.Exam_staffMapper">
-    <insert id="register" parameterType="String">
+<mapper namespace="com.praticaltraining.rsndm.mapper.ExamStaffMapper">
+    <insert id="register" parameterType="ExamStaff">
         INSERT INTO exam_staff (
-           telephoneNumber
+           telephoneNumber,schoolId
         ) VALUES (
-           #{telephoneNumber}
+           #{telephoneNumber},#{schoolId}
         )
     </insert>
 </mapper>

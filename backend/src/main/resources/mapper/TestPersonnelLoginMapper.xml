@@ -6,7 +6,7 @@
         WHERE telephoneNumber=#{telephoneNumber}
     </select>
 
-    <insert id="register" parameterType="TestPersonnelLogin">
+    <insert id="register" parameterType="String">
         INSERT INTO test_personnel_login (
            telephoneNumber,password
         ) VALUES (

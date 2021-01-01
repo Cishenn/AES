@@ -1,6 +1,7 @@
 package com.praticaltraining.rsndm.biz.impl;
 
 import com.praticaltraining.rsndm.biz.EnrollmentDepartmentLoginBiz;
+import com.praticaltraining.rsndm.entity.EnrollmentDepartmentLogin;
 import com.praticaltraining.rsndm.mapper.EnrollmentDepartmentLoginMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,8 @@ public class EnrollmentDepartmentLoginImpl implements EnrollmentDepartmentLoginB
     private EnrollmentDepartmentLoginMapper enrollmentDepartmentLoginMapper;
 
     @Override
-    public String getPwd(String account) {
-        return enrollmentDepartmentLoginMapper.getPwd(account);
+    public EnrollmentDepartmentLogin getPwdEduId(String account) {
+        return enrollmentDepartmentLoginMapper.getPwdEduId(account);
     }
 
 }

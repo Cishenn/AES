@@ -1,6 +1,8 @@
 package com.praticaltraining.rsndm.controller;
 
+import com.praticaltraining.rsndm.biz.ExamStaffBiz;
 import com.praticaltraining.rsndm.biz.TestPersonnelLoginBiz;
+import com.praticaltraining.rsndm.entity.ExamStaff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestPersonnelLoginController {
     @Autowired
     private TestPersonnelLoginBiz testPersonnelLoginBiz;
+    @Autowired
+    private ExamStaffBiz examStaffBiz;
 
     @RequestMapping(value = "/login",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
@@ -21,5 +25,15 @@ public class TestPersonnelLoginController {
             return 0;
         }
         return 1;
+    }
+
+    @RequestMapping(value = "/register",method= RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
+    @CrossOrigin
+    void register(String telephoneNumber,String password,int schoolId){
+        testPersonnelLoginBiz.register(telephoneNumber,password);
+        ExamStaff examStaff=new ExamStaff();
+        examStaff.setSchoolId(schoolId);
+        examStaff.setTelephoneNumber(telephoneNumber);
+        examStaffBiz.register(examStaff);
     }
 }

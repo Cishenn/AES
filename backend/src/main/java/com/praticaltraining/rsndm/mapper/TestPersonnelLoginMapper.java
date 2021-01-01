@@ -6,5 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TestPersonnelLoginMapper {
     String getPwd(String telephoneNumber);
-    void register(TestPersonnelLogin testPersonnelLogin);
+    int register(String telephoneNumber,String password);
 }
