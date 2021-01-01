@@ -5,4 +5,12 @@
         SELECT password FROM test_personnel_login
         WHERE telephoneNumber=#{telephoneNumber}
     </select>
+
+    <insert id="register" parameterType="TestPersonnelLogin">
+        INSERT INTO test_personnel_login (
+           telephoneNumber,password
+        ) VALUES (
+           #{telephoneNumber},#{password}
+        )
+    </insert>
 </mapper>
