@@ -1,5 +1,7 @@
 package com.praticaltraining.rsndm.biz;
 
+import com.praticaltraining.rsndm.entity.EnrollmentDepartmentLogin;
+
 public interface EnrollmentDepartmentLoginBiz {
-    String getPwd(String account);
+    EnrollmentDepartmentLogin getPwdEduId(String account);
 }

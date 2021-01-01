@@ -1,6 +1,7 @@
 package com.praticaltraining.rsndm.controller;
 
 import com.praticaltraining.rsndm.biz.EnrollmentDepartmentLoginBiz;
+import com.praticaltraining.rsndm.entity.EnrollmentDepartmentLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +16,12 @@ public class EnrollmentDepartmentLoginController {
 
     @RequestMapping(value = "/login",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
-    int login(String account,String password){
-        String res=enrollmentDepartmentLoginBiz.getPwd(account);
-        if(res==null||!res.equals(password)){
-            return 0;
+    int login(String account,String password,int eduId){
+        EnrollmentDepartmentLogin res=enrollmentDepartmentLoginBiz.getPwdEduId(account);
+        if(res==null||!res.getPassword().equals(password)|| eduId!=res.getEduId()){
+            return -1;
         }
-        return 1;
+        return res.getEduId();
     }
 
 

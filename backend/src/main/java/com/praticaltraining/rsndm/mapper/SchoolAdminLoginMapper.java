@@ -1,12 +1,10 @@
 package com.praticaltraining.rsndm.mapper;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> master
+import com.praticaltraining.rsndm.entity.SchoolAdminLogin;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface SchoolAdminLoginMapper {
-    String getPwd(String account);
+    SchoolAdminLogin getPwdSchoolId(String account);
 }
