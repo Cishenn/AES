@@ -22,7 +22,7 @@ public class TestPersonnelLoginController {
     int login(String telephoneNumber,String password){
         String res=testPersonnelLoginBiz.getPwd(telephoneNumber);
         if(res==null||!res.equals(password)){
-            return 0;
+            return -1;
         }
         return 1;
     }

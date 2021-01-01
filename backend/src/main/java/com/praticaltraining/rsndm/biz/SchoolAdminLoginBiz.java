@@ -1,5 +1,7 @@
 package com.praticaltraining.rsndm.biz;
 
+import com.praticaltraining.rsndm.entity.SchoolAdminLogin;
+
 public interface SchoolAdminLoginBiz {
-    String getPwd(String account);
+    SchoolAdminLogin getPwdSchoolId(String account);
 }
