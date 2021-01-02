@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/SchoolAdminLogin")
+@RequestMapping("/schoolAdminLogin")
 public class SchoolAdminLoginController {
     @Autowired
     private SchoolAdminLoginBiz schoolAdminLoginBiz;

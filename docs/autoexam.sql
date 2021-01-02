@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 30/12/2020 11:19:45
+ Date: 02/01/2021 15:34:52
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `enrollment_department`  (
   `eduName` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '教育局名称',
   `higherEduId` int(0) NULL DEFAULT NULL COMMENT '上级招生部门',
   PRIMARY KEY (`eduId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of enrollment_department
@@ -46,6 +46,7 @@ CREATE TABLE `enrollment_department_login`  (
 -- ----------------------------
 -- Records of enrollment_department_login
 -- ----------------------------
+INSERT INTO `enrollment_department_login` VALUES ('hefei', '123', 12);
 
 -- ----------------------------
 -- Table structure for exam_room
@@ -83,11 +84,13 @@ CREATE TABLE `exam_staff`  (
   `eduExamine` int(0) NULL DEFAULT NULL COMMENT '招生部门审核状态',
   `finalRejection` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '驳回意见',
   PRIMARY KEY (`esId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of exam_staff
 -- ----------------------------
+INSERT INTO `exam_staff` VALUES (1, NULL, NULL, NULL, 5, '13912345678', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `exam_staff` VALUES (2, NULL, NULL, NULL, 16, '19512345678', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for floor
@@ -95,11 +98,11 @@ CREATE TABLE `exam_staff`  (
 DROP TABLE IF EXISTS `floor`;
 CREATE TABLE `floor`  (
   `floorId` int(0) NOT NULL AUTO_INCREMENT COMMENT '楼层id',
-  `building` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '所在楼',
+  `building` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '所在楼',
   `schoolId` int(0) NULL DEFAULT NULL COMMENT '学校id',
   `floorStep` int(0) NULL DEFAULT NULL COMMENT '所在楼层',
   PRIMARY KEY (`floorId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of floor
@@ -130,7 +133,7 @@ CREATE TABLE `inspection_team`  (
   `firstInspectionPersonId` int(0) NULL DEFAULT NULL COMMENT '巡考人员一id',
   `secondInspectionPersonId` int(0) NULL DEFAULT NULL COMMENT '巡考人员二id',
   PRIMARY KEY (`inspectionTeamId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of inspection_team
@@ -163,7 +166,7 @@ CREATE TABLE `invigilator_group`  (
   `firstInvigilatorId` int(0) NULL DEFAULT NULL COMMENT '监考人员一id',
   `secondInvigilatorId` int(0) NULL DEFAULT NULL COMMENT '监考人员二id',
   PRIMARY KEY (`invigilatorGroupId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of invigilator_group
@@ -180,7 +183,7 @@ CREATE TABLE `invigilator_group_arrangement`  (
   `exRoomId` int(0) NULL DEFAULT NULL COMMENT '考场id',
   `sessions` int(0) NULL DEFAULT NULL COMMENT '场次（取值1,2,3,4）',
   PRIMARY KEY (`igArrangeId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of invigilator_group_arrangement
@@ -198,7 +201,7 @@ CREATE TABLE `number_of_candidates`  (
   `numOfArt` int(0) NULL DEFAULT NULL COMMENT '文科生人数',
   `numOfExcellent` int(0) NULL DEFAULT NULL COMMENT '特长生人数',
   PRIMARY KEY (`numOfCanId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of number_of_candidates
@@ -234,6 +237,7 @@ CREATE TABLE `school_admin_login`  (
 -- ----------------------------
 -- Records of school_admin_login
 -- ----------------------------
+INSERT INTO `school_admin_login` VALUES ('HFUT-1', '123456', 16);
 
 -- ----------------------------
 -- Table structure for status_notes
@@ -264,6 +268,9 @@ CREATE TABLE `test_personnel_login`  (
 -- ----------------------------
 -- Records of test_personnel_login
 -- ----------------------------
+INSERT INTO `test_personnel_login` VALUES ('13912345678', '45678');
+INSERT INTO `test_personnel_login` VALUES ('15260274720', '123456');
+INSERT INTO `test_personnel_login` VALUES ('19512345678', '45678');
 
 -- ----------------------------
 -- Table structure for violation_record

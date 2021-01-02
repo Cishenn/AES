@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/EnrollmentDepartmentLogin")
+@RequestMapping("/enrollmentDepartmentLogin")
 public class EnrollmentDepartmentLoginController {
     @Autowired
     private EnrollmentDepartmentLoginBiz enrollmentDepartmentLoginBiz;
