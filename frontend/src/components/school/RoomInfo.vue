@@ -27,7 +27,7 @@
         </el-upload>
       </el-tab-pane>
       <el-tab-pane label="考场信息" class="second">
-        <el-table :data="tableData">
+        <el-table class="table" :data="tableData">
           <el-table-column type="selection" width="55"/>
           <el-table-column label="考场号" prop="examroomId" width="120px"/>
           <el-table-column label="所属楼" prop="buildingId" width="120px"/>
@@ -39,13 +39,16 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="1000">
-        </el-pagination>
         <div>
-          <el-button>上传</el-button>
+          <el-pagination
+            class="pagination"
+            background
+            layout="prev, pager, next"
+            :total="1000">
+          </el-pagination>
+        </div>
+        <div>
+          <el-button class="submitBtn">上传</el-button>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -71,5 +74,19 @@ export default {
 </script>
 
 <style scoped>
+.table {
+  margin-bottom: 2%;
+}
 
+.pagination {
+  width: 400px;
+  margin: auto;
+}
+
+.submitBtn {
+  width: 140px;
+  display: block;
+  margin: auto;
+  margin-top: 1%;
+}
 </style>

@@ -2,8 +2,8 @@
   <div class="teacherInfo">
     <el-tabs>
       <el-tab-pane label="信息审核" class="first">
-        <div style="font-size:20px">考务人员信息表单</div>
-        <el-table :data="tableData">
+        <div class="inspectorTableTitle" style="font-size:20px">考务人员信息表单</div>
+        <el-table class="table" :data="tableData">
           <el-table-column label="姓名" prop="name" width="120px"/>
           <el-table-column label="年龄" prop="age" width="120px"/>
           <el-table-column label="电话" prop="phone" width="120px"/>
@@ -17,14 +17,17 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="1000">
-        </el-pagination>
+        <div>
+          <el-pagination
+            class="pagination"
+            background
+            layout="prev, pager, next"
+            :total="1000">
+          </el-pagination>
+        </div>
       </el-tab-pane>
       <el-tab-pane label="信息上传" class="second">
-        <el-table :data="tableData">
+        <el-table class="table" :data="tableData">
           <el-table-column type="selection" width="55"/>
           <el-table-column label="姓名" prop="name" width="120px"/>
           <el-table-column label="年龄" prop="age" width="120px"/>
@@ -39,13 +42,16 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="1000">
-        </el-pagination>
         <div>
-          <el-button>提交给上级招办</el-button>
+          <el-pagination
+            class="pagination"
+            background
+            layout="prev, pager, next"
+            :total="1000">
+          </el-pagination>
+        </div>
+        <div>
+          <el-button class="submitBtn">提交给上级招办</el-button>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -70,6 +76,27 @@ export default {
 </script>
 
 <style scoped>
+
+.inspectorTableTitle {
+  text-align: center;
+  margin-bottom: 2%;
+}
+
+.table {
+  margin-bottom: 2%;
+}
+
+.pagination {
+  width: 400px;
+  margin: auto;
+}
+
+.submitBtn {
+  width: 140px;
+  display: block;
+  margin: auto;
+  margin-top: 1%;
+}
 
 </style>
 

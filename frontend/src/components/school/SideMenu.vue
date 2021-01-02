@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="myAvatar">
-      <el-avatar :src="avatarUrl" :size="60"></el-avatar>
+      <div class="avatarImg">
+        <el-avatar :src="avatarUrl" :size="60" ></el-avatar>
+      </div>
     </div>
     <el-menu default-active="1" class="sideNav" router="true">
       <el-menu-item index="/school/teacherInfo">
@@ -41,8 +43,13 @@ export default {
 
 .myAvatar {
   width: 15%;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.avatarImg {
+  width: 60px;
+  margin: auto;
 }
 
 .sideNav {
