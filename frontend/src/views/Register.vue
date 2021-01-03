@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import SIdentify from './identify.vue'
+import SIdentify from './Identify.vue'
 
 export default {
   components: {
