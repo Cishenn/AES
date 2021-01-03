@@ -2,10 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
-import Inspector from '../views/Inspector.vue'
 import School from '../views/School.vue'
 import Teacher from '../views/Teacher.vue'
-import Recruit from '../views/Recruit.vue'
 import Test from '../views/Test.vue'
 import TeacherInfo from '../components/school/TeacherInfo.vue'
 import RoomInfo from '../components/school/RoomInfo.vue'
@@ -31,10 +29,6 @@ const routes = [
   {
     path: '/register',
     component: Register
-  },
-  {
-    path: '/inspector',
-    component: Inspector
   },
   {
     path: '/school',
@@ -88,10 +82,6 @@ const routes = [
         component: feedback
       }
     ]
-  },
-  {
-    path: '/recruit',
-    component: Recruit
   },
   {
     path: '/test',
