@@ -7,4 +7,5 @@ public class Floor{
     int floorId;
     String building;
     int schoolId;
+    int floorStep;
 }

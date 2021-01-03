@@ -1,13 +1,19 @@
 <template>
   <div class="box">
     <!-- <img src="../assets/back-grond.jpg" alt=""> -->
-    <img src="" alt="">
+    <img src="" alt="" />
     <div class="login-box">
       <div class="login-title"><h1 class="login-title">Login</h1></div>
       <div class="form">
         <div class="line">
           <i class="el-icon-school"></i>
-          <el-select class="select-box" clearable @change="changeselect" v-model="value" placeholder="Please select your identity.">
+          <el-select
+            class="select-box"
+            clearable
+            @change="changeselect"
+            v-model="value"
+            placeholder="Please select your identity."
+          >
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -18,20 +24,33 @@
         </div>
         <div class="line">
           <i class="el-icon-user"></i>
-          <el-input v-model="username" class="item" type="text" placeholder="Please enter your username." />
+          <el-input
+            v-model="username"
+            class="item"
+            type="text"
+            placeholder="Please enter your username."
+          />
         </div>
         <div class="line">
           <i class="el-icon-key"></i>
-          <el-input v-model="password" class="item" type="text" placeholder="Please enter you pas." show-password />
+          <el-input
+            v-model="password"
+            class="item"
+            type="text"
+            placeholder="Please enter you pas."
+            show-password
+          />
         </div>
-        <div >
-          <el-button type="primary" class="button-box" @click="login">Login</el-button>
-          <div v-if="this.istrue"
-          style="
-          margin: 5px;"
-          class="router-to"
+        <div>
+          <el-button type="primary" class="button-box" @click="login"
+            >Login</el-button
           >
-            <router-link to="/Register" style="text-decoration: none ;color:black">没有账号，现在去注册</router-link>
+          <div v-if="this.istrue" style="margin: 5px" class="router-to">
+            <router-link
+              to="/Register"
+              style="text-decoration: none; color: black"
+              >没有账号，现在去注册</router-link
+            >
           </div>
         </div>
       </div>
@@ -41,7 +60,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       username: '',
       password: '',
@@ -60,12 +79,12 @@ export default {
     }
   },
   methods: {
-    changeselect (selectValue) {
+    changeselect(selectValue) {
       console.log(selectValue)
       if (selectValue === 1) { this.istrue = true } else { this.istrue = false }
       console.log(this.istrue)
     },
-    login () {
+    login() {
       if (this.value === 1) { this.$router.push('/teacher') } else if (this.value === 2) {
         this.$router.push('/school')
       } else if (this.value === 3) {
@@ -77,24 +96,23 @@ export default {
 </script>
 
 <style  scoped>
-.line{
-
+.line {
 }
-i{
+i {
   margin-left: 10px;
 }
-.router-to{
+.router-to {
   color: white;
   margin-top: 15px;
   font-size: 13px;
   height: 40px;
   text-align: center;
 }
-i{
+i {
   font-size: 20px;
   /* margin-left:30px ; */
 }
-.box{
+.box {
   width: 100vw;
   height: 100vh;
   background: url("../assets/back1.jpg") no-repeat;
@@ -104,7 +122,7 @@ i{
   position: flex;
 }
 
-.login-box{
+.login-box {
   border-radius: 10px;
   width: 500px;
   text-align: center;
@@ -115,11 +133,11 @@ i{
   margin: 200px auto auto;
 }
 
-.login-box h1{
+.login-box h1 {
   color: rgba(32, 30, 30, 0.993);
   margin-top: 0;
 }
-.item{
+.item {
   width: 280px; /* 设置合适的宽度 */
   /* font-size: 18px; 将字体适当的变大加粗 */
   color: white; /* 上面的文本颜色设置为白色，但是placeholder的颜色要单独设置 */
@@ -127,10 +145,10 @@ i{
   margin-left: 10px;
 }
 
-input::-webkit-input-placeholder{
-  color:white;
+input::-webkit-input-placeholder {
+  color: white;
 }
-.select-box{
+.select-box {
   width: 280px;
   /* background: #ffffff00; */
   /* background-color: violet; */
@@ -138,14 +156,18 @@ input::-webkit-input-placeholder{
   border-radius: 10px;
   margin-left: 10px;
 }
-.button-box{
+.button-box {
   width: 150px; /* 设置合适的按钮的长和宽 */
   margin-top: 18px; /* 设置合适的上部外框的宽度，增加与上面的password框的距离 */
   font-size: 18px;
   border-radius: 10px;
-  background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%); /* 为按钮增加渐变颜色 */
+  background-image: linear-gradient(
+    to right,
+    #00dbde 0%,
+    #fc00ff 100%
+  ); /* 为按钮增加渐变颜色 */
 }
-.regist{
+.regist {
   color: aqua;
 }
 </style>
