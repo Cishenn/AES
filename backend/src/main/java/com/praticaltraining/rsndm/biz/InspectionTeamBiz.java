@@ -1,12 +1,10 @@
-package com.praticaltraining.rsndm.mapper;
+package com.praticaltraining.rsndm.biz;
 
 import com.praticaltraining.rsndm.entity.InspectionTeam;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Mapper
-public interface InspectionTeamMapper {
+public interface InspectionTeamBiz {
     InspectionTeam getOneByEsId(int esId);
     List<InspectionTeam> getAllByEduId(int eduId);
 }

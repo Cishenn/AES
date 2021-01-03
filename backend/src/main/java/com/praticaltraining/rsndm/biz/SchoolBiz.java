@@ -10,4 +10,6 @@ public interface SchoolBiz {
     void examineExRoom(int schoolId,int exRoomExamine);
 
     void submitExRoom(int schoolId);
+
+    String getSchoolName(int schoolId);
 }

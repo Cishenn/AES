@@ -8,7 +8,7 @@
            #{telephoneNumber},#{schoolId}
         )
     </insert>
-    <select id="getName" resultType="ExamStaff">
+    <select id="getName" resultType="String">
        SELECT name FROM exam_staff
        WHERE esId=#{esId};
     </select>

@@ -4,4 +4,5 @@ import com.praticaltraining.rsndm.entity.ExamStaff;
 
 public interface ExamStaffBiz {
     void register(ExamStaff examStaff);
+    String getName(int esId);
 }

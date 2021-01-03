@@ -2,6 +2,7 @@ package com.praticaltraining.rsndm.biz.impl;
 
 import com.praticaltraining.rsndm.biz.SchoolBiz;
 import com.praticaltraining.rsndm.entity.School;
+import com.praticaltraining.rsndm.exception.ExamStaffException;
 import com.praticaltraining.rsndm.exception.SchoolException;
 import com.praticaltraining.rsndm.mapper.SchoolMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,15 @@ public class SchoolImpl implements SchoolBiz {
         if(res==0){
             throw new SchoolException("update school error");
         }
+    }
+
+    @Override
+    public String getSchoolName(int schoolId) {
+        String res=schoolMapper.getSchoolName(schoolId);
+        if(res==null){
+            throw new SchoolException("School getName error");
+        }
+        return res;
     }
 
 

@@ -6,6 +6,7 @@ import lombok.Data;
 public class examStaff_it_itA {
     private int inspectionTeamId;
     private String schoolName;
+    private int sessions;
     private int floorStep;
     private String building;
     private String firstInspectionPersonName;

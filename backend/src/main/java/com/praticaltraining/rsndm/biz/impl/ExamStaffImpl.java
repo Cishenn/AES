@@ -18,4 +18,13 @@ public class ExamStaffImpl implements ExamStaffBiz {
             throw new ExamStaffException("ExamStaff register error");
         }
     }
+
+    @Override
+    public String getName(int esId) {
+        String res=examStaffMapper.getName(esId);
+        if(res==null){
+            throw new ExamStaffException("ExamStaff getName error");
+        }
+        return res;
+    }
 }

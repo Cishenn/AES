@@ -13,4 +13,6 @@ public interface SchoolMapper {
 
     int submitExRoom(int schoolId);
 
+    String getSchoolName(int schoolId);
+
 }

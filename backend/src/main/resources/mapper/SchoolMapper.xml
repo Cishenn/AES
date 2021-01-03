@@ -16,4 +16,9 @@
         SET school.exRoomExamine = 1
         WHERE schoolId = #{schoolId}
     </update>
+
+    <select id="getSchoolName" resultType="String">
+        SELECT schoolName FROM school
+        WHERE schoolId=#{schoolId}
+    </select>
 </mapper>
