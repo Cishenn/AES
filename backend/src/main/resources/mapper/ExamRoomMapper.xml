@@ -5,4 +5,27 @@
         select * from exam_room
         WHERE schoolId = #{schoolId}
     </select>
+
+    <select id="getNumberOfExRoom" resultType="int">
+        select COUNT(*) from exam_room
+        WHERE schoolId = #{schoolId}
+    </select>
+
+    <select id="getOneExRoom" resultType="com.praticaltraining.rsndm.entity.ExamRoom">
+        select * from exam_room
+        WHERE exRoomId = #{exRoomId}
+    </select>
+
+    <update id="changeExRoom">
+        UPDATE exam_room SET
+        floorId = #{floorId},
+        roomNum = #{roomNum}
+        WHERE exRoomId = #{exRoomId}
+    </update>
+
+    <delete id="deleteExRoom">
+        delete FROM exam_room
+        WHERE exRoomId = #{exRoomId}
+    </delete>
+
 </mapper>

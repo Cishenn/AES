@@ -8,4 +8,12 @@ import java.util.List;
 @Mapper
 public interface ExamRoomMapper {
     List<ExamRoom> getAllExamRoom(int schoolId);
+
+    int getNumberOfExRoom(int schoolId);
+
+    ExamRoom getOneExRoom(int exRoomId);
+
+    int changeExRoom(ExamRoom examRoom);
+
+    int deleteExRoom(int exRoomId);
 }
