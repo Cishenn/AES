@@ -239,8 +239,8 @@ input::-webkit-input-placeholder {
   border-radius: 10px;
   background-image: linear-gradient(
     to right,
-    #00dbde 0%,
-    #fc00ff 100%
+    #d8e068 0%,
+    #75ee8f 100%
   ); /* 为按钮增加渐变颜色 */
 }
 .regist {
