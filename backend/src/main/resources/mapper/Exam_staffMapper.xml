@@ -8,4 +8,11 @@
            #{telephoneNumber},#{schoolId}
         )
     </insert>
+    <select id="getName" resultType="ExamStaff">
+       SELECT name FROM exam_staff
+       WHERE esId=#{esId};
+    </select>
 </mapper>
+
+
+

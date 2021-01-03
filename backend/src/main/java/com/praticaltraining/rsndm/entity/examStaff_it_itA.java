@@ -4,7 +4,11 @@ import lombok.Data;
 
 @Data
 public class examStaff_it_itA {
-    public ExamStaff examStaff;
-    public InspectionTeam inspectionTeam;
-    public InspectionTeamArrangement inspectionTeamArrangement;
+    private int inspectionTeamId;
+    private String schoolName;
+    private int floorStep;
+    private String building;
+    private String firstInspectionPersonName;
+    private String secondInspectionPersonName;
+
 }

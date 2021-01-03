@@ -12,4 +12,5 @@ public interface SchoolMapper {
     int examineExRoom(int schoolId,int exRoomExamine);
 
     int submitExRoom(int schoolId);
+
 }
