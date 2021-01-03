@@ -49,4 +49,14 @@ public class Floor_exRoomController {
         result.put("floor_exRoom",floor_room);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/floor_exRoom/exRoomId")
+    @ResponseBody
+    @CrossOrigin
+    floor_exRoom getOneExRoom(int exRoomId){
+        ExamRoom exroom = examRoomBiz.getOneExRoom(exRoomId);
+        Floor floor = floorBiz.getOneFloor(exroom.getFloorId());
+        floor_exRoom floor_exroom = new floor_exRoom(floor,exroom);
+        return floor_exroom;
+    }
 }

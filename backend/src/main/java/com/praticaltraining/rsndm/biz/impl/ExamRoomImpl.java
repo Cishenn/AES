@@ -23,4 +23,46 @@ public class ExamRoomImpl implements ExamRoomBiz {
         }
         return res;
     }
+
+    @Override
+    public void createExRoom(ExamRoom examRoom){
+        int res = examRoomMapper.createExRoom(examRoom);
+        if(res == 0){
+            throw new ExamRoomException("create examRoom error");
+        }
+    }
+
+    @Override
+    public int getNumberOfExRoom(int schoolId){
+        int res = examRoomMapper.getNumberOfExRoom(schoolId);
+        if(res == 0){
+            throw new ExamRoomException("get number of examRoom error");
+        }
+        return res;
+    }
+
+    @Override
+    public ExamRoom getOneExRoom(int exRoomId){
+        ExamRoom res = examRoomMapper.getOneExRoom(exRoomId);
+        if(res == null){
+            throw new ExamRoomException("get one ExamRoom error");
+        }
+        return res;
+    }
+
+    @Override
+    public void changeExRoom(ExamRoom examRoom){
+        int res = examRoomMapper.changeExRoom(examRoom);
+        if(res == 0){
+            throw new ExamRoomException("update ExamRoom error");
+        }
+    }
+
+    @Override
+    public void deleteExRoom(int exRoomId){
+        int res = examRoomMapper.deleteExRoom(exRoomId);
+        if(res == 0){
+            throw new ExamRoomException("delete ExamRoom error");
+        }
+    }
 }

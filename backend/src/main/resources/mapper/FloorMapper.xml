@@ -5,10 +5,16 @@
         select * from Floor
         WHERE schoolId = #{schoolId}
     </select>
+
     <select id="getFloorId" resultType="int">
         select floorId from Floor
         WHERE schoolId = #{schoolId}
         AND building = #{building}
         AND floorStep = #{floorStep}
+    </select>
+
+    <select id="getOneFloor" resultType="com.praticaltraining.rsndm.entity.Floor">
+        select * FROM Floor
+        WHERE floorId = #{floorId}
     </select>
 </mapper>

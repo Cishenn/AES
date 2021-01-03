@@ -9,6 +9,8 @@ import java.util.List;
 public interface ExamRoomMapper {
     List<ExamRoom> getAllExamRoom(int schoolId);
 
+    int createExRoom(ExamRoom examRoom);
+
     int getNumberOfExRoom(int schoolId);
 
     ExamRoom getOneExRoom(int exRoomId);

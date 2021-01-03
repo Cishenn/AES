@@ -6,6 +6,14 @@
         WHERE schoolId = #{schoolId}
     </select>
 
+    <insert id="createExRoom" parameterType="com.praticaltraining.rsndm.entity.ExamRoom">
+        INSERT INTO exam_room(
+           schoolId,floorId,roomNum,isArrange
+        ) VALUES (
+           #{schoolId},#{floorId},#{roomNum},0
+        )
+    </insert>
+
     <select id="getNumberOfExRoom" resultType="int">
         select COUNT(*) from exam_room
         WHERE schoolId = #{schoolId}

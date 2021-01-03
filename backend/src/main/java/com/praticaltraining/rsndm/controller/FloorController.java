@@ -33,4 +33,11 @@ public class FloorController {
     int getFloorId(int schoolId,String building,int floorStep){
         return floorBiz.getFloorId(schoolId,building,floorStep);
     }
+
+    @GetMapping("/floor/floorId")
+    @ResponseBody
+    @CrossOrigin
+    Floor getOneFloor(int floorId){
+        return floorBiz.getOneFloor(floorId);
+    }
 }
