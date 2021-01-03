@@ -4,14 +4,15 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
-import VueAxios from 'vue-axios'
-import { makeServer } from './server'
+// import VueAxios from 'vue-axios'
+// import { makeServer } from './server'
 
 Vue.use(ElementUI)
-Vue.use(VueAxios, axios)
+Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
-makeServer()
+axios.defaults.baseURL = 'http://localhost:8080/'
+// makeServer()
 
 new Vue({
   router,

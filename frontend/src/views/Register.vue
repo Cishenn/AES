@@ -3,19 +3,19 @@
     <!-- <img src="../assets/back-grond.jpg" alt=""> -->
     <img src="" alt="">
     <div class="login-box">
-      <div class="login-title"><h1 class="login-title">Regist</h1></div>
+      <div class="login-title"><h1 class="login-title">注册</h1></div>
       <div class="form">
         <div class="line">
           <i class="el-icon-phone"></i>
-          <el-input v-model="phonenum" class="item" type="text" placeholder="Please enter your phonenum." />
+          <el-input v-model="phonenum" class="item" type="text" placeholder="请输入你的电话." />
         </div>
         <div class="line">
           <i class="el-icon-key"></i>
-          <el-input v-model="password" class="item" type="text" placeholder="Please enter you pas."  />
+          <el-input v-model="password" class="item" type="text" placeholder="请输入你的密码."  />
         </div>
         <div class="line">
           <i class="el-icon-school"></i>
-          <el-select class="select-box" v-model="value" placeholder="请选择">
+          <el-select class="select-box" v-model="value" placeholder="请选择你的学校">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -100,6 +100,9 @@ export default {
 </script>
 
 <style  scoped>
+h1{
+  font-size: 25px;
+}
 .line-x{
   display: flex;
 }
@@ -178,7 +181,7 @@ input::-webkit-input-placeholder{
   margin-top: 18px; /* 设置合适的上部外框的宽度，增加与上面的password框的距离 */
   font-size: 18px;
   border-radius: 10px;
-  background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%); /* 为按钮增加渐变颜色 */
+  background-image: linear-gradient(to right, #d8e068 0%, #75ee8f 100%); /* 为按钮增加渐变颜色 */
 }
 .regist{
   color: aqua;

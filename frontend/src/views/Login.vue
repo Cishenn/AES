@@ -3,7 +3,7 @@
     <!-- <img src="../assets/back-grond.jpg" alt=""> -->
     <img src="" alt="" />
     <div class="login-box">
-      <div class="login-title"><h1 class="login-title">Login</h1></div>
+      <div ><h1 class="login-title">登录</h1></div>
       <div class="form">
         <div class="line">
           <i class="el-icon-school"></i>
@@ -24,33 +24,20 @@
         </div>
         <div class="line">
           <i class="el-icon-user"></i>
-          <el-input
-            v-model="username"
-            class="item"
-            type="text"
-            placeholder="Please enter your username."
-          />
+          <el-input v-model="username" class="item" type="text" placeholder="请输入你的用户名" />
         </div>
         <div class="line">
           <i class="el-icon-key"></i>
-          <el-input
-            v-model="password"
-            class="item"
-            type="text"
-            placeholder="Please enter you pas."
-            show-password
-          />
+          <el-input v-model="password" class="item" type="text" placeholder="请输入你的密码" show-password />
         </div>
-        <div>
-          <el-button type="primary" class="button-box" @click="login"
-            >Login</el-button
+        <div >
+          <el-button type="primary" class="button-box" @click="login">登录</el-button>
+          <div v-if="this.istrue"
+          style="
+          margin: 5px;"
+          class="router-to"
           >
-          <div v-if="this.istrue" style="margin: 5px" class="router-to">
-            <router-link
-              to="/Register"
-              style="text-decoration: none; color: black"
-              >没有账号，现在去注册</router-link
-            >
+            <router-link to="/Register" style="text-decoration: none ;color:blue">没有账号，现在去注册</router-link>
           </div>
         </div>
       </div>
@@ -60,7 +47,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       username: '',
       password: '',
@@ -79,16 +66,101 @@ export default {
     }
   },
   methods: {
-    changeselect(selectValue) {
+    changeselect (selectValue) {
       console.log(selectValue)
       if (selectValue === 1) { this.istrue = true } else { this.istrue = false }
-      console.log(this.istrue)
+      // console.log(this.istrue)
     },
-    login() {
-      if (this.value === 1) { this.$router.push('/teacher') } else if (this.value === 2) {
-        this.$router.push('/school')
+    teacherlogin () {
+      if (this.username === '' || this.password === '') {
+        alert('请输入用户名或密码。')
+      } else {
+        this.$axios.get('testPersonnelLogin/login', {
+          params: {
+            telephoneNumber: this.username,
+            password: this.password
+          }
+        }).then(resp => {
+          if (resp.data === 1) {
+            this.$message('登陆成功')
+            this.$router.push('/teacher')
+          } else if (resp.data === -1) {
+            // alert('用户名或密码错误')
+            this.$message('用户名或密码错误')
+          }
+        }).catch(resp => {
+          console.log(resp)
+        })
+      // this.$router.push('/teacher')
+      }
+    },
+    schoollogin () {
+      if (this.username === '' || this.password === '') {
+        alert('请输入用户名或密码。')
+      } else {
+        this.$prompt('请输入你的学校ID', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
+        }).then(({ value }) => {
+          this.$axios.get('SchoolAdminLogin/login', {
+            params: {
+              account: this.username,
+              password: this.password,
+              schoolId: value
+            }
+          }).then(resp => {
+            if (resp.data !== -1) {
+              this.$message('登陆成功')
+              this.$router.push('/school')
+            } else {
+              this.$message('用户名、密码或学校ID错误')
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          })
+        })
+      }
+    },
+    edulogin () {
+      if (this.username === '' || this.password === '') {
+        alert('请输入用户名或密码。')
+      } else {
+        this.$prompt('请输入你的招办ID', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
+        }).then(({ value }) => {
+          this.$axios.get('EnrollmentDepartmentLogin/login', {
+            params: {
+              account: this.username,
+              password: this.password,
+              eduId: value
+            }
+          }).then(resp => {
+            if (resp.data !== -1) {
+              this.$message('登陆成功')
+              this.$router.push('/addmissions')
+            } else {
+              this.$message('用户名、密码或招办ID错误')
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          })
+        })
+      }
+    },
+    login () {
+      if (this.value === 1) {
+        this.teacherlogin()
+      } else if (this.value === 2) {
+        this.schoollogin()
       } else if (this.value === 3) {
-        this.$router.push('/addmission')
+        this.edulogin()
       } else { alert('请选择身份登录！') }
     }
   }
@@ -96,7 +168,11 @@ export default {
 </script>
 
 <style  scoped>
-.line {
+h1{
+  font-size: 25px;
+}
+.line{
+
 }
 i {
   margin-left: 10px;
