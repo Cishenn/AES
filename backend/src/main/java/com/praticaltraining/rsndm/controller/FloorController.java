@@ -26,4 +26,11 @@ public class FloorController {
         result.put("Floor",floorBiz.getAllFloor(schoolId));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/floorId/schoolId_building_floorStep")
+    @ResponseBody
+    @CrossOrigin
+    int getFloorId(int schoolId,String building,int floorStep){
+        return floorBiz.getFloorId(schoolId,building,floorStep);
+    }
 }

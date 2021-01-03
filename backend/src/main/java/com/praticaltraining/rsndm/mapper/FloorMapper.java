@@ -9,5 +9,5 @@ import java.util.List;
 public interface FloorMapper {
     List<Floor> getAllFloor(int schoolId);
 
-    int getFloorId(int schoolId,String buliding,int floorStep);
+    int getFloorId(int schoolId,String building,int floorStep);
 }

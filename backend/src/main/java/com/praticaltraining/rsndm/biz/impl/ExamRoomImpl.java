@@ -2,7 +2,7 @@ package com.praticaltraining.rsndm.biz.impl;
 
 import com.praticaltraining.rsndm.biz.ExamRoomBiz;
 import com.praticaltraining.rsndm.entity.ExamRoom;
-import com.praticaltraining.rsndm.exception.SchoolException;
+import com.praticaltraining.rsndm.exception.ExamRoomException;
 import com.praticaltraining.rsndm.mapper.ExamRoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class ExamRoomImpl implements ExamRoomBiz {
     public List<ExamRoom> getAllExamRoom(int schoolId){
         List<ExamRoom> res = examRoomMapper.getAllExamRoom(schoolId);
         if(res == null){
-            throw new SchoolException("getAll ExamRoom error");
+            throw new ExamRoomException("getAll ExamRoom error");
         }
         return res;
     }
