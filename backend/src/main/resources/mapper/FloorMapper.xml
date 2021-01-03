@@ -5,4 +5,10 @@
         select * from Floor
         WHERE schoolId = #{schoolId}
     </select>
+    <select id="getFloorId" resultType="int">
+        select floorId from Floor
+        WHERE schoolId = #{schoolId}
+        AND building = #{building}
+        AND floorStep = #{floorStep}
+    </select>
 </mapper>

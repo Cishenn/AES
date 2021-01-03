@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface FloorMapper {
     List<Floor> getAllFloor(int schoolId);
+
+    int getFloorId(int schoolId,String buliding,int floorStep);
 }
