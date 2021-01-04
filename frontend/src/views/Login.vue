@@ -146,10 +146,7 @@ export default {
 h1{
   font-size: 25px;
 }
-.line{
-
-}
-i{
+i {
   margin-left: 10px;
 }
 .router-to{
