@@ -7,4 +7,5 @@ public class InspectionTeam{
     int inspectionTeamId;
     int firstInspectionPersonId;
     int secondInspectionPersonId;
+    int eduId;
 }

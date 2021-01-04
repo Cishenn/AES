@@ -8,4 +8,5 @@ public class InvigilatorGroup{
     int examinerId;
     int firstInvigilatorId;
     int secondInvigilatorId;
+    int eduId;
 }

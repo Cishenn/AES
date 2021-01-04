@@ -1,0 +1,7 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.praticaltraining.rsndm.mapper.InvigilatorGroupArrangementMapper">
+    <select id="getAllInvigilatorGroupArrangementOfOneInvigilatorGroup" resultType="InvigilatorGroupArrangement" parameterType="int">
+        SELECT * FROM invigilator_group_arrangement
+        WHERE invigilatorGroupId=#{invigilatorGroupId};
+    </select>
+</mapper>
