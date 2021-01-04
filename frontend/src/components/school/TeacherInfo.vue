@@ -4,13 +4,13 @@
       <el-tab-pane label="信息审核" class="first">
         <div class="inspectorTableTitle" style="font-size:20px">考务人员信息表单</div>
         <el-table class="table" :data="tableData">
-          <el-table-column label="姓名" prop="name" width="120px"/>
-          <el-table-column label="年龄" prop="age" width="120px"/>
-          <el-table-column label="电话" prop="phone" width="120px"/>
-          <el-table-column label="性别" prop="sex" width="120px"/>
-          <el-table-column label="年级" prop="grade" width="120px"/>
-          <el-table-column label="科目" prop="subject" width="120px"/>
-          <el-table-column label="操作" width="180px">
+          <el-table-column label="姓名" prop="name" align="center" width="120px"/>
+          <el-table-column label="年龄" prop="age" align="center" width="120px"/>
+          <el-table-column label="电话" prop="phone" align="center" width="120px"/>
+          <el-table-column label="性别" prop="sex" align="center" width="120px"/>
+          <el-table-column label="年级" prop="grade" align="center" width="120px"/>
+          <el-table-column label="科目" prop="subject" align="center" width="120px"/>
+          <el-table-column label="操作" width="180px" align="center">
             <template>
               <el-button size="mini">批准</el-button>
               <el-button size="mini">打回</el-button>
@@ -28,14 +28,14 @@
       </el-tab-pane>
       <el-tab-pane label="信息上传" class="second">
         <el-table class="table" :data="tableData">
-          <el-table-column type="selection" width="55"/>
-          <el-table-column label="姓名" prop="name" width="120px"/>
-          <el-table-column label="年龄" prop="age" width="120px"/>
-          <el-table-column label="电话" prop="phone" width="120px"/>
-          <el-table-column label="性别" prop="sex" width="120px"/>
-          <el-table-column label="年级" prop="grade" width="120px"/>
-          <el-table-column label="科目" prop="subject" width="120px"/>
-          <el-table-column label="操作" width="180px">
+          <el-table-column type="selection" width="55" align="center"/>
+          <el-table-column label="姓名" prop="name" align="center" width="120px"/>
+          <el-table-column label="年龄" prop="age" align="center" width="120px"/>
+          <el-table-column label="电话" prop="phone" align="center" width="120px"/>
+          <el-table-column label="性别" prop="sex" align="center" width="120px"/>
+          <el-table-column label="年级" prop="grade" align="center" width="120px"/>
+          <el-table-column label="科目" prop="subject" align="center" width="120px"/>
+          <el-table-column label="操作" width="180px" align="center">
             <template>
               <el-button size="mini">选中</el-button>
               <el-button size="mini">取消</el-button>

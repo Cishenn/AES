@@ -45,11 +45,19 @@
       </el-tab-pane>
       <el-tab-pane label="考场信息" class="second">
         <el-table class="table" :data="tableData">
+<<<<<<< HEAD
           <el-table-column type="selection" width="55"/>
           <el-table-column label="所属楼" prop="buildingId" width="120px"/>
           <el-table-column label="楼层" prop="floor" width="120px"/>
           <el-table-column label="房间号" prop="roomId" width="120px"/>
           <el-table-column label="操作" width="180px">
+=======
+          <el-table-column type="selection" width="55" align="center"/>
+          <el-table-column label="考场号" prop="examroomId" align="center" width="120px"/>
+          <el-table-column label="所属楼" prop="buildingId" align="center" width="120px"/>
+          <el-table-column label="房间号" prop="roomId" align="center" width="120px"/>
+          <el-table-column label="操作" width="180px" align="center">
+>>>>>>> cad5da5 (Improve table style in school page. Ref #73)
             <template>
               <el-button size="mini">修改</el-button>
               <el-button size="mini">删除</el-button>
