@@ -1,5 +1,7 @@
 package com.praticaltraining.rsndm.controller;
 
+import com.praticaltraining.rsndm.biz.ExamRoomBiz;
+import com.praticaltraining.rsndm.biz.ExamStaffBiz;
 import com.praticaltraining.rsndm.entity.ExamRoom;
 import com.praticaltraining.rsndm.entity.ExamStaff;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,11 @@ import java.util.Map;
 public class ExamStaffController {
 
     @Autowired
-    private ExamStaff examStaff;
+    private ExamStaffBiz examStaffBiz;
     @GetMapping("/exStaff/exStaffId")
     @ResponseBody
     @CrossOrigin
     ExamStaff getOneExamStaff(int esId){
-        return examStaffBiz.getOneExStaff(esId);
+        return examStaffBiz.getOneExamStaff(esId);
     }
 }
