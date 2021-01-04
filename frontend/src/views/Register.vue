@@ -7,20 +7,20 @@
       <div class="form">
         <div class="line">
           <i class="el-icon-phone"></i>
-          <el-input v-model="phonenum" class="item" type="text" placeholder="请输入你的电话." />
+          <el-input v-model="phonenum" class="item" type="text" placeholder="请输入你的电话" />
         </div>
         <div class="line">
           <i class="el-icon-key"></i>
-          <el-input v-model="password" class="item" type="text" placeholder="请输入你的密码."  />
+          <el-input v-model="password" class="item" type="text" placeholder="请输入你的密码"  />
         </div>
         <div class="line">
           <i class="el-icon-school"></i>
-          <el-select class="select-box" v-model="value" placeholder="请选择你的学校">
+          <el-select class="select-box" v-model="schoolId" filterable :filter-method="dataFilter" placeholder="请选择你的学校">
             <el-option
               v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+              :key="item.schoolId"
+              :label="item.schoolName"
+              :value="item.schoolId">
             </el-option>
           </el-select>
         </div>
@@ -33,14 +33,21 @@
 
           <div class="form_font">
             <i class="el-icon-picture-outline"></i>
-            <el-input v-model="identity" class="classifyitem" type="text" placeholder="请输入右中的验证码." />
+            <el-input v-model="identity" class="classifyitem" type="text" placeholder="请输入右中的验证码 " />
           </div>
           <!-- <img src="../assets/classify.jpg"   /> -->
           <div @click="refreshCode"><SIdentify :identifyCode="identifyCode"  class="yanzhengma-style"></SIdentify></div>
 
         </div>
         <div>
-          <el-button type="primary" class="button-box" >Regist</el-button>
+          <el-button type="primary" class="button-box" @click="regist">注册</el-button>
+          <div
+          style="
+          margin: 5px;"
+          class="router-to"
+          >
+            <router-link to="/Login" style="text-decoration: none ;color:blue">已有账号，现在去登录</router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -61,25 +68,73 @@ export default {
       // url: '../assets/classify.jpg',
       phonenum: '',
       password: '',
-      value: '',
+      schoolId: '',
       identity: '',
+      optionsCopy: [],
       options: [{
-        value: 1,
-        label: '合工大'
+        schoolId: 1,
+        schoolName: '合工大'
       }, {
-        value: 2,
-        label: '安徽大学'
+        schoolId: 2,
+        schoolName: '安徽大学'
       }, {
-        value: 3,
-        label: '中科大'
+        schoolId: 3,
+        schoolName: '中科大'
       }]
     }
   },
   mounted () {
     this.identifyCode = ''
     this.makeCode(this.identifyCodes, 4)
+    this.$axios.get('school/school')
+      .then(resp => {
+        this.options = resp.data.School
+        this.optionsCopy = resp.data.School
+        console.log(this.options[0])
+      })
   },
   methods: {
+    dataFilter (val) {
+      this.schoolId = val
+      if (val) {
+        this.options = this.optionsCopy.filter((item) => {
+          if (!!~item.schoolName.indexOf(val) || !!~item.schoolName.toUpperCase().indexOf(val.toUpperCase())) {
+            return true
+          }
+        })
+      } else {
+        this.options = this.optionsCopy
+      }
+    },
+    standardphonenum () {
+      const phoneCodeVerification = /^[1][3,4,5,7,8][0-9]{9}$/
+      if (!phoneCodeVerification.test(this.phonenum)) {
+        alert('电话号码格式错误')
+        return false
+      } else {
+        return true
+      }
+    },
+    regist () {
+      if (this.standardphonenum() && this.password !== '' && this.schoolId !== '') {
+        if (this.identity === this.identifyCode) {
+          // console.log('success')
+          this.$axios.post(`testPersonnelLogin/register?telephoneNumber=${this.phonenum}&password=${this.password}&schoolId=${this.schoolId}`)
+            .then(resp => {
+              console.log(resp)
+              this.$message('注册成功')
+              this.$router.push('/login')
+            }).catch(resp => {
+              this.$message('注册失败，已存在该手机号的账号')
+            })
+        } else {
+          this.$message('验证码有误，请重新填写!')
+          this.refreshCode()
+        }
+      } else {
+        this.$message('请输入完整的信息')
+      }
+    },
     randomNum (min, max) {
       return Math.floor(Math.random() * (max - min) + min)
     },
@@ -133,7 +188,7 @@ i{
 .box{
   width: 100vw;
   height: 100vh;
-  background: url("../assets/back1.jpg") no-repeat;
+  /* background: url("../assets/back1.jpg") no-repeat; */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
