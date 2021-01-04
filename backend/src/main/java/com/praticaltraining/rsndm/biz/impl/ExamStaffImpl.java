@@ -1,7 +1,9 @@
 package com.praticaltraining.rsndm.biz.impl;
 
 import com.praticaltraining.rsndm.biz.ExamStaffBiz;
+import com.praticaltraining.rsndm.entity.ExamRoom;
 import com.praticaltraining.rsndm.entity.ExamStaff;
+import com.praticaltraining.rsndm.exception.ExamRoomException;
 import com.praticaltraining.rsndm.exception.ExamStaffException;
 import com.praticaltraining.rsndm.mapper.ExamStaffMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,15 @@ public class ExamStaffImpl implements ExamStaffBiz {
         String res=examStaffMapper.getName(esId);
         if(res==null){
             throw new ExamStaffException("ExamStaff getName error");
+        }
+        return res;
+    }
+
+    @Override
+    public ExamStaff getOneExamStaff(int esId){
+        ExamStaff res = examStaffMapper.getOneExStaff(esId);
+        if(res == null){
+            throw new ExamStaffException("get one ExamStaff error");
         }
         return res;
     }
