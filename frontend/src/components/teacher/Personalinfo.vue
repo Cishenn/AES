@@ -108,16 +108,7 @@ export default {
           label: '高三'
         }
       ],
-      Schools: [
-        {
-          value: 1,
-          label: '合工大'
-        },
-        {
-          value: 2,
-          label: '安徽大学'
-        }
-      ]
+      Schools: []
     }
   },
   mounted () {
@@ -129,22 +120,26 @@ export default {
       this.$router.push('/login')
     }
     this.esId = this.$store.getters.getTeacherId
-    console.log(this.esId)
-    // setEsId ()
-    // 设置esId
-    // grades schools
+    this.getSchools()
   },
 
   methods: {
-    getinfo () {
-      this.$axios.get('testPersonnelLogin/login', {
-        params: {
-          telephoneNumber: this.username,
-          password: this.password
-        }
-      }).then(resp => {
-        console.log(resp)
-      })
+    getSchools () {
+      this.$axios
+        .get('school/school')
+        .then(resp => {
+          const schoolArray = resp.data.School
+          for (const schoolItem of schoolArray) {
+            const tempSchool = {
+              value: schoolItem.schoolId,
+              label: schoolItem.schoolName
+            }
+            this.Schools.push(tempSchool)
+          }
+          console.log('this is getSchools function')
+          console.log(this.Schools)
+          console.log(this.grades)
+        })
     }
   }
 }
