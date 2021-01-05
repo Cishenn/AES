@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 02/01/2021 15:34:52
+ Date: 05/01/2021 15:45:09
 */
 
 SET NAMES utf8mb4;
@@ -26,11 +26,13 @@ CREATE TABLE `enrollment_department`  (
   `eduName` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '教育局名称',
   `higherEduId` int(0) NULL DEFAULT NULL COMMENT '上级招生部门',
   PRIMARY KEY (`eduId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of enrollment_department
 -- ----------------------------
+INSERT INTO `enrollment_department` VALUES (1, '蜀山区教育局', 10);
+INSERT INTO `enrollment_department` VALUES (2, '经开区教育局', 10);
 
 -- ----------------------------
 -- Table structure for enrollment_department_login
@@ -46,7 +48,8 @@ CREATE TABLE `enrollment_department_login`  (
 -- ----------------------------
 -- Records of enrollment_department_login
 -- ----------------------------
-INSERT INTO `enrollment_department_login` VALUES ('hefei', '123', 12);
+INSERT INTO `enrollment_department_login` VALUES ('hefeiJinkai', '1234', 11);
+INSERT INTO `enrollment_department_login` VALUES ('hefeiShushan', '123', 12);
 
 -- ----------------------------
 -- Table structure for exam_room
@@ -59,11 +62,16 @@ CREATE TABLE `exam_room`  (
   `roomNum` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '教室号',
   `isArrange` int(0) NULL DEFAULT NULL COMMENT '是否排考',
   PRIMARY KEY (`exRoomId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of exam_room
 -- ----------------------------
+INSERT INTO `exam_room` VALUES (1, 1, '1', '401', NULL);
+INSERT INTO `exam_room` VALUES (2, 1, '1', '401', NULL);
+INSERT INTO `exam_room` VALUES (3, 1, '3', '801', NULL);
+INSERT INTO `exam_room` VALUES (4, 1, '2', '302', NULL);
+INSERT INTO `exam_room` VALUES (5, 2, '5', '605', NULL);
 
 -- ----------------------------
 -- Table structure for exam_staff
@@ -84,13 +92,17 @@ CREATE TABLE `exam_staff`  (
   `eduExamine` int(0) NULL DEFAULT NULL COMMENT '招生部门审核状态',
   `finalRejection` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '驳回意见',
   PRIMARY KEY (`esId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of exam_staff
 -- ----------------------------
-INSERT INTO `exam_staff` VALUES (1, NULL, NULL, NULL, 5, '13912345678', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `exam_staff` VALUES (2, NULL, NULL, NULL, 16, '19512345678', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `exam_staff` VALUES (1, '小明', NULL, NULL, 5, '13912345678', '高三', '数学', 0, 1, NULL, 0, NULL);
+INSERT INTO `exam_staff` VALUES (2, '小蓝', NULL, NULL, 16, '19512345678', '初二', '生物', 1, 2, NULL, 2, NULL);
+INSERT INTO `exam_staff` VALUES (3, '小红', NULL, NULL, 12, '13112345678', '初一', '语文', 0, 2, NULL, 1, NULL);
+INSERT INTO `exam_staff` VALUES (4, '小黑', NULL, NULL, 1, '13245678910', '初一', '数学', 0, 2, NULL, 1, NULL);
+INSERT INTO `exam_staff` VALUES (5, '小绿', NULL, NULL, 2, '15260274720', '初二', '化学', 1, 0, NULL, 0, NULL);
+INSERT INTO `exam_staff` VALUES (6, '肖黑', NULL, NULL, 1, '19712345678', '初三', '化学', 0, 0, NULL, 0, '初三教师不得监考');
 
 -- ----------------------------
 -- Table structure for floor
@@ -102,11 +114,16 @@ CREATE TABLE `floor`  (
   `schoolId` int(0) NULL DEFAULT NULL COMMENT '学校id',
   `floorStep` int(0) NULL DEFAULT NULL COMMENT '所在楼层',
   PRIMARY KEY (`floorId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of floor
 -- ----------------------------
+INSERT INTO `floor` VALUES (1, '双子楼', 1, 3);
+INSERT INTO `floor` VALUES (2, '双子楼', 1, 4);
+INSERT INTO `floor` VALUES (3, '双子楼', 1, 5);
+INSERT INTO `floor` VALUES (4, '综合楼', 1, 1);
+INSERT INTO `floor` VALUES (5, '教学楼', 2, 2);
 
 -- ----------------------------
 -- Table structure for history
@@ -123,6 +140,11 @@ CREATE TABLE `history`  (
 -- ----------------------------
 -- Records of history
 -- ----------------------------
+INSERT INTO `history` VALUES (1, 1, 2018, '参与2018中考监考');
+INSERT INTO `history` VALUES (2, 1, 2019, '参与2019中考监考');
+INSERT INTO `history` VALUES (3, 2, 2018, '参与2018中考监考');
+INSERT INTO `history` VALUES (4, 3, 2019, '参与2019高考监考');
+INSERT INTO `history` VALUES (5, 3, 2019, '参与2019中考监考');
 
 -- ----------------------------
 -- Table structure for inspection_team
@@ -132,12 +154,15 @@ CREATE TABLE `inspection_team`  (
   `inspectionTeamId` int(0) NOT NULL AUTO_INCREMENT COMMENT '巡考组id',
   `firstInspectionPersonId` int(0) NULL DEFAULT NULL COMMENT '巡考人员一id',
   `secondInspectionPersonId` int(0) NULL DEFAULT NULL COMMENT '巡考人员二id',
+  `eduId` int(0) NULL DEFAULT NULL COMMENT '招办id',
   PRIMARY KEY (`inspectionTeamId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of inspection_team
 -- ----------------------------
+INSERT INTO `inspection_team` VALUES (1, 1, 2, 1);
+INSERT INTO `inspection_team` VALUES (2, 3, 2, 1);
 
 -- ----------------------------
 -- Table structure for inspection_team_arrangement
@@ -150,11 +175,16 @@ CREATE TABLE `inspection_team_arrangement`  (
   `floorId` int(0) NULL DEFAULT NULL COMMENT '楼层id',
   `sessions` int(0) NULL DEFAULT NULL COMMENT '场次（取值1,2,3,4）',
   PRIMARY KEY (`itArrangeId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of inspection_team_arrangement
 -- ----------------------------
+INSERT INTO `inspection_team_arrangement` VALUES (1, 1, 1, 1, 1);
+INSERT INTO `inspection_team_arrangement` VALUES (2, 1, 1, 2, 2);
+INSERT INTO `inspection_team_arrangement` VALUES (3, 1, 1, 3, 3);
+INSERT INTO `inspection_team_arrangement` VALUES (4, 1, 1, 4, 4);
+INSERT INTO `inspection_team_arrangement` VALUES (5, 2, 2, 5, 1);
 
 -- ----------------------------
 -- Table structure for invigilator_group
@@ -165,12 +195,15 @@ CREATE TABLE `invigilator_group`  (
   `examinerId` int(0) NULL DEFAULT NULL COMMENT '主考人员id',
   `firstInvigilatorId` int(0) NULL DEFAULT NULL COMMENT '监考人员一id',
   `secondInvigilatorId` int(0) NULL DEFAULT NULL COMMENT '监考人员二id',
+  `eduId` int(0) NULL DEFAULT NULL COMMENT '所属招办id',
   PRIMARY KEY (`invigilatorGroupId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of invigilator_group
 -- ----------------------------
+INSERT INTO `invigilator_group` VALUES (1, 1, 2, 3, 1);
+INSERT INTO `invigilator_group` VALUES (2, 1, 4, 5, 1);
 
 -- ----------------------------
 -- Table structure for invigilator_group_arrangement
@@ -183,11 +216,16 @@ CREATE TABLE `invigilator_group_arrangement`  (
   `exRoomId` int(0) NULL DEFAULT NULL COMMENT '考场id',
   `sessions` int(0) NULL DEFAULT NULL COMMENT '场次（取值1,2,3,4）',
   PRIMARY KEY (`igArrangeId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of invigilator_group_arrangement
 -- ----------------------------
+INSERT INTO `invigilator_group_arrangement` VALUES (1, 1, 1, 1, 1);
+INSERT INTO `invigilator_group_arrangement` VALUES (2, 1, 1, 3, 2);
+INSERT INTO `invigilator_group_arrangement` VALUES (3, 1, 1, 2, 3);
+INSERT INTO `invigilator_group_arrangement` VALUES (4, 1, 1, 4, 4);
+INSERT INTO `invigilator_group_arrangement` VALUES (5, 2, 2, 5, 2);
 
 -- ----------------------------
 -- Table structure for number_of_candidates
@@ -201,11 +239,15 @@ CREATE TABLE `number_of_candidates`  (
   `numOfArt` int(0) NULL DEFAULT NULL COMMENT '文科生人数',
   `numOfExcellent` int(0) NULL DEFAULT NULL COMMENT '特长生人数',
   PRIMARY KEY (`numOfCanId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of number_of_candidates
 -- ----------------------------
+INSERT INTO `number_of_candidates` VALUES (1, 1, 2020, 2000, 1000, 50);
+INSERT INTO `number_of_candidates` VALUES (2, 1, 2019, 1000, 1000, 50);
+INSERT INTO `number_of_candidates` VALUES (3, 2, 2020, 2000, 3000, 200);
+INSERT INTO `number_of_candidates` VALUES (4, 2, 2019, 3000, 2000, 200);
 
 -- ----------------------------
 -- Table structure for school
@@ -217,11 +259,13 @@ CREATE TABLE `school`  (
   `eduId` int(0) NULL DEFAULT NULL COMMENT '招生部门id',
   `exRoomExamine` int(0) NULL DEFAULT NULL COMMENT '考场审核状态',
   PRIMARY KEY (`schoolId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of school
 -- ----------------------------
+INSERT INTO `school` VALUES (1, '合肥工业大学', 1, 0);
+INSERT INTO `school` VALUES (2, '安徽大学', 1, 0);
 
 -- ----------------------------
 -- Table structure for school_admin_login
@@ -237,7 +281,11 @@ CREATE TABLE `school_admin_login`  (
 -- ----------------------------
 -- Records of school_admin_login
 -- ----------------------------
-INSERT INTO `school_admin_login` VALUES ('HFUT-1', '123456', 16);
+INSERT INTO `school_admin_login` VALUES ('AHU-1654', '123900', 2);
+INSERT INTO `school_admin_login` VALUES ('AHU-1695', '145682', 2);
+INSERT INTO `school_admin_login` VALUES ('HFUT-1001', '123456', 1);
+INSERT INTO `school_admin_login` VALUES ('HFUT-1012', '987654', 1);
+INSERT INTO `school_admin_login` VALUES ('HFUT-1024', '152632', 1);
 
 -- ----------------------------
 -- Table structure for status_notes
@@ -254,6 +302,10 @@ CREATE TABLE `status_notes`  (
 -- ----------------------------
 -- Records of status_notes
 -- ----------------------------
+INSERT INTO `status_notes` VALUES (1, 1, '腿断了', '1');
+INSERT INTO `status_notes` VALUES (2, 1, '手断了', '2');
+INSERT INTO `status_notes` VALUES (3, 2, '被车撞了', '2');
+INSERT INTO `status_notes` VALUES (4, 2, '被人打了', '0');
 
 -- ----------------------------
 -- Table structure for test_personnel_login
@@ -268,9 +320,12 @@ CREATE TABLE `test_personnel_login`  (
 -- ----------------------------
 -- Records of test_personnel_login
 -- ----------------------------
+INSERT INTO `test_personnel_login` VALUES ('13112345678', '123');
+INSERT INTO `test_personnel_login` VALUES ('13245678910', '123456');
 INSERT INTO `test_personnel_login` VALUES ('13912345678', '45678');
 INSERT INTO `test_personnel_login` VALUES ('15260274720', '123456');
 INSERT INTO `test_personnel_login` VALUES ('19512345678', '45678');
+INSERT INTO `test_personnel_login` VALUES ('19712345678', '123456');
 
 -- ----------------------------
 -- Table structure for violation_record
@@ -288,5 +343,8 @@ CREATE TABLE `violation_record`  (
 -- ----------------------------
 -- Records of violation_record
 -- ----------------------------
+INSERT INTO `violation_record` VALUES (1, 1, 2020, '辱骂考生', '5年');
+INSERT INTO `violation_record` VALUES (2, 2, 2020, '帮助作弊', '永久');
+INSERT INTO `violation_record` VALUES (3, 2, 2018, '殴打其他考务人员', '1年');
 
 SET FOREIGN_KEY_CHECKS = 1;
