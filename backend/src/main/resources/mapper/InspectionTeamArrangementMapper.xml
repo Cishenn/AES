@@ -4,4 +4,8 @@
         SELECT * FROM inspection_team_arrangement
         WHERE inspectionTeamId=#{inspectionTeamId};
     </select>
+
+    <delete id="clearITA">
+        delete FROM inspection_team_arrangement
+    </delete>
 </mapper>

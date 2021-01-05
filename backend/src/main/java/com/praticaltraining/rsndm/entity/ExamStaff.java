@@ -17,4 +17,5 @@ public class ExamStaff {
     int eduExamine;
     String finalRejection;
     String photograph;
+    int isArrange;
 }

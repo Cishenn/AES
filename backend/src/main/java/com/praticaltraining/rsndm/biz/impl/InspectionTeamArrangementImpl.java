@@ -22,4 +22,12 @@ public class InspectionTeamArrangementImpl implements InspectionTeamArrangementB
         }
         return res;
     }
+
+    @Override
+    public void clearITA(){
+        int res = inspectionTeamArrangementMapper.clearITA();
+        if(res == 0){
+            throw new InspectionTeamArrangementException("clear ITA error");
+        }
+    }
 }

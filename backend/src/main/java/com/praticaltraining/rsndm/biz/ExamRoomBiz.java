@@ -16,4 +16,6 @@ public interface ExamRoomBiz {
     void changeExRoom(ExamRoom examRoom);
 
     void deleteExRoom(int exRoomId);
+
+    void clearArrange();
 }

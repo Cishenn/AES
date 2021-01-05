@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface InspectionTeamBiz {
     InspectionTeam getOneByEsId(int esId);
+
     List<InspectionTeam> getAllByEduId(int eduId);
+
+    void clearIT();
 }

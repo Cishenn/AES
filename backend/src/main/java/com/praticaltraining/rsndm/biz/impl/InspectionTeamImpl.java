@@ -33,4 +33,12 @@ public class InspectionTeamImpl implements InspectionTeamBiz {
         }
         return res;
     }
+
+    @Override
+    public void clearIT(){
+        int res = inspectionTeamMapper.clearIT();
+        if(res == 0){
+            throw new InspectionTeamException("clear IT error");
+        }
+    }
 }

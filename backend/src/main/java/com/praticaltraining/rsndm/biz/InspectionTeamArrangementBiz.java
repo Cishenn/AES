@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface InspectionTeamArrangementBiz {
     List<InspectionTeamArrangement> getAllInspectionTeamArrangementOfOneInspectionTeam(int inspectionTeamId);
+
+    void clearITA();
 }

@@ -103,4 +103,12 @@ public class ExamStaffImpl implements ExamStaffBiz {
         }
         return res;
     }
+
+    @Override
+    public void clearArrange(){
+        int res = examStaffMapper.clearArrange();
+        if(res == 0){
+            throw new ExamStaffException("clear arrange error");
+        }
+    }
 }

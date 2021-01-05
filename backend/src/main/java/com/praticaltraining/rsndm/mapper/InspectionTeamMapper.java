@@ -8,5 +8,8 @@ import java.util.List;
 @Mapper
 public interface InspectionTeamMapper {
     InspectionTeam getOneByEsId(int esId);
+
     List<InspectionTeam> getAllByEduId(int eduId);
+
+    int clearIT();
 }

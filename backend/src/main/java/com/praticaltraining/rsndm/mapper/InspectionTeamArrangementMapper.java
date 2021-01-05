@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface InspectionTeamArrangementMapper {
     List<InspectionTeamArrangement> getAllInspectionTeamArrangementOfOneInspectionTeam(int inspectionTeamId);
+
+    int clearITA();
 }

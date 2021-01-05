@@ -5,9 +5,13 @@
        SELECT * FROM inspection_team
        WHERE firstInspectionPersonId=#{esId} OR secondInspectionPersonId=#{esId};
     </select>
+
     <select id="getAllByEduId" resultType="InspectionTeam" parameterType="int">
        SELECT * FROM inspection_team
        WHERE eduId=#{eduId};
     </select>
 
+    <delete id="clearIT">
+        DELETE FROM inspection_team
+    </delete>
 </mapper>

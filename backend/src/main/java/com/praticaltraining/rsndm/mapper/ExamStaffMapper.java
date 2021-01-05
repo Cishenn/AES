@@ -28,4 +28,6 @@ public interface ExamStaffMapper {
     int updateEduExamine(int esId, int eduExamine);
 
     List<ExamStaff> getQualifiedExStaffList(int eduId);
+
+    int clearArrange();
 }

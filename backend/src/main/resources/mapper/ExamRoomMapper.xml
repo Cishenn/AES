@@ -36,4 +36,8 @@
         WHERE exRoomId = #{exRoomId}
     </delete>
 
+    <update id="clearArrange">
+        update exam_room SET
+        isArrange = 0
+    </update>
 </mapper>

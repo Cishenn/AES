@@ -55,4 +55,9 @@
         select * from exam_staff
 --      WHERE 联表查询
     </select>
+
+    <update id="clearArrange">
+        update exam_staff SET
+        isArrange = 0
+    </update>
 </mapper>

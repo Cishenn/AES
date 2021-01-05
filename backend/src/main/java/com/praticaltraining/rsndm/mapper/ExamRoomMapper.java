@@ -18,4 +18,6 @@ public interface ExamRoomMapper {
     int changeExRoom(ExamRoom examRoom);
 
     int deleteExRoom(int exRoomId);
+
+    int clearArrange();
 }

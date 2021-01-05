@@ -65,4 +65,12 @@ public class ExamRoomImpl implements ExamRoomBiz {
             throw new ExamRoomException("delete ExamRoom error");
         }
     }
+
+    @Override
+    public void clearArrange(){
+        int res = examRoomMapper.clearArrange();
+        if(res == 0){
+            throw new ExamRoomException("clear arrange error");
+        }
+    }
 }

@@ -7,4 +7,5 @@ public class EnrollmentDepartment{
     int eduId;
     String eduName;
     int higherEduId;
+    int eduLevel;
 }
