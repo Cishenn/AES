@@ -76,11 +76,14 @@ export default {
           }
         }).then(resp => {
           if (resp.data === 1) {
-            this.$message('登陆成功')
+            this.$message({
+              message: '登陆成功',
+              type: 'success'
+            })
             this.$router.push('/teacher')
           } else if (resp.data === -1) {
             // alert('用户名或密码错误')
-            this.$message('用户名或密码错误')
+            this.$message.error('用户名或密码错误')
           }
         }).catch(resp => {
           console.log(resp)
@@ -99,12 +102,15 @@ export default {
           }
         }).then(resp => {
           if (resp.data !== -1) {
-            this.$message('登陆成功')
+            this.$message({
+              message: '登陆成功',
+              type: 'success'
+            })
             // console.log(resp.data)
             this.$store.commit('setschoolId', resp.data)
             this.$router.push('/school')
           } else {
-            this.$message('用户名或密码错误')
+            this.$message.error('用户名或密码错误')
           }
         })
       }
@@ -120,11 +126,14 @@ export default {
           }
         }).then(resp => {
           if (resp.data !== -1) {
-            this.$message('登陆成功')
+            this.$message({
+              message: '登陆成功',
+              type: 'success'
+            })
             this.$store.commit('setaddmissionsId', resp.data)
             this.$router.push('/addmissions')
           } else {
-            this.$message('用户名或密码错误')
+            this.$message.error('用户名或密码错误')
           }
         })
       }
@@ -136,7 +145,12 @@ export default {
         this.schoollogin()
       } else if (this.value === 3) {
         this.edulogin()
-      } else { alert('请选择身份登录！') }
+      } else {
+        this.$message({
+          message: '请选择身份登录',
+          type: 'warning'
+        })
+      }
     }
   }
 }
