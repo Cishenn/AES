@@ -9,6 +9,8 @@ import com.praticaltraining.rsndm.mapper.ExamStaffMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ExamStaffImpl implements ExamStaffBiz {
     @Autowired
@@ -71,7 +73,16 @@ public class ExamStaffImpl implements ExamStaffBiz {
     public void updateExStaff(ExamStaff examStaff){
         int res = examStaffMapper.updateExStaff(examStaff);
         if(res == 0){
-            throw new ExamRoomException("update ExamStaff error");
+            throw new ExamStaffException("update ExamStaff error");
         }
+    }
+
+    @Override
+    public List<ExamStaff> getExStaffListBySchoolId(int schoolId){
+        List<ExamStaff> res = examStaffMapper.getExStaffListBySchoolId(schoolId);
+        if(res == null){
+            throw new ExamStaffException("getAll ExamStaff error");
+        }
+        return res;
     }
 }

@@ -48,4 +48,12 @@ public class ExamStaffController {
         examStaffBiz.updateExStaff(examStaff);
     }
 
+    @GetMapping("/getList")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<ExamStaff>>> queryBySchoolId(int schoolId){
+        Map<String,List<ExamStaff>> result = new HashMap<>();
+        result.put("ExamStaff",examStaffBiz.getExStaffListBySchoolId(schoolId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

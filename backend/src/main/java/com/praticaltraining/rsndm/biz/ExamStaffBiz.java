@@ -1,6 +1,9 @@
 package com.praticaltraining.rsndm.biz;
 
+import com.praticaltraining.rsndm.entity.ExamRoom;
 import com.praticaltraining.rsndm.entity.ExamStaff;
+
+import java.util.List;
 
 public interface ExamStaffBiz {
     void register(ExamStaff examStaff);
@@ -16,4 +19,6 @@ public interface ExamStaffBiz {
     int getEsIdByTele(String TelephoneNumber);
 
     void updateExStaff(ExamStaff examStaff);
+
+    List<ExamStaff> getExStaffListBySchoolId(int schoolId);
 }
