@@ -10,4 +10,5 @@ public interface ExamStaffMapper {
     String getName(int esId);
     ExamStaff getOneExStaff(int esId);
     int verifyPass(int esId);
+    int getEsIdByTele(String telephoneNumber);
 }

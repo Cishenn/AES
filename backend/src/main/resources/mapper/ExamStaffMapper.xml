@@ -11,4 +11,9 @@
         qualified = true
         WHERE esId = #{esId}
     </update>
+
+    <select id="getEsIdByTele" resultType="com.praticaltraining.rsndm.entity.ExamStaff">
+        select esId from exam_staff
+        WHERE telephoneNumber = #{telephoneNumber}
+    </select>
 </mapper>

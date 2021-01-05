@@ -49,11 +49,12 @@ public class ExamStaffImpl implements ExamStaffBiz {
     }
 
     @Override
-    public int getTeleByEsId(int esId) {
+    public int getEsIdByTele(String telephoneNumber) {
         // 龙哥这里自己设计异常哦
-        int res = examStaffMapper.getTeleByEsId(esID);
+        int res = examStaffMapper.getEsIdByTele(telephoneNumber);
         if(res == 0){
             throw new ExamStaffException("get TelephoneNumber error");
         }
+        return res;
     }
 }
