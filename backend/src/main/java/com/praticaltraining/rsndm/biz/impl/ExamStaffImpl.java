@@ -41,6 +41,7 @@ public class ExamStaffImpl implements ExamStaffBiz {
 
     @Override
     public void verifyPass(int esId){
+        // 此处函数返回值需要int吗?
         int res = examStaffMapper.verifyPass(esId);
         if(res == 0){
             throw new ExamStaffException("create examStaff error");

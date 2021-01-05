@@ -9,4 +9,5 @@ public interface ExamStaffMapper {
     int register(ExamStaff examStaff);
     String getName(int esId);
     ExamStaff getOneExStaff(int esId);
+    int verifyPass(int esId);
 }

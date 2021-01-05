@@ -5,4 +5,10 @@
         select * from exam_staff
         WHERE esId = #{esId}
     </select>
+
+    <update id="verifyPass">
+        UPDATE exam_staff SET
+        qualified = true
+        WHERE esId = #{esId}
+    </update>
 </mapper>
