@@ -33,4 +33,11 @@ public class ExamStaffController {
     void verifyPass(int esId){
         examStaffBiz.verifyPass(esId);
     }
+
+    @PostMapping("/exStaffNotPass")
+    @ResponseBody
+    @CrossOrigin
+    void verifyNotPass(int esId){
+        examStaffBiz.verifyNotPass(esId);
+    }
 }

@@ -49,6 +49,15 @@ public class ExamStaffImpl implements ExamStaffBiz {
     }
 
     @Override
+    public void verifyNotPass(int esId){
+        // 此处函数返回值需要int吗?
+        int res = examStaffMapper.verifyNotPass(esId);
+        if(res == 0){
+            throw new ExamStaffException("verify not-pass examStaff error");
+        }
+    }
+
+    @Override
     public int getEsIdByTele(String telephoneNumber) {
         // 龙哥这里自己设计异常哦
         int res = examStaffMapper.getEsIdByTele(telephoneNumber);
