@@ -66,4 +66,12 @@ public class ExamStaffImpl implements ExamStaffBiz {
         }
         return res;
     }
+
+    @Override
+    public void updateExStaff(ExamStaff examStaff){
+        int res = examStaffMapper.updateExStaff(examStaff);
+        if(res == 0){
+            throw new ExamRoomException("update ExamStaff error");
+        }
+    }
 }

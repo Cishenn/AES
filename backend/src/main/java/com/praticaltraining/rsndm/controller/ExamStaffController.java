@@ -40,4 +40,12 @@ public class ExamStaffController {
     void verifyNotPass(int esId){
         examStaffBiz.verifyNotPass(esId);
     }
+
+    @PostMapping("/update")
+    @ResponseBody
+    @CrossOrigin
+    void updateExStaff(@RequestBody ExamStaff examStaff){
+        examStaffBiz.updateExStaff(examStaff);
+    }
+
 }
