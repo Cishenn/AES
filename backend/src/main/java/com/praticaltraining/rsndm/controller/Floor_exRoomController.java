@@ -10,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/floor_exRoom")
@@ -33,6 +30,7 @@ public class Floor_exRoomController {
         List<ExamRoom> room = examRoomBiz.getAllExamRoom(schoolId);
         List<Floor> floor = floorBiz.getAllFloor(schoolId);
         List<floor_exRoom> floor_room = new ArrayList();
+        List<floor_exRoom> fr = new ArrayList();
         int fId = 0;
         int flag = 0;
         for(int i = 0;i<room.size();i++){
@@ -46,7 +44,18 @@ public class Floor_exRoomController {
             floor_exRoom floor_exroom = new floor_exRoom(floor.get(flag),room.get(i));
             floor_room.add(floor_exroom);
         }
-        result.put("floor_exRoom",floor_room);
+        List<String> building = floorBiz.getBuilding(schoolId);
+        for(int i = 0;i < building.size();i++){
+            List<floor_exRoom> temp = new ArrayList();
+            for(int j = 0;j < floor_room.size();j++){
+                if(floor_room.get(j).floor.getBuilding().equals(building.get(i))){
+                    temp.add(floor_room.get(j));
+                }
+            }
+            Collections.sort(temp);
+            fr.addAll(temp);
+        }
+        result.put("floor_exRoom",fr);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
