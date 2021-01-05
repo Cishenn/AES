@@ -24,7 +24,7 @@ public class TestPersonnelLoginController {
         if(res==null||!res.equals(password)){
             return -1;
         }
-        return 1;
+        return examStaffBiz.getEsIdByTele(telephoneNumber);
     }
 
     @RequestMapping(value = "/register",method= RequestMethod.POST,produces = {"application/json;charset=UTF-8"})
