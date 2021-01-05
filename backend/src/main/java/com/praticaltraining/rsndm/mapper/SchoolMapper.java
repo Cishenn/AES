@@ -9,6 +9,8 @@ import java.util.List;
 public interface SchoolMapper {
     List<School> getAll();
 
+    List<School> getByEduId(int eduId);
+
     int examineExRoom(int schoolId,int exRoomExamine);
 
     int submitExRoom(int schoolId);

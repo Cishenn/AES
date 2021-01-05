@@ -24,6 +24,15 @@ public class SchoolImpl implements SchoolBiz {
     }
 
     @Override
+    public List<School> getByEduId(int eduId){
+        List<School> res = schoolMapper.getByEduId(eduId);
+        if(res == null){
+            throw new SchoolException("get school by eduId error");
+        }
+        return res;
+    }
+
+    @Override
     public void examineExRoom(int schoolId,int exRoomExamine){
         int res = schoolMapper.examineExRoom(schoolId,exRoomExamine);
         if(res==0){

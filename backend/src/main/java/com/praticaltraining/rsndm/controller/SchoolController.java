@@ -27,15 +27,33 @@ public class SchoolController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/school/eduId")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<School>>> queryByEduId(int eduId){
+        Map<String,List<School>> result = new HashMap<>();
+        result.put("School",schoolBiz.getByEduId(eduId));
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
     @PostMapping("/exRoomExamine/schoolId_exRoomExamine")
+    @ResponseBody
     @CrossOrigin
     void examineExRoom(int schoolId,int exRoomExamine){
         schoolBiz.examineExRoom(schoolId,exRoomExamine);
     }
 
     @PostMapping("/exRoomExamine/schoolId")
+    @ResponseBody
     @CrossOrigin
     void submitExRoom(int schoolId){
         schoolBiz.submitExRoom(schoolId);
+    }
+
+    @GetMapping("/schoolName/schoolId")
+    @ResponseBody
+    @CrossOrigin
+    String getSchoolName(int schoolId){
+        return schoolBiz.getSchoolName(schoolId);
     }
 }

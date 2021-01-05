@@ -5,6 +5,11 @@
         select * from school
     </select>
 
+    <select id="getByEduId" resultType="com.praticaltraining.rsndm.entity.School">
+        select * from school
+        WHERE eduId = #{eduId}
+    </select>
+
     <update id="examineExRoom">
         UPDATE school
         SET school.exRoomExamine = #{exRoomExamine}
