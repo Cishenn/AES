@@ -16,9 +16,9 @@ public class SchoolAdminLoginController {
 
     @RequestMapping(value = "/login",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
-    int login(String account,String password,int schoolId){
+    int login(String account,String password){
         SchoolAdminLogin res=schoolAdminLoginBiz.getPwdSchoolId(account);
-        if(res==null||!res.getPassword().equals(password)||res.getSchoolId()!=schoolId){
+        if(res==null||!res.getPassword().equals(password)){
             return -1;
         }
         return res.getSchoolId();
