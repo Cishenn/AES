@@ -136,9 +136,6 @@ export default {
             }
             this.Schools.push(tempSchool)
           }
-          console.log('this is getSchools function')
-          console.log(this.Schools)
-          console.log(this.grades)
         })
     }
   }
