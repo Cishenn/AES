@@ -24,4 +24,6 @@ public interface ExamStaffMapper {
     int updateExStaff(ExamStaff examStaff);
 
     List<ExamStaff> getExStaffListBySchoolId(int schoolId);
+
+    int updateEduExamine(int esId, int eduExamine);
 }

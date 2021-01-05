@@ -44,4 +44,10 @@
         select * from exam_staff
         WHERE schoolId = #{schoolId}
     </select>
+
+    <update id="updateEduExamine">
+        UPDATE exam_staff SET
+        eduExamine = #{eduExamine}
+        WHERE esId = #{esId}
+    </update>
 </mapper>
