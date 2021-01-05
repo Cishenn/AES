@@ -12,11 +12,14 @@ export default new Vuex.Store({
   },
   // Mutation用于变更Store中的数据
   mutations: {
-    setcustomer_service_ID (state, ID) {
-      state.customer_service_ID = ID
-    },
     setteacherId (state, ID) {
       state.schoolId = ID
+    },
+    setschoolId (state, ID) {
+      state.schoolId = ID
+    },
+    setaddmissionsId (state, ID) {
+      state.addmissionsId = ID
     }
   },
   // Action用于处理异步任务

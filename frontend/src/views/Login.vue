@@ -92,29 +92,20 @@ export default {
       if (this.username === '' || this.password === '') {
         alert('请输入用户名或密码。')
       } else {
-        this.$prompt('请输入你的学校ID', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消'
-        }).then(({ value }) => {
-          this.$axios.get('schoolAdminLogin/login', {
-            params: {
-              account: this.username,
-              password: this.password,
-              schoolId: value
-            }
-          }).then(resp => {
-            if (resp.data !== -1) {
-              this.$message('登陆成功')
-              this.$router.push('/school')
-            } else {
-              this.$message('用户名、密码或学校ID错误')
-            }
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消输入'
-          })
+        this.$axios.get('schoolAdminLogin/login', {
+          params: {
+            account: this.username,
+            password: this.password
+          }
+        }).then(resp => {
+          if (resp.data !== -1) {
+            this.$message('登陆成功')
+            // console.log(resp.data)
+            this.$store.commit('setschoolId', resp.data)
+            this.$router.push('/school')
+          } else {
+            this.$message('用户名或密码错误')
+          }
         })
       }
     },
@@ -122,29 +113,19 @@ export default {
       if (this.username === '' || this.password === '') {
         alert('请输入用户名或密码。')
       } else {
-        this.$prompt('请输入你的招办ID', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消'
-        }).then(({ value }) => {
-          this.$axios.get('enrollmentDepartmentLogin/login', {
-            params: {
-              account: this.username,
-              password: this.password,
-              eduId: value
-            }
-          }).then(resp => {
-            if (resp.data !== -1) {
-              this.$message('登陆成功')
-              this.$router.push('/addmissions')
-            } else {
-              this.$message('用户名、密码或招办ID错误')
-            }
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消输入'
-          })
+        this.$axios.get('enrollmentDepartmentLogin/login', {
+          params: {
+            account: this.username,
+            password: this.password
+          }
+        }).then(resp => {
+          if (resp.data !== -1) {
+            this.$message('登陆成功')
+            this.$store.commit('setaddmissionsId', resp.data)
+            this.$router.push('/addmissions')
+          } else {
+            this.$message('用户名或密码错误')
+          }
         })
       }
     },

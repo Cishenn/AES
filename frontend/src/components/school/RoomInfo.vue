@@ -4,9 +4,26 @@
       <el-tab-pane label="考场录入" class="first">
         <el-form ref="form" :model="form" label-width="80px">
           <el-form-item label="所属楼号">
-            <el-select v-model="form.building" placeholder="请选择楼号">
-              <el-option label="1号楼" value="1"></el-option>
-              <el-option label="2号楼" value="2"></el-option>
+            <el-select v-model="building" placeholder="请选择楼号" style="width: 300px" @change="choosestep">
+              <el-option
+              v-for="item in form"
+              :key="item.building"
+              :value="item.building"
+              :lable="item.building"
+              >
+              </el-option>
+            </el-select>
+            <!-- <el-input v-model="form.building"></el-input> -->
+          </el-form-item>
+          <el-form-item label="所属楼层">
+            <el-select v-model="floor" placeholder="请选择楼层" style="width: 300px" >
+              <el-option
+              v-for="item in floortable"
+              :key="item.floorStep"
+              :value="item.floorStep"
+              :lable="item.floorStep"
+              >
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="房间号">
@@ -14,7 +31,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary">立即创建</el-button>
-            <el-button>清空</el-button>
+            <el-button @click="deleteform">清空</el-button>
           </el-form-item>
         </el-form>
         <el-upload
@@ -29,8 +46,8 @@
       <el-tab-pane label="考场信息" class="second">
         <el-table class="table" :data="tableData">
           <el-table-column type="selection" width="55"/>
-          <el-table-column label="考场号" prop="examroomId" width="120px"/>
           <el-table-column label="所属楼" prop="buildingId" width="120px"/>
+          <el-table-column label="楼层" prop="floor" width="120px"/>
           <el-table-column label="房间号" prop="roomId" width="120px"/>
           <el-table-column label="操作" width="180px">
             <template>
@@ -59,15 +76,35 @@
 export default {
   data () {
     return {
-      form: {
-        building: '',
-        room: ''
-      },
+      building: '',
+      floor: '',
+      form: [{
+        building: '1号楼'
+      }, {
+        building: '2号楼'
+      }],
+      floortable: [
+        {
+          floorStep: 1
+        },
+        {
+          floorStep: 2
+        }
+      ],
       tableData: [{
-        examroomId: '666',
-        buildingId: '7号楼',
+        buildingId: '1号楼',
+        floor: '2',
         roomId: '209'
       }]
+    }
+  },
+  methods: {
+    choosestep () {
+    },
+    deleteform () {
+      this.form.building = ''
+      this.form.floor = ''
+      this.form.room = ''
     }
   }
 }

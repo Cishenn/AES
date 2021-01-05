@@ -43,6 +43,7 @@
 export default {
   data () {
     return {
+      addmissionsId: this.$store.state.addmissionsId,
       roomTableData: [{
         roomSchool: '合肥第一中学',
         roomId: '1',
