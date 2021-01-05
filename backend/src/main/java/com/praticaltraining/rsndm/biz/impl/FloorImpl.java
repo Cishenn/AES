@@ -24,6 +24,24 @@ public class FloorImpl implements FloorBiz {
     }
 
     @Override
+    public List<Floor> getFloorByBuilding(String building,int schoolId){
+        List<Floor> res = floorMapper.getFloorByBuilding(building,schoolId);
+        if(res == null){
+            throw new FloorException("get Floor error");
+        }
+        return res;
+    }
+
+    @Override
+    public List<String> getBuilding(int schoolId){
+        List<String> res = floorMapper.getBuilding(schoolId);
+        if(res == null){
+            throw new FloorException("get building error");
+        }
+        return res;
+    }
+
+    @Override
     public int getFloorId(int schoolId,String building,int floorStep){
         int res = floorMapper.getFloorId(schoolId,building,floorStep);
         if(res==0){

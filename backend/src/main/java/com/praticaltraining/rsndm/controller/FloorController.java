@@ -27,6 +27,24 @@ public class FloorController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/floor/building_schoolId")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<Floor>>> queryBySchoolId_Building(String building,int schoolId){
+        Map<String,List<Floor>> result = new HashMap<>();
+        result.put("Floor",floorBiz.getFloorByBuilding(building,schoolId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/building/schoolId")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<String>>> buildingBySchoolId(int schoolId){
+        Map<String,List<String>> result = new HashMap<>();
+        result.put("building",floorBiz.getBuilding(schoolId));
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
     @GetMapping("/floorId/schoolId_building_floorStep")
     @ResponseBody
     @CrossOrigin

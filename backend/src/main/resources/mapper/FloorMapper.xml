@@ -6,6 +6,17 @@
         WHERE schoolId = #{schoolId}
     </select>
 
+    <select id="getFloorByBuilding" resultType="com.praticaltraining.rsndm.entity.Floor">
+        select * from Floor
+        WHERE schoolId = #{schoolId}
+        AND building = #{building}
+    </select>
+
+    <select id="getBuilding" resultType="String">
+        select DISTINCT building from Floor
+        WHERE schoolId = #{schoolId}
+    </select>
+
     <select id="getFloorId" resultType="int">
         select floorId from Floor
         WHERE schoolId = #{schoolId}
