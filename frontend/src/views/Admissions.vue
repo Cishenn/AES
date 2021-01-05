@@ -1,16 +1,18 @@
 <template>
-  <div class="admissions">
-    <adminssions-side-menu />
+  <div class="addmissions">
+    <admissions-top-nav></admissions-top-nav>
+    <admissions-side-menu />
     <router-view class="routerv"/>
   </div>
 </template>
 
 <script>
-import AdminssionsSideMenu from '../components/admissions/AdminssionsSideMenu.vue'
-
+import AdmissionsSideMenu from '../components/admissions/AdmissionsSideMenu.vue'
+import AdmissionsTopNav from '../components/admissions/AdmissionsTopNav.vue'
 export default {
   components: {
-    AdminssionsSideMenu
+    AdmissionsSideMenu,
+    AdmissionsTopNav
   },
   data () {
     return {

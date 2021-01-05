@@ -27,7 +27,7 @@ public class ExamStaffController {
         return examStaffBiz.getOneExamStaff(esId);
     }
 
-    @PostMapping("/exStaff/exStaffId")
+    @PostMapping("/exStaff")
     @ResponseBody
     @CrossOrigin
     void verifyPass(int esId){
