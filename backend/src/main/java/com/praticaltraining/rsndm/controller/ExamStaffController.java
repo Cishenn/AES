@@ -26,4 +26,11 @@ public class ExamStaffController {
     ExamStaff getOneExamStaff(int esId){
         return examStaffBiz.getOneExamStaff(esId);
     }
+
+    @PostMapping("/exStaff/exStaffId")
+    @ResponseBody
+    @CrossOrigin
+    void verifyPass(int esId){
+        examStaffBiz.verifyPass(esId);
+    }
 }
