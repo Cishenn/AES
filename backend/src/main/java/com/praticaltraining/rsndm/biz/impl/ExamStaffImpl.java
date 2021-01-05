@@ -44,7 +44,16 @@ public class ExamStaffImpl implements ExamStaffBiz {
         // 此处函数返回值需要int吗?
         int res = examStaffMapper.verifyPass(esId);
         if(res == 0){
-            throw new ExamStaffException("create examStaff error");
+            throw new ExamStaffException("verify pass examStaff error");
+        }
+    }
+
+    @Override
+    public int getTeleByEsId(int esId) {
+        // 龙哥这里自己设计异常哦
+        int res = examStaffMapper.getTeleByEsId(esID);
+        if(res == 0){
+            throw new ExamStaffException("get TelephoneNumber error");
         }
     }
 }
