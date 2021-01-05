@@ -39,4 +39,9 @@
         finalRejection = #{finalRejection}
         WHERE esId = #{esId}
     </update>
+
+    <select id="getOneExStaff" resultType="com.praticaltraining.rsndm.entity.ExamStaff">
+        select * from exam_staff
+        WHERE schoolId = #{schoolId}
+    </select>
 </mapper>

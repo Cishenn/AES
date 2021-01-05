@@ -2,7 +2,10 @@ package com.praticaltraining.rsndm.mapper;
 
 import com.praticaltraining.rsndm.entity.ExamRoom;
 import com.praticaltraining.rsndm.entity.ExamStaff;
+import com.praticaltraining.rsndm.entity.Floor;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface ExamStaffMapper {
@@ -19,4 +22,6 @@ public interface ExamStaffMapper {
     int verifyNotPass(int esId);
 
     int updateExStaff(ExamStaff examStaff);
+
+    List<ExamStaff> getExStaffListBySchoolId(int schoolId);
 }
