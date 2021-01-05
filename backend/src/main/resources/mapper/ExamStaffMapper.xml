@@ -50,4 +50,9 @@
         eduExamine = #{eduExamine}
         WHERE esId = #{esId}
     </update>
+
+    <select id="getQualifiedExStaffList" resultType="com.praticaltraining.rsndm.entity.ExamStaff">
+        select * from exam_staff
+--      联表查询
+    </select>
 </mapper>
