@@ -13,7 +13,7 @@ export default new Vuex.Store({
   // Mutation用于变更Store中的数据
   mutations: {
     setteacherId (state, ID) {
-      state.schoolId = ID
+      state.teacherId = ID
     },
     setschoolId (state, ID) {
       state.schoolId = ID
@@ -28,6 +28,9 @@ export default new Vuex.Store({
   },
   // Getter用于对Store中的数据进行加工处理形成新的数据，类似Vue中的计算属性
   getters: {
+    getTeacherId (state) {
+      return state.teacherId
+    },
     getNickName: state => {
       return state.profile.nickName
     },

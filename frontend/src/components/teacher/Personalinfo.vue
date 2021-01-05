@@ -1,4 +1,3 @@
-<!--  -->
 <template>
   <div class="box">
     <div class="title-box">个人信息</div>
@@ -40,14 +39,13 @@
                   </span>
                 </div>
             </el-upload>
-            <el-avatar style="margin-left:10px" shape="square" :size="150" :src="imageUrl"></el-avatar>
           </div>
         </el-form-item>
         <el-form-item label="姓名">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
         </el-form-item>
         <el-form-item label="电话">
-          <el-input v-model="form.phone"></el-input>
+          <el-input v-model="form.phone" placeholder="请输入号码"></el-input>
         </el-form-item>
         <el-form-item label="性别" >
           <el-select v-model="form.gender" placeholder="请选择SEX" style="width:310px">
@@ -56,7 +54,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="学校">
-          <el-select v-model="value" placeholder="请选择学校" style="width:310px">
+          <el-select v-model="form.school" placeholder="请选择学校" style="width:310px">
             <el-option
               v-for="item in Schools"
               :key="item.value"
@@ -66,7 +64,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="年级">
-          <el-select v-model="grade" placeholder="请选择年级" style="width:310px">
+          <el-select v-model="form.grade" placeholder="请选择年级" style="width:310px">
             <el-option
               v-for="item in grades"
               :key="item.value"
@@ -88,55 +86,61 @@
 export default {
   data () {
     return {
-      esId: 1,
-      value: '',
-      grade: '',
-      grades: [{
-        value: 1,
-        label: '高一'
-      },
-      {
-        value: 2,
-        label: '高二'
-      },
-      {
-        value: 3,
-        label: '高三'
-      }],
-      Schools: [{
-        value: 1,
-        label: '合工大'
-      },
-      {
-        value: 2,
-        label: '安徽大学'
-      }],
       form: {
-        name: 'Crilias',
-        gender: 'Man',
-        phone: '110'
-      }
+        name: '',
+        phone: '',
+        gender: '',
+        school: '',
+        grade: ''
+      },
+      esId: 1,
+      grades: [
+        {
+          value: 1,
+          label: '高一'
+        },
+        {
+          value: 2,
+          label: '高二'
+        },
+        {
+          value: 3,
+          label: '高三'
+        }
+      ],
+      Schools: [
+        {
+          value: 1,
+          label: '合工大'
+        },
+        {
+          value: 2,
+          label: '安徽大学'
+        }
+      ]
     }
+  },
+  mounted () {
+    this.getinfo()
   },
   created () {
     if (this.$store.state.teacherId === '') {
       // alert('不要随便乱进哦!')
       this.$router.push('/login')
     }
-  },
-  components: {},
-
-  computed: {},
-
-  mounted () {
-    this.getinfo()
+    this.esId = this.$store.getters.getTeacherId
+    console.log(this.esId)
+    // setEsId ()
+    // 设置esId
+    // grades schools
   },
 
   methods: {
     getinfo () {
-      this.$axios.get('examStaff/examStaff', {
+      this.$axios.get('testPersonnelLogin/login', {
         params: {
-          esid: this.esId
+          telephoneNumber: this.username,
+          password: this.password
         }
       }).then(resp => {
         console.log(resp)
