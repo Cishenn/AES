@@ -4,4 +4,8 @@
         SELECT * FROM invigilator_group_arrangement
         WHERE invigilatorGroupId=#{invigilatorGroupId};
     </select>
+
+    <delete id="clearIGA">
+        DELETE FROM invigilator_group_arrangement
+    </delete>
 </mapper>

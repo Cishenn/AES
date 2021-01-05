@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface InvigilatorGroupArrangementMapper {
     List<InvigilatorGroupArrangement> getAllInvigilatorGroupArrangementOfOneInvigilatorGroup(int invigilatorGroupId);
+
+    int clearIGA();
 }

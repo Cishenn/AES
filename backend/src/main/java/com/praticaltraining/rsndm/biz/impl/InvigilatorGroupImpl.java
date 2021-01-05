@@ -22,4 +22,12 @@ public class InvigilatorGroupImpl implements InvigilatorGroupBiz {
         }
         return res;
     }
+
+    @Override
+    public void clearIG(){
+        int res = invigilatorGroupMapper.clearIG();
+        if(res == 0){
+            throw new InvigilatorGroupException("Clear IG error");
+        }
+    }
 }

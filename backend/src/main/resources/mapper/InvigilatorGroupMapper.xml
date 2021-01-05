@@ -6,4 +6,8 @@
        WHERE eduId=#{eduId};
     </select>
 
+    <delete id="clearIG">
+        DELETE FROM invigilator_group
+    </delete>
+
 </mapper>

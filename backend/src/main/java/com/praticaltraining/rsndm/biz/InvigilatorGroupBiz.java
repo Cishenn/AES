@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface InvigilatorGroupBiz {
     List<InvigilatorGroup> getAllByEduId(int eduId);
+
+    void clearIG();
 }

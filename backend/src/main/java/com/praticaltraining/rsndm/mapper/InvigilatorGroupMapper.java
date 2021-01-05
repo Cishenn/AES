@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface InvigilatorGroupMapper {
     List<InvigilatorGroup> getAllByEduId(int eduId);
+
+    int clearIG();
 }
