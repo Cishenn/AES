@@ -16,9 +16,9 @@ public class EnrollmentDepartmentLoginController {
 
     @RequestMapping(value = "/login",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
-    int login(String account,String password,int eduId){
+    int login(String account,String password){
         EnrollmentDepartmentLogin res=enrollmentDepartmentLoginBiz.getPwdEduId(account);
-        if(res==null||!res.getPassword().equals(password)|| eduId!=res.getEduId()){
+        if(res==null||!res.getPassword().equals(password)){
             return -1;
         }
         return res.getEduId();
