@@ -56,4 +56,11 @@ public class ExamStaffController {
         result.put("ExamStaff",examStaffBiz.getExStaffListBySchoolId(schoolId));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @PostMapping("/eduExamine")
+    @ResponseBody
+    @CrossOrigin
+    void updateEduExamine(int esId, int eduExamine){
+        examStaffBiz.updateEduExamine(esId, eduExamine);
+    }
 }
