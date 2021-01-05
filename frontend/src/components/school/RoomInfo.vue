@@ -93,7 +93,7 @@
     <el-dialog title="修改考场" :visible.sync="dialogTableVisible">
       <el-form ref="form" :model="form" label-width="80px">
           <el-form-item label="所属楼号">
-            <el-select v-model="activebuilding" placeholder="请选择楼号" style="width: 300px" @change="choosestep">
+            <el-select v-model="activebuilding" placeholder="请选择楼号" style="width: 300px" @change="chooseactivestep2">
               <el-option
               v-for="item in form.buildingtable"
               :key="item"
@@ -105,9 +105,9 @@
             <!-- <el-input v-model="form.building"></el-input> -->
           </el-form-item>
           <el-form-item label="所属楼层">
-            <el-select v-model="activefloor" clearable placeholder="请选择楼层" style="width: 300px" @change="getfloorId">
+            <el-select v-model="activefloor" clearable placeholder="请选择楼层" style="width: 300px" @change="getfloorId2">
               <el-option
-              v-for="item in form.floortable"
+              v-for="item in activefloortavle"
               :key="item.floorId"
               :value="item.floorId"
               :label="item.floorStep"
@@ -119,8 +119,8 @@
             <el-input v-model="activeroom" style="width: 300px"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="addexamroom">立即创建</el-button>
-            <el-button @click="deleteform">清空</el-button>
+            <el-button type="primary" @click="modifyexamroom">修改</el-button>
+            <el-button @click="deleteform">取消</el-button>
           </el-form-item>
         </el-form>
     </el-dialog>
@@ -132,15 +132,17 @@ export default {
   data () {
     return {
       dialogTableVisible: false,
-      // schoolId: this.$store.state.schoolId,
-      schoolId: 16,
+      schoolId: this.$store.state.schoolId,
       stripe: true,
       currentPage: 1,
       pagesize: 10,
       total: 0,
       activebuilding: '',
       activefloor: '',
+      activefloorId: '',
       activeroom: '',
+      activefloortavle: [],
+      activeroomId: '',
       form: {
         building: '',
         floor: '',
@@ -159,12 +161,79 @@ export default {
     this.getExamroomdata()
   },
   methods: {
-
+    modifyexamroom () {
+      this.$confirm('此操作将修改考场信息, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if (this.activefloor === '' || this.activebuilding === '' || this.activeroom === '') {
+          this.$message({
+            message: '请输入完整的考场信息',
+            type: 'warning'
+          })
+        } else {
+          this.$axios.post('exRoom/exRoom/exRoom', {
+            exRoomId: this.activeroomId,
+            schoolId: this.schoolId,
+            floorId: this.activefloorId,
+            roomNum: this.activeroom
+          }
+          )
+            .then(resp => {
+              console.log(this.activefloorId)
+              this.getExamroomdata()
+              this.dialogTableVisible = false
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+            }).catch(resp => {
+              alert('修改失败')
+            })
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消修改'
+        })
+      })
+    },
+    chooseactivestep2 () {
+      // 为了实现点击之后楼层变化
+      this.activefloor = ''
+      this.$axios.get('floor/floor/building_schoolId', {
+        params: {
+          building: this.activebuilding,
+          schoolId: this.schoolId
+        }
+      }).then(resp => {
+        // console.log(resp.data)
+        this.activefloortavle = resp.data.Floor
+        // console.log(this.form.floortable)
+      })
+    },
+    chooseactivestep () {
+      this.$axios.get('floor/floor/building_schoolId', {
+        params: {
+          building: this.activebuilding,
+          schoolId: this.schoolId
+        }
+      }).then(resp => {
+        // console.log(resp.data)
+        this.activefloortavle = resp.data.Floor
+        // console.log(this.form.floortable)
+      })
+    },
     handleEdit (index, row) {
       this.dialogTableVisible = true
       this.activebuilding = this.Examroomtable[index].floor.building
       this.activefloor = this.Examroomtable[index].floor.floorStep
       this.activeroom = this.Examroomtable[index].examRoom.roomNum
+      // console.log(this.Examroomtable)
+      this.activeroomId = this.Examroomtable[index].examRoom.exRoomId
+      this.activefloorId = this.Examroomtable[index].floor.floorId
+      this.chooseactivestep()
     },
     handleDelete (index, row) {
       this.$confirm('此操作将永久删除该考场, 是否继续?', '提示', {
@@ -224,6 +293,7 @@ export default {
       } else {
         this.$axios.post(`exRoom/exRoom?schoolId=${this.schoolId}&floorId=${this.form.floorId}&roomNum=${this.form.room}`)
           .then(resp => {
+            this.cleardata()
             this.$message({
               message: '添加成功',
               type: 'success'
@@ -234,10 +304,19 @@ export default {
       }
       this.getExamroomdata()
     },
+    cleardata () {
+      this.form.building = ''
+      this.form.floor = ''
+      this.form.room = ''
+    },
+    getfloorId2 (selectvalue) {
+      this.activefloorId = selectvalue
+      this.activeroom = ''
+    },
     getfloorId (selectvalue) {
       this.form.floorId = selectvalue
       this.form.room = ''
-      console.log(this.form.floorId)
+      // console.log(this.form.floorId)
     },
     getschoolbuilding () {
       this.$axios.get('floor/building/schoolId', {

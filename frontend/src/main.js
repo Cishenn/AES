@@ -16,6 +16,7 @@ axios.defaults.baseURL = 'http://localhost:8080/'
 // makeServer()
 
 new Vue({
+  axios,
   router,
   store,
   render: h => h(App)
