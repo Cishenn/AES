@@ -75,6 +75,9 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="save">保存</el-button>
+        </el-form-item>
       </el-form>
   </div>
 
@@ -85,6 +88,7 @@
 export default {
   data () {
     return {
+      esId: 1,
       value: '',
       grade: '',
       grades: [{
@@ -119,9 +123,21 @@ export default {
 
   computed: {},
 
-  mounted: {},
+  mounted () {
+    this.getinfo()
+  },
 
-  methods: {}
+  methods: {
+    getinfo () {
+      this.$axios.get('examStaff/examStaff', {
+        params: {
+          esid: this.esId
+        }
+      }).then(resp => {
+        console.log(resp)
+      })
+    }
+  }
 }
 
 </script>

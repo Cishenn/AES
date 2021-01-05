@@ -46,8 +46,8 @@ const routes = [
     ]
   },
   {
-    path: '/admissions',
-    redirect: '/admissions/SchoolInfo',
+    path: '/addmissions',
+    redirect: '/addmissions/SchoolInfo',
     component: Admissions,
     children: [
       {

@@ -22,22 +22,22 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        avatarUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-      }
-    },
-    mounted() {
-      this.getTitle()
-    },
-    created() {
-      // get avatar and username
-    },
-    methods: {
-      getTitle() {}
+export default {
+  data () {
+    return {
+      avatarUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
     }
+  },
+  mounted () {
+    this.getTitle()
+  },
+  created () {
+    // get avatar and username
+  },
+  methods: {
+    getTitle () {}
   }
+}
 </script>
 
 <style scoped>

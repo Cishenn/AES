@@ -4,6 +4,7 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
+import store from '@/store/store.js'
 // import VueAxios from 'vue-axios'
 // import { makeServer } from './server'
 
@@ -16,5 +17,6 @@ axios.defaults.baseURL = 'http://localhost:8080/'
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

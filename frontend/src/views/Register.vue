@@ -65,7 +65,7 @@ export default {
     return {
       identifyCodes: '1234567890',
       identifyCode: '',
-      // url: '../assets/classify.jpg',
+      url: '../assets/classify.jpg',
       phonenum: '',
       password: '',
       schoolId: '',
@@ -188,7 +188,7 @@ i{
 .box{
   width: 100vw;
   height: 100vh;
-  /* background: url("../assets/back1.jpg") no-repeat; */
+  background: url("../assets/back1.jpg") no-repeat;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
