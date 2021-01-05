@@ -22,4 +22,21 @@
         select esId from exam_staff
         WHERE telephoneNumber = #{telephoneNumber}
     </select>
+
+    <update id="updateExStaff">
+        UPDATE exam_staff SET
+        name = #{name},
+        age = #{age},
+        sex = #{sex},
+        schoolId = #{schoolId},
+        telephoneNumber = #{telephoneNumber},
+        grade = #{grade},
+        subject = #{subject},
+        qualified = #{qualified},
+        schoolExamine = #{schoolExamine},
+        photograph = #{photograph},
+        eduExamine = #{eduExamine},
+        finalRejection = #{finalRejection}
+        WHERE esId = #{esId}
+    </update>
 </mapper>
