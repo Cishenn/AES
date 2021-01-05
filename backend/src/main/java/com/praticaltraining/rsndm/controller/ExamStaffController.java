@@ -63,4 +63,14 @@ public class ExamStaffController {
     void updateEduExamine(int esId, int eduExamine){
         examStaffBiz.updateEduExamine(esId, eduExamine);
     }
+
+    @GetMapping("/getQualifiedList")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<ExamStaff>>> getQualifiedExStaffList(int eduId){
+        Map<String,List<ExamStaff>> result = new HashMap<>();
+        result.put("ExamStaff",examStaffBiz.getQualifiedExStaffList(eduId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }

@@ -23,4 +23,6 @@ public interface ExamStaffBiz {
     List<ExamStaff> getExStaffListBySchoolId(int schoolId);
 
     void updateEduExamine(int esId, int eduExmine);
+
+    List<ExamStaff> getQualifiedExStaffList(int eduId);
 }

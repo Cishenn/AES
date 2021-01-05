@@ -53,6 +53,6 @@
 
     <select id="getQualifiedExStaffList" resultType="com.praticaltraining.rsndm.entity.ExamStaff">
         select * from exam_staff
---      联表查询
+--      WHERE 联表查询
     </select>
 </mapper>

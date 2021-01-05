@@ -94,4 +94,13 @@ public class ExamStaffImpl implements ExamStaffBiz {
             throw new ExamStaffException("update EduExamine examStaff error");
         }
     }
+
+    @Override
+    public List<ExamStaff> getQualifiedExStaffList(int eduId){
+        List<ExamStaff> res = examStaffMapper.getQualifiedExStaffList(eduId);
+        if(res == null){
+            throw new ExamStaffException("get Qualified ExStaff List ExamStaff error");
+        }
+        return res;
+    }
 }
