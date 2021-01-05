@@ -38,4 +38,12 @@ public class ExamStaffImpl implements ExamStaffBiz {
         }
         return res;
     }
+
+    @Override
+    public void verifyPass(int esId){
+        int res = examStaffMapper.verifyPass(esId);
+        if(res == 0){
+            throw new ExamStaffException("create examStaff error");
+        }
+    }
 }

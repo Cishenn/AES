@@ -6,4 +6,5 @@ public interface ExamStaffBiz {
     void register(ExamStaff examStaff);
     String getName(int esId);
     ExamStaff getOneExamStaff(int esId);
+    void verifyPass(int esId);
 }
