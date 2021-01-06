@@ -120,4 +120,13 @@ public class ExamStaffImpl implements ExamStaffBiz {
         }
         return res;
     }
+
+    @Override
+    public List<ExamStaff> getExStaffListVerified(int schoolId){
+        List<ExamStaff> res = examStaffMapper.getExStaffListVerified(schoolId);
+        if(res == null){
+            throw new ExamStaffException("get ExamStaff Verified error");
+        }
+        return res;
+    }
 }

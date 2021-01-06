@@ -29,4 +29,6 @@ public interface ExamStaffBiz {
     void clearArrange();
 
     List<ExamStaff> getExStaffListVerifying(int schoolId);
+
+    List<ExamStaff> getExStaffListVerified(int schoolId);
 }
