@@ -46,22 +46,22 @@
       <el-tab-pane label="考场信息" class="second" >
         <el-table border class="table" :data="Examroomtable.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage">
           <!-- <el-table-column type="selection" width="55"/> -->
-          <el-table-column label="所属楼"  width="180px">
+          <el-table-column align="center" label="所属楼"  width="120px">
             <template slot-scope="scope">
               {{ scope.row.floor.building }}
             </template>
           </el-table-column>
-          <el-table-column label="楼层"  width="120px">
+          <el-table-column align="center" label="楼层"  width="120px">
             <template slot-scope="scope">
               {{ scope.row.floor.floorStep }}
             </template>
           </el-table-column>
-          <el-table-column label="房间号"  width="120px">
+          <el-table-column align="center" label="房间号"  width="120px">
             <template slot-scope="scope">
               {{ scope.row.examRoom.roomNum }}
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="180px">
+          <el-table-column align="center" label="操作" width="180px">
             <template slot-scope="scope">
               <el-button
                 size="mini"
@@ -72,7 +72,7 @@
                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
           </el-table-column>
-          <el-table-column label="审核状态" width="180px">
+          <el-table-column align="center" label="审核状态" width="180px">
             <el-tag
               :type="tags.type">
               {{tags.name}}
@@ -172,6 +172,10 @@ export default {
     this.getExamroomdata()
   },
   created () {
+    if (this.$store.state.schoolId === '') {
+      // alert('不要随便乱进哦!')
+      this.$router.push('/login')
+    }
     this.getapprovalstate()
   },
   methods: {

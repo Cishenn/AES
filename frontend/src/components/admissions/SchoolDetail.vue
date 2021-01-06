@@ -163,7 +163,12 @@ export default {
       }]
     }
   },
-
+  created () {
+    if (this.$store.state.addmissionsId === '') {
+      alert('请不要乱输入网址哦')
+      this.$router.push('/login')
+    }
+  },
   components: {},
 
   computed: {},
