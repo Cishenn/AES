@@ -19,7 +19,7 @@ public class ExamStaffController {
 
     @Autowired
     private ExamStaffBiz examStaffBiz;
-z
+
     @GetMapping("/exStaff/exStaffId")
     @ResponseBody
     @CrossOrigin
@@ -72,5 +72,15 @@ z
         result.put("ExamStaff",examStaffBiz.getQualifiedExStaffList(eduId));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/getVerifying")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<ExamStaff>>> getExStaffListVerifying(int schoolId){
+        Map<String,List<ExamStaff>> result = new HashMap<>();
+        result.put("ExamStaff",examStaffBiz.getExStaffListVerifying(schoolId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
 }

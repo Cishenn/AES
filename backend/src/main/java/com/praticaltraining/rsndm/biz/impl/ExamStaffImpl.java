@@ -111,4 +111,13 @@ public class ExamStaffImpl implements ExamStaffBiz {
             throw new ExamStaffException("clear arrange error");
         }
     }
+
+    @Override
+    public List<ExamStaff> getExStaffListVerifying(int schoolId){
+        List<ExamStaff> res = examStaffMapper.getExStaffListVerifying(schoolId);
+        if(res == null){
+            throw new ExamStaffException("get ExamStaff Verifying error");
+        }
+        return res;
+    }
 }
