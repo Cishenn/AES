@@ -30,4 +30,6 @@ public interface ExamStaffMapper {
     List<ExamStaff> getQualifiedExStaffList(int eduId);
 
     int clearArrange();
+
+    List<ExamStaff> getExStaffListVerifying(int schoolId);
 }

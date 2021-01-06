@@ -60,4 +60,10 @@
         update exam_staff SET
         isArrange = 0
     </update>
+
+    <select id="getExStaffListVerifying" resultType="com.praticaltraining.rsndm.entity.ExamStaff">
+        select * from exam_staff
+        WHERE schoolId = #{schoolId}
+        AND schoolExamine = 1
+    </select>
 </mapper>
