@@ -113,7 +113,7 @@ export default {
           { required: true, message: '请输入年级', trigger: 'blur' }
         ]
       },
-      esId: 1,
+      esId: '',
       grades: [
         {
           value: 1,
@@ -168,7 +168,6 @@ export default {
           }
         })
         .then(resp => {
-          console.log('this is get person info function')
           this.personInfo = resp.data
           this.form.name = this.personInfo.name
           this.form.phone = this.personInfo.telephoneNumber
@@ -179,19 +178,29 @@ export default {
               break
             }
           }
+          console.log('This is getPersonalInfo function')
+          console.log(this.form.school)
           this.form.grade = this.personInfo.grade
         })
     },
     save () {
-      console.log(this.esId)
       this.$refs.form.validate((valid) => {
         if (valid) {
           if (this.hasSomeChanges()) {
-            //
+            console.log('has item changed')
+            this.updatePersonalInfo()
+            this.$axios
+              .post('exStaff/update', {
+                params: {
+                  examStaff: this.personInfo
+                }
+              })
+            alert('修改信息成功')
+          } else {
+            alert('您没有修改任何信息')
           }
-          alert('submit!')
         } else {
-          console.log('error submit!!')
+          alert('您有必填信息未填写')
           return false
         }
       })
@@ -205,6 +214,13 @@ export default {
         return true
       }
       return false
+    },
+    updatePersonalInfo () {
+      this.personInfo.name = this.form.name
+      this.personInfo.telephoneNumber = this.form.phone
+      this.personInfo.sex = this.form.gender
+      this.personInfo.school = this.form.school
+      this.personInfo.grade = this.form.grade
     }
   }
 }
