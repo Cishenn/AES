@@ -56,7 +56,7 @@
         <el-form-item label="学校" prop="school">
           <el-select v-model="form.school" placeholder="请选择学校" style="width:310px">
             <el-option
-              v-for="item in Schools"
+              v-for="item in schools"
               :key="item.value"
               :label="item.label"
               :value="item.value"
@@ -128,7 +128,8 @@ export default {
           label: '高三'
         }
       ],
-      Schools: []
+      schools: [],
+      personInfo: []
     }
   },
   mounted () {
@@ -141,6 +142,7 @@ export default {
     }
     this.esId = this.$store.getters.getTeacherId
     this.getSchools()
+    this.getPersonalInfo()
   },
 
   methods: {
@@ -154,20 +156,55 @@ export default {
               value: schoolItem.schoolId,
               label: schoolItem.schoolName
             }
-            this.Schools.push(tempSchool)
+            this.schools.push(tempSchool)
           }
+        })
+    },
+    getPersonalInfo () {
+      this.$axios
+        .get('exStaff/exStaff/exStaffId', {
+          params: {
+            esId: this.esId
+          }
+        })
+        .then(resp => {
+          console.log('this is get person info function')
+          this.personInfo = resp.data
+          this.form.name = this.personInfo.name
+          this.form.phone = this.personInfo.telephoneNumber
+          this.form.gender = this.personInfo.sex
+          for (const tempSchool of this.schools) {
+            if (tempSchool.value === this.personInfo.schoolId) {
+              this.form.school = tempSchool.label
+              break
+            }
+          }
+          this.form.grade = this.personInfo.grade
         })
     },
     save () {
       console.log(this.esId)
       this.$refs.form.validate((valid) => {
         if (valid) {
+          if (this.hasSomeChanges()) {
+            //
+          }
           alert('submit!')
         } else {
           console.log('error submit!!')
           return false
         }
       })
+    },
+    hasSomeChanges () {
+      if (this.personInfo.name !== this.form.name ||
+        this.personInfo.telephoneNumber !== this.form.phone ||
+        this.personInfo.sex !== this.form.gender ||
+        this.personInfo.school !== this.form.school ||
+        this.personInfo.grade !== this.form.grade) {
+        return true
+      }
+      return false
     }
   }
 }
