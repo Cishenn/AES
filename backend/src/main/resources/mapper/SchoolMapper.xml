@@ -26,4 +26,9 @@
         SELECT schoolName FROM school
         WHERE schoolId=#{schoolId}
     </select>
+
+    <select id="getState" resultType="int">
+        SELECT exRoomExamine FROM school
+        WHERE schoolId=#{schoolId}
+    </select>
 </mapper>

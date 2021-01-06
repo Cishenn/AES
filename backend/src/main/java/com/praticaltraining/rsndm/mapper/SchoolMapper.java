@@ -17,4 +17,5 @@ public interface SchoolMapper {
 
     String getSchoolName(int schoolId);
 
+    int getState(int schoolId);
 }

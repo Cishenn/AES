@@ -14,4 +14,6 @@ public interface SchoolBiz {
     void submitExRoom(int schoolId);
 
     String getSchoolName(int schoolId);
+
+    int getState(int schoolId);
 }

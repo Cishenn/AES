@@ -57,5 +57,13 @@ public class SchoolImpl implements SchoolBiz {
         return res;
     }
 
+    @Override
+    public int getState(int schoolId){
+        int res = schoolMapper.getState(schoolId);
+        if(res == -1){
+            throw new SchoolException("get state error");
+        }
+        return res;
+    }
 
 }

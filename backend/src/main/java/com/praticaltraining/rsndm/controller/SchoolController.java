@@ -56,4 +56,11 @@ public class SchoolController {
     String getSchoolName(int schoolId){
         return schoolBiz.getSchoolName(schoolId);
     }
+
+    @GetMapping("/exRoomExamine/schoolId")
+    @ResponseBody
+    @CrossOrigin
+    int getState(int schoolId){
+        return schoolBiz.getState(schoolId);
+    }
 }
