@@ -72,4 +72,10 @@
         WHERE schoolId = #{schoolId}
         AND schoolExamine = 2
     </select>
+
+    <update id="modifySchoolExamineTwo">
+        UPDATE exam_staff SET
+        schoolExamine = 2
+        WHERE esId = #{esId}
+    </update>
 </mapper>

@@ -34,4 +34,6 @@ public interface ExamStaffMapper {
     List<ExamStaff> getExStaffListVerifying(int schoolId);
 
     List<ExamStaff> getExStaffListVerified(int schoolId);
+
+    int modifySchoolExamineTwo(int esId);
 }
