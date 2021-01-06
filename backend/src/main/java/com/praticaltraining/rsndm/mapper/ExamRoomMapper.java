@@ -19,5 +19,7 @@ public interface ExamRoomMapper {
 
     int deleteExRoom(int exRoomId);
 
-    int clearArrange();
+    int clearArrange(int schoolId);
+
+    int setArrange(int exRoomId);
 }

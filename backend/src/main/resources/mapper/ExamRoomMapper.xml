@@ -39,5 +39,12 @@
     <update id="clearArrange">
         update exam_room SET
         isArrange = 0
+        WHERE schoolId = #{schoolId}
+    </update>
+
+    <update id="setArrange">
+        update exam_room SET
+        isArrange = 1
+        WHERE exRoomId = #{exRoomId}
     </update>
 </mapper>

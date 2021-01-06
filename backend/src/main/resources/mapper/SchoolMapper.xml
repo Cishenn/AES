@@ -26,4 +26,10 @@
         SELECT schoolName FROM school
         WHERE schoolId=#{schoolId}
     </select>
+
+    <update id="setType">
+        UPDATE school SET
+        typeOfExaminationSite = #{typeOfExaminationSite}
+        WHERE schoolId = #{schoolId}
+    </update>
 </mapper>

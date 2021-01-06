@@ -57,5 +57,11 @@ public class SchoolImpl implements SchoolBiz {
         return res;
     }
 
-
+    @Override
+    public void setType(int schoolId,String typeOfExaminationSite){
+        int res = schoolMapper.setType(schoolId,typeOfExaminationSite);
+        if(res == 0){
+            throw new SchoolException("set type error");
+        }
+    }
 }

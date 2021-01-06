@@ -17,5 +17,7 @@ public interface ExamRoomBiz {
 
     void deleteExRoom(int exRoomId);
 
-    void clearArrange();
+    void clearArrange(int schoolId);
+
+    void setArrange(int exRoomId);
 }
