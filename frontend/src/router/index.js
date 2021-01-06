@@ -14,6 +14,7 @@ import Allocation from '../components/admissions/Allocation.vue'
 import Personalinfo from '../components/teacher/Personalinfo.vue'
 import history from '../components/teacher/History.vue'
 import feedback from '../components/teacher/Feedback.vue'
+import SchoolDetail from '../components/admissions/SchoolDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -46,8 +47,8 @@ const routes = [
     ]
   },
   {
-    path: '/addmissions',
-    redirect: '/addmissions/SchoolInfo',
+    path: '/admissions',
+    redirect: '/admissions/SchoolInfo',
     component: Admissions,
     children: [
       {
@@ -57,6 +58,10 @@ const routes = [
       {
         path: 'inputStudents',
         component: InputStudents
+      },
+      {
+        path: 'schoolDetail',
+        component: SchoolDetail
       },
       {
         path: 'allocation',
