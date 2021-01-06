@@ -2,8 +2,8 @@
   <div class="box">
     <div class="title-box">个人信息</div>
     <div class="Settinginfo">
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="上传头像">
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="上传头像" prop="avatar">
           <div class="upload-image">
             <el-upload
               action="#"
@@ -41,19 +41,19 @@
             </el-upload>
           </div>
         </el-form-item>
-        <el-form-item label="姓名">
+        <el-form-item label="姓名" prop="name">
           <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
         </el-form-item>
-        <el-form-item label="电话">
+        <el-form-item label="电话" prop="phone">
           <el-input v-model="form.phone" placeholder="请输入号码"></el-input>
         </el-form-item>
-        <el-form-item label="性别" >
+        <el-form-item label="性别" prop="gender">
           <el-select v-model="form.gender" placeholder="请选择SEX" style="width:310px">
             <el-option label="男" value="Man"></el-option>
             <el-option label="女" value="Women"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="学校">
+        <el-form-item label="学校" prop="school">
           <el-select v-model="form.school" placeholder="请选择学校" style="width:310px">
             <el-option
               v-for="item in Schools"
@@ -63,7 +63,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="年级">
+        <el-form-item label="年级" prop="grade">
           <el-select v-model="form.grade" placeholder="请选择年级" style="width:310px">
             <el-option
               v-for="item in grades"
@@ -92,6 +92,26 @@ export default {
         gender: '',
         school: '',
         grade: ''
+      },
+      rules: {
+        // avatar: [
+        //   { required: true, message: '请上传头像', trigger: 'blur' }
+        // ],
+        name: [
+          { required: true, message: '请输入姓名', trigger: 'blur' }
+        ],
+        phone: [
+          { required: true, message: '请输入号码', trigger: 'blur' }
+        ],
+        gender: [
+          { required: true, message: '请输入性别', trigger: 'change' }
+        ],
+        school: [
+          { required: true, message: '请输入学校', trigger: 'blur' }
+        ],
+        grade: [
+          { required: true, message: '请输入年级', trigger: 'blur' }
+        ]
       },
       esId: 1,
       grades: [
@@ -137,6 +157,17 @@ export default {
             this.Schools.push(tempSchool)
           }
         })
+    },
+    save () {
+      console.log(this.esId)
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     }
   }
 }
