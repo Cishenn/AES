@@ -6,7 +6,6 @@ import lombok.Data;
 public class NumberOfCandidates{
     int numOfCanId;
     int eduId;
-    int year;
     int numOfScience;
     int numOfArt;
     int numOfExcellent;
