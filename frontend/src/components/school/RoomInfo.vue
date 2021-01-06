@@ -44,9 +44,9 @@
         </el-upload>
       </el-tab-pane>
       <el-tab-pane label="考场信息" class="second" >
-        <el-table class="table" :data="Examroomtable.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage">
-          <el-table-column type="selection" width="55"/>
-          <el-table-column label="所属楼"  width="120px">
+        <el-table border class="table" :data="Examroomtable.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage">
+          <!-- <el-table-column type="selection" width="55"/> -->
+          <el-table-column label="所属楼"  width="180px">
             <template slot-scope="scope">
               {{ scope.row.floor.building }}
             </template>
@@ -72,6 +72,12 @@
                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
           </el-table-column>
+          <el-table-column label="审核状态" width="180px">
+            <el-tag
+              :type="tags.type">
+              {{tags.name}}
+            </el-tag>
+          </el-table-column>
         </el-table>
         <div>
           <el-pagination
@@ -86,7 +92,7 @@
           </el-pagination>
         </div>
         <div>
-          <el-button class="submitBtn">上传</el-button>
+          <el-button class="submitBtn" @click="submitBtn">上传</el-button>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -120,7 +126,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="modifyexamroom">修改</el-button>
-            <el-button @click="deleteform">取消</el-button>
+            <!-- <el-button @click="deleteform">取消</el-button> -->
           </el-form-item>
         </el-form>
     </el-dialog>
@@ -131,6 +137,11 @@
 export default {
   data () {
     return {
+      operate: 0,
+      tags: {
+        name: '未提交',
+        type: 'danger'
+      },
       dialogTableVisible: false,
       schoolId: this.$store.state.schoolId,
       stripe: true,
@@ -160,7 +171,59 @@ export default {
     this.getschoolbuilding()
     this.getExamroomdata()
   },
+  created () {
+    this.getapprovalstate()
+  },
   methods: {
+    getapprovalstate () {
+      this.$axios.get('school/exRoomExamine/schoolId', {
+        params: {
+          schoolId: this.schoolId
+        }
+      }).then(resp => {
+        this.operate = resp.data
+        // console.log(resp.data)
+        if (resp.data === 1) {
+          this.tags.name = '已提交，未审核'
+          this.tags.type = 'info'
+        } else if (resp.data === 2) {
+          this.tags.name = '已审核'
+          this.tags.type = 'success'
+        }
+      }).catch()
+      setTimeout(this.getapprovalstate, 1000)
+    },
+    updateroom () {
+      this.$axios.post(`school/exRoomExamine/schoolId?schoolId=${this.schoolId}`)
+        .then(resp => {
+          this.tags.name = '已提交，未审核'
+          this.tags.type = 'info'
+          this.$message({
+            message: '提交成功，在审核前您有权修改考场。',
+            type: 'success'
+          })
+        }).catch(resp => {
+          this.$message({
+            message: '提交失败！',
+            type: 'false'
+          })
+        })
+    },
+    submitBtn () {
+      this.$confirm('此操作将提交所有考场给招办, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.updateroom()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消提交'
+        })
+      })
+      this.getapprovalstate()
+    },
     modifyexamroom () {
       this.$confirm('此操作将修改考场信息, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -226,44 +289,58 @@ export default {
       })
     },
     handleEdit (index, row) {
-      this.dialogTableVisible = true
-      this.activebuilding = this.Examroomtable[index].floor.building
-      this.activefloor = this.Examroomtable[index].floor.floorStep
-      this.activeroom = this.Examroomtable[index].examRoom.roomNum
-      // console.log(this.Examroomtable)
-      this.activeroomId = this.Examroomtable[index].examRoom.exRoomId
-      this.activefloorId = this.Examroomtable[index].floor.floorId
-      this.chooseactivestep()
+      if (this.operate === 2) {
+        this.$message({
+          message: '当前考场已被招办审核，不能再编辑考场!',
+          type: 'warning'
+        })
+      } else {
+        this.dialogTableVisible = true
+        this.activebuilding = this.Examroomtable[index].floor.building
+        this.activefloor = this.Examroomtable[index].floor.floorStep
+        this.activeroom = this.Examroomtable[index].examRoom.roomNum
+        // console.log(this.Examroomtable)
+        this.activeroomId = this.Examroomtable[index].examRoom.exRoomId
+        this.activefloorId = this.Examroomtable[index].floor.floorId
+        this.chooseactivestep()
+      }
     },
     handleDelete (index, row) {
-      this.$confirm('此操作将永久删除该考场, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$axios.delete('exRoom/exRoom/exRoomId', {
-          params: {
-            exRoomId: row.examRoom.exRoomId
-          }
-        }).then(resp => {
-          this.getExamroomdata()
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          })
-        }).catch(resp => {
-          console.log(resp)
-          this.$message({
-            message: '删除失败',
-            type: 'warning'
-          })
-        })
-      }).catch(() => {
+      if (this.operate === 2) {
         this.$message({
-          type: 'info',
-          message: '已取消删除'
+          message: '当前考场已被招办审核，不能再修改或添加考场!',
+          type: 'warning'
         })
-      })
+      } else {
+        this.$confirm('此操作将永久删除该考场, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$axios.delete('exRoom/exRoom/exRoomId', {
+            params: {
+              exRoomId: row.examRoom.exRoomId
+            }
+          }).then(resp => {
+            this.getExamroomdata()
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          }).catch(resp => {
+            console.log(resp)
+            this.$message({
+              message: '删除失败',
+              type: 'warning'
+            })
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
+      }
     },
     GOGOGO () {
       this.getExamroomdata()
@@ -285,24 +362,31 @@ export default {
       })
     },
     addexamroom () {
-      if (this.form.building === '' || this.form.floor === '' || this.form.room === '') {
+      if (this.operate === 2) {
         this.$message({
-          message: '请输入完整的考场信息',
+          message: '当前考场已被招办审核，不能再修改或添加考场!',
           type: 'warning'
         })
       } else {
-        this.$axios.post(`exRoom/exRoom?schoolId=${this.schoolId}&floorId=${this.form.floorId}&roomNum=${this.form.room}`)
-          .then(resp => {
-            this.cleardata()
-            this.$message({
-              message: '添加成功',
-              type: 'success'
-            })
-          }).catch(resp => {
-            alert('添加失败')
+        if (this.form.building === '' || this.form.floor === '' || this.form.room === '') {
+          this.$message({
+            message: '请输入完整的考场信息',
+            type: 'warning'
           })
+        } else {
+          this.$axios.post(`exRoom/exRoom?schoolId=${this.schoolId}&floorId=${this.form.floorId}&roomNum=${this.form.room}`)
+            .then(resp => {
+              this.cleardata()
+              this.$message({
+                message: '添加成功',
+                type: 'success'
+              })
+            }).catch(resp => {
+              alert('添加失败')
+            })
+        }
+        this.getExamroomdata()
       }
-      this.getExamroomdata()
     },
     cleardata () {
       this.form.building = ''

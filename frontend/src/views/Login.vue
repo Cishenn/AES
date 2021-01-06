@@ -131,7 +131,7 @@ export default {
               type: 'success'
             })
             this.$store.commit('setaddmissionsId', resp.data)
-            this.$router.push('/addmissions')
+            this.$router.push('/admissions')
           } else {
             this.$message.error('用户名或密码错误')
           }

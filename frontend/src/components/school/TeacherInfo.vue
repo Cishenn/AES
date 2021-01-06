@@ -62,6 +62,7 @@
 export default {
   data () {
     return {
+      schoolId: this.$store.state.schoolId,
       tableData: [{
         name: '王明',
         age: '40',
@@ -70,6 +71,15 @@ export default {
         grade: '高二',
         subject: '数学'
       }]
+    }
+  },
+  methods: {
+    getTeachertable () {
+      this.$axios.get('lexStaff/getList', {
+        params: {
+          schoolId: this.schoolId
+        }
+      })
     }
   }
 }
