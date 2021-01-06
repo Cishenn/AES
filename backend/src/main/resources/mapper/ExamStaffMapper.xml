@@ -73,9 +73,9 @@
         AND schoolExamine = 2
     </select>
 
-    <update id="modifySchoolExamineTwo">
+    <update id="updateSchoolExamine">
         UPDATE exam_staff SET
-        schoolExamine = 2
+        schoolExamine = #{schoolExamine}
         WHERE esId = #{esId}
     </update>
 </mapper>
