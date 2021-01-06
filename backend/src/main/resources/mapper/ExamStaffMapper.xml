@@ -66,4 +66,10 @@
         WHERE schoolId = #{schoolId}
         AND schoolExamine = 1
     </select>
+
+    <select id="getExStaffListVerified" resultType="com.praticaltraining.rsndm.entity.ExamStaff">
+        select * from exam_staff
+        WHERE schoolId = #{schoolId}
+        AND schoolExamine = 2
+    </select>
 </mapper>

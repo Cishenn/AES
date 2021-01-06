@@ -32,4 +32,6 @@ public interface ExamStaffMapper {
     int clearArrange();
 
     List<ExamStaff> getExStaffListVerifying(int schoolId);
+
+    List<ExamStaff> getExStaffListVerified(int schoolId);
 }
