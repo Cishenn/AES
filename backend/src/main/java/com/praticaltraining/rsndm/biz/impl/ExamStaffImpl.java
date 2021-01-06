@@ -129,4 +129,13 @@ public class ExamStaffImpl implements ExamStaffBiz {
         }
         return res;
     }
+
+    @Override
+    public void updateSchoolExamine(int esId, int schoolExamine){
+        // 此处函数返回值需要int吗?
+        int res = examStaffMapper.updateSchoolExamine(esId, schoolExamine);
+        if(res == 0){
+            throw new ExamStaffException("update SchoolExamine examStaff error");
+        }
+    }
 }

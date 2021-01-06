@@ -91,5 +91,10 @@ public class ExamStaffController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
+    @PostMapping("/schoolExamine")
+    @ResponseBody
+    @CrossOrigin
+    void updateSchoolExamine(int esId, int schoolExamine){
+        examStaffBiz.updateSchoolExamine(esId, schoolExamine);
+    }
 }
