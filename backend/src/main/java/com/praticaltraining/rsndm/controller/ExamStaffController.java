@@ -41,10 +41,16 @@ public class ExamStaffController {
         examStaffBiz.verifyNotPass(esId);
     }
 
-    @PostMapping("/update")
+    @GetMapping("/update")
     @ResponseBody
     @CrossOrigin
-    void updateExStaff(@RequestBody ExamStaff examStaff){
+    void updateExStaff(int esId, String name, String telephoneNumber, String sex, int schoolId, String grade){
+        ExamStaff examStaff = getOneExamStaff(esId);
+        examStaff.setName(name);
+        examStaff.setTelephoneNumber(telephoneNumber);
+        examStaff.setSex(sex);
+        examStaff.setSchoolId(schoolId);
+        examStaff.setGrade(grade);
         examStaffBiz.updateExStaff(examStaff);
     }
 

@@ -25,19 +25,19 @@
 
     <update id="updateExStaff">
         UPDATE exam_staff SET
-        name = #{name},
-        age = #{age},
-        sex = #{sex},
-        schoolId = #{schoolId},
-        telephoneNumber = #{telephoneNumber},
-        grade = #{grade},
-        subject = #{subject},
-        qualified = #{qualified},
-        schoolExamine = #{schoolExamine},
-        photograph = #{photograph},
-        eduExamine = #{eduExamine},
-        finalRejection = #{finalRejection}
-        WHERE esId = #{esId}
+        name = #{examStaff.name},
+        age = #{examStaff.age},
+        sex = #{examStaff.sex},
+        schoolId = #{examStaff.schoolId},
+        telephoneNumber = #{examStaff.telephoneNumber},
+        grade = #{examStaff.grade},
+        subject = #{examStaff.subject},
+        qualified = #{examStaff.qualified},
+        schoolExamine = #{examStaff.schoolExamine},
+        photograph = #{examStaff.photograph},
+        eduExamine = #{examStaff.eduExamine},
+        finalRejection = #{examStaff.finalRejection}
+        WHERE esId = #{examStaff.esId}
     </update>
 
     <select id="getExStaffListBySchoolId" resultType="com.praticaltraining.rsndm.entity.ExamStaff">

@@ -49,8 +49,8 @@
         </el-form-item>
         <el-form-item label="性别" prop="gender">
           <el-select v-model="form.gender" placeholder="请选择SEX" style="width:310px">
-            <el-option label="男" value="Man"></el-option>
-            <el-option label="女" value="Women"></el-option>
+            <el-option label="男" value="男"></el-option>
+            <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="学校" prop="school">
@@ -116,20 +116,26 @@ export default {
       esId: '',
       grades: [
         {
-          value: 1,
+          value: '高一',
           label: '高一'
         },
         {
-          value: 2,
+          value: '高二',
           label: '高二'
         },
         {
-          value: 3,
+          value: '高三',
           label: '高三'
         }
       ],
       schools: [],
-      personInfo: []
+      personInfo: {
+        name: '',
+        telephoneNumber: '',
+        sex: '',
+        schoolId: '',
+        grade: ''
+      }
     }
   },
   mounted () {
@@ -168,33 +174,21 @@ export default {
           }
         })
         .then(resp => {
-          this.personInfo = resp.data
-          this.form.name = this.personInfo.name
-          this.form.phone = this.personInfo.telephoneNumber
-          this.form.gender = this.personInfo.sex
-          for (const tempSchool of this.schools) {
-            if (tempSchool.value === this.personInfo.schoolId) {
-              this.form.school = tempSchool.label
-              break
-            }
-          }
-          console.log('This is getPersonalInfo function')
-          console.log(this.form.school)
-          this.form.grade = this.personInfo.grade
+          this.form.name = resp.data.name
+          this.form.phone = resp.data.telephoneNumber
+          this.form.gender = resp.data.sex
+          this.form.school = resp.data.schoolId
+          this.form.grade = resp.data.grade
+          this.updatePersonalInfo()
         })
     },
     save () {
       this.$refs.form.validate((valid) => {
         if (valid) {
           if (this.hasSomeChanges()) {
-            console.log('has item changed')
             this.updatePersonalInfo()
-            this.$axios
-              .post('exStaff/update', {
-                params: {
-                  examStaff: this.personInfo
-                }
-              })
+            console.log(this.esId)
+            this.saveChanges()
             alert('修改信息成功')
           } else {
             alert('您没有修改任何信息')
@@ -205,11 +199,24 @@ export default {
         }
       })
     },
+    saveChanges () {
+      this.$axios
+        .get('exStaff/update', {
+          params: {
+            esId: this.esId,
+            name: this.form.name,
+            telephoneNumber: this.personInfo.telephoneNumber,
+            sex: this.personInfo.sex,
+            schoolId: this.personInfo.schoolId,
+            grade: this.personInfo.grade
+          }
+        })
+    },
     hasSomeChanges () {
       if (this.personInfo.name !== this.form.name ||
         this.personInfo.telephoneNumber !== this.form.phone ||
         this.personInfo.sex !== this.form.gender ||
-        this.personInfo.school !== this.form.school ||
+        this.personInfo.schoolId !== this.form.school ||
         this.personInfo.grade !== this.form.grade) {
         return true
       }
@@ -219,7 +226,7 @@ export default {
       this.personInfo.name = this.form.name
       this.personInfo.telephoneNumber = this.form.phone
       this.personInfo.sex = this.form.gender
-      this.personInfo.school = this.form.school
+      this.personInfo.schoolId = this.form.school
       this.personInfo.grade = this.form.grade
     }
   }
