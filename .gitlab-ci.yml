@@ -30,6 +30,6 @@ unit_test:
   stage: test
   script:
     - cd frontend
-    - npm run test:unit --passWithNoTests
+    - npm run test:unit -- --passWithNoTests
   only:
     - merge_requests
