@@ -62,7 +62,6 @@ public class AutoDeployController {
                 examRoomBiz.clearArrange(school.get(j).getSchoolId());
             }
         }
-        //System.out.println(countExRoom);
         if(numOfScience%30 != 0){
             NumberOfScience = numOfScience/30 + 1;
         }else{
