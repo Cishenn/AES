@@ -55,7 +55,7 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="信息上传" class="second">
-        <el-table border class="table" :data="teacherTableapprove" ref="multipleTable">
+        <el-table border class="table" :data="teacherTableapprove.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage" ref="multipleTable">
           <el-table-column type="selection" width="55" align="center"/>
           <el-table-column label="姓名" prop="name" align="center" width="120px"/>
           <el-table-column label="年龄" prop="age" align="center" width="120px"/>
@@ -88,12 +88,12 @@
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="currentPage"
+            :current-page="currentPage1"
             :page-sizes="[5,10,15,20]"
-            :page-size="pagesize"
+            :page-size="pagesize1"
             class="pagination"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="teachertablenoneapprove.length">
+            :total="teacherTableapprove.length">
           </el-pagination>
         </div>
         <div>
@@ -112,6 +112,9 @@ export default {
       currentPage: 1,
       pagesize: 10,
       total: 0,
+      currentPage1: 1,
+      pagesize1: 10,
+      total1: 0,
       schoolId: this.$store.state.schoolId,
       teachertablenoneapprove: [],
       teacherTableapprove: [],
