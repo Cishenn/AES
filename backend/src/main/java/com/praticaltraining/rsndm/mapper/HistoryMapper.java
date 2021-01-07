@@ -3,7 +3,9 @@ package com.praticaltraining.rsndm.mapper;
 import com.praticaltraining.rsndm.entity.History;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface HistoryMapper {
-    History getEsHistory(int esId);
+    List<History> getEsHistory(int esId);
 }
