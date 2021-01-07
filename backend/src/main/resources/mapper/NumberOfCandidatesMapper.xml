@@ -3,12 +3,11 @@
 <mapper namespace="com.praticaltraining.rsndm.mapper.NumberOfCandidatesMapper">
     <select id="numberOfCandidatesGet" resultType="NumberOfCandidates">
         SELECT * FROM number_of_candidates
-        WHERE year=#{year} AND eduId=#{eduId};
+        WHERE eduId=#{eduId};
     </select>
     <update id="NumberOfCandidatesUpdate" parameterType="NumberOfCandidates">
         UPDATE number_of_candidates SET
             eduId=#{eduId},
-            year=#{year},
             numOfScience=#{numOfScience},
             numOfArt=#{numOfArt},
             numOfExcellent=#{numOfExcellent}

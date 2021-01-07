@@ -22,7 +22,7 @@ public interface ExamStaffBiz {
 
     List<ExamStaff> getExStaffListBySchoolId(int schoolId);
 
-    void updateEduExamine(int esId, int eduExmine);
+    void updateEduExamine(int esId, int eduExamine);
 
     List<ExamStaff> getQualifiedExStaffList(int eduId);
 
@@ -35,4 +35,10 @@ public interface ExamStaffBiz {
     int getSchoolId(int esId);
 
     List<ExamStaff> getQualifiedExStaffBySchoolId(int schoolId);
+
+    List<ExamStaff> getExStaffListVerifying(int schoolId);
+
+    List<ExamStaff> getExStaffListVerified(int schoolId);
+
+    void updateSchoolExamine(int esId, int schoolExamine);
 }

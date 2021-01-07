@@ -35,7 +35,7 @@ public class ExamRoomImpl implements ExamRoomBiz {
     @Override
     public int getNumberOfExRoom(int schoolId){
         int res = examRoomMapper.getNumberOfExRoom(schoolId);
-        if(res == 0){
+        if(res == -1){
             throw new ExamRoomException("get number of examRoom error");
         }
         return res;
@@ -67,8 +67,8 @@ public class ExamRoomImpl implements ExamRoomBiz {
     }
 
     @Override
-    public void clearArrange(){
-        int res = examRoomMapper.clearArrange();
+    public void clearArrange(int schoolId){
+        int res = examRoomMapper.clearArrange(schoolId);
         if(res == 0){
             throw new ExamRoomException("clear arrange error");
         }
@@ -89,5 +89,11 @@ public class ExamRoomImpl implements ExamRoomBiz {
         return examRoomMapper.floorsIsArangeOfOneSchool(schoolId);
     }
 
-
+    @Override
+    public void setArrange(int exRoomId){
+        int res = examRoomMapper.setArrange(exRoomId);
+        if(res == 0){
+            throw new ExamRoomException("set arrange error");
+        }
+    }
 }

@@ -69,6 +69,12 @@ export default {
         roomNum: '100000'
       }]
     }
+  },
+  created () {
+    if (this.$store.state.addmissionsId === '') {
+      alert('请不要乱输入网址哦')
+      this.$router.push('/login')
+    }
   }
 }
 </script>

@@ -14,8 +14,8 @@ public class NumberOfCandidatesController {
     @RequestMapping(value = "/Candidates",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     @CrossOrigin
-    NumberOfCandidates numberOfCandidatesGet(int year,int eduId){
-        return numberOfCandidatesBiz.numberOfCandidatesGet(year,eduId);
+    NumberOfCandidates numberOfCandidatesGet(int eduId){
+        return numberOfCandidatesBiz.numberOfCandidatesGet(eduId);
     }
 
     @RequestMapping(value = "/Candidates",method= RequestMethod.POST,produces = {"application/json;charset=UTF-8"})

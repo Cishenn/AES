@@ -8,4 +8,5 @@ public class School{
     String schoolName;
     int eduId;
     int exRoomExamine;
+    String typeOfExaminationSite;
 }

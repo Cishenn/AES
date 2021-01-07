@@ -6,9 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // State提供了唯一的公共数据源，所有共享的数据都要统一放在Store的State中进行存储
   state: {
-    teacherId: {},
-    schoolId: {},
-    addmissionsId: {}
+    teacherId: '',
+    schoolId: '',
+    addmissionsId: ''
   },
   // Mutation用于变更Store中的数据
   mutations: {

@@ -17,11 +17,13 @@ public interface ExamRoomBiz {
 
     void deleteExRoom(int exRoomId);
 
-    void clearArrange();
-
     int roomsIsArangeOfOneSchool(int schoolId);
 
     int floorsIsArange(int eduId);
 
     int floorsIsArangeOfOneSchool(int schoolId);
+    
+    void clearArrange(int schoolId);
+
+    void setArrange(int exRoomId);
 }

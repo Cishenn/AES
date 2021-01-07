@@ -4,16 +4,16 @@
       <el-avatar :src="avatarUrl" :size="60" style="margin-left: 5px; margin-top: 5px;"></el-avatar>
       <span style="font-size:20px; color: #FFFFFF; margin-left: 25px; height: 50px;font-family:Microsoft YaHei;">蜀山区教育局</span>
     </div>
-    <el-menu default-active="1" class="sideNav" :router="true" text-color="gray" active-text-color="#000" border>
-      <el-menu-item index="/addmissions/schoolInfo">
+    <el-menu :default-active="$route.path" class="sideNav" :router="true" text-color="gray" active-text-color="#000" border>
+      <el-menu-item index="/admissions/schoolInfo">
         <i class="el-icon-menu"></i>
         <span class="menuText">下属学校</span>
       </el-menu-item>
-      <el-menu-item index="/addmissions/inputStudents">
+      <el-menu-item index="/admissions/inputStudents">
         <i class="el-icon-menu"></i>
         <span class="menuText">考生信息录入</span>
       </el-menu-item>
-      <el-menu-item index="/addmissions/Allocation">
+      <el-menu-item index="/admissions/Allocation">
         <i class="el-icon-menu"></i>
         <span class="menuText">自动化分配</span>
       </el-menu-item>

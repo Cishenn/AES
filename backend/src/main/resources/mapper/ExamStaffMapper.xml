@@ -63,4 +63,22 @@
         (SELECT schoolId FROM school
         WHERE eduId=#{eduId})
     </update>
+
+    <select id="getExStaffListVerifying" resultType="com.praticaltraining.rsndm.entity.ExamStaff">
+        select * from exam_staff
+        WHERE schoolId = #{schoolId}
+        AND schoolExamine = 1
+    </select>
+
+    <select id="getExStaffListVerified" resultType="com.praticaltraining.rsndm.entity.ExamStaff">
+        select * from exam_staff
+        WHERE schoolId = #{schoolId}
+        AND schoolExamine = 2
+    </select>
+
+    <update id="updateSchoolExamine">
+        UPDATE exam_staff SET
+        schoolExamine = #{schoolExamine}
+        WHERE esId = #{esId}
+    </update>
 </mapper>

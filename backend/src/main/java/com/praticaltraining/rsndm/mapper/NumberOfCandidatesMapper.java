@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface NumberOfCandidatesMapper {
-    NumberOfCandidates numberOfCandidatesGet(int year,int eduId);
+    NumberOfCandidates numberOfCandidatesGet(int eduId);
     int NumberOfCandidatesUpdate(NumberOfCandidates numberOfCandidates);
 }

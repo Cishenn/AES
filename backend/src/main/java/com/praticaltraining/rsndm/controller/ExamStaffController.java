@@ -73,4 +73,28 @@ public class ExamStaffController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/getVerifying")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<ExamStaff>>> getExStaffListVerifying(int schoolId){
+        Map<String,List<ExamStaff>> result = new HashMap<>();
+        result.put("ExamStaff",examStaffBiz.getExStaffListVerifying(schoolId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/getVerified")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<ExamStaff>>> getExStaffListVerified(int schoolId){
+        Map<String,List<ExamStaff>> result = new HashMap<>();
+        result.put("ExamStaff",examStaffBiz.getExStaffListVerified(schoolId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/schoolExamine")
+    @ResponseBody
+    @CrossOrigin
+    void updateSchoolExamine(int esId, int schoolExamine){
+        examStaffBiz.updateSchoolExamine(esId, schoolExamine);
+    }
 }

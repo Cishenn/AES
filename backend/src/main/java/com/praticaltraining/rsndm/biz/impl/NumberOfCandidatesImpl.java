@@ -12,8 +12,8 @@ public class NumberOfCandidatesImpl implements NumberOfCandidatesBiz {
     @Autowired
     private NumberOfCandidatesMapper numberOfCandidatesMapper;
     @Override
-    public NumberOfCandidates numberOfCandidatesGet(int year, int eduId) {
-        NumberOfCandidates res=numberOfCandidatesMapper.numberOfCandidatesGet(year,eduId);
+    public NumberOfCandidates numberOfCandidatesGet(int eduId) {
+        NumberOfCandidates res=numberOfCandidatesMapper.numberOfCandidatesGet(eduId);
         if(res==null){
             throw new NumberOfCandidatesException("NumberOfCandidates get error");
         }

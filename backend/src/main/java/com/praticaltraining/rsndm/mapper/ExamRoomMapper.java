@@ -19,13 +19,13 @@ public interface ExamRoomMapper {
 
     int deleteExRoom(int exRoomId);
 
-    int clearArrange();
-
     int roomsIsArangeOfOneSchool(int schoolId);
 
     int floorsIsArange(int eduId);
 
     int floorsIsArangeOfOneSchool(int schoolId);
 
+    int clearArrange(int schoolId);
 
+    int setArrange(int exRoomId);
 }
