@@ -33,7 +33,7 @@ public class AutoDeployController {
     @Autowired
     private SchoolBiz schoolBiz;
 
-    boolean flag = false;
+    boolean flag1 = true;
 
     @Autowired
     private InvigilatorGroupBiz invigilatorGroupBiz;
@@ -48,10 +48,18 @@ public class AutoDeployController {
     @RequestMapping(value = "/stepOne",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
     List<Integer> autoDeployStepOne(int eduId){
-        //examinationSiteDeploy(eduId);
-        List<Integer> res=invigilatorGroupOfStepOne(eduId);
-        inspectionTeamOfStepOne(eduId);
-        return res;
+        examinationSiteDeploy(eduId);
+        if(flag1 == true){
+            List<Integer> res=invigilatorGroupOfStepOne(eduId);
+            inspectionTeamOfStepOne(eduId);
+            return res;
+        }else{
+            List<Integer> res=new Vector<>();
+            res.add(8);
+            res.add(-1);
+            return res;
+        }
+
     }
 
     @RequestMapping(value = "/stepTwo",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
@@ -63,6 +71,7 @@ public class AutoDeployController {
     List<Integer> invigilatorGroupOfStepOne(int eduId){
         List<Integer> allEduBe = enrollmentDepartmentBiz.eduIdAllBelong(eduId);
         for (int i = 0; i < allEduBe.size(); i++){
+            //清除原本数据
             examStaffBiz.clearArrange(allEduBe.get(i));
             invigilatorGroupBiz.clearIG(allEduBe.get(i));
             invigilatorGroupArrangementBiz.clearIGA(allEduBe.get(i));
@@ -70,12 +79,15 @@ public class AutoDeployController {
             inspectionTeamArrangementBiz.clearITA(allEduBe.get(i));
         }
 
+        //判断性别比例是否满足排考要求
         if(isNiceSexNum(eduId).get(0)==5){
             return isNiceSexNum(eduId);
         }
+        //判断总考务人员数目是否充足
         if(isNiceExamStaffNum(eduId).get(0)==6){
             return isNiceExamStaffNum(eduId);
         }
+        //判断总主考人数是否充足
         if(isNiceExaminerNum(eduId).get(0)==7){
             return isNiceExaminerNum(eduId);
         }
@@ -103,11 +115,14 @@ public class AutoDeployController {
                         Collections.swap(allEsInSch, k, r.nextInt(k + 1));
                     }
                     int count = examRoomBiz.roomsIsArangeOfOneSchool(allSchoolBelongEdu.get(j).getSchoolId());
+                    //当主考人数不足时终止并返回
                     if (allEsInSch.size() < count) {
-                        for (int k = 0; k < allEsInSch.size(); k++) {
-                            invigilatorGroupBiz.createInvigilatorGroup(allEsInSch.get(k).getEsId(), allSchoolBelongEdu.get(j).getEduId());
-                            examStaffBiz.updateToArrange(allEsInSch.get(k).getEsId());
-                        }
+                        List<Integer> res=new Vector<>();
+                        res.add(9);
+                        res.add(allEsInSch.size());
+                        res.add(count);
+                        res.add(-1);
+                        return res;
                     }
                     for (int k = 0; k < count; k++) {
                         invigilatorGroupBiz.createInvigilatorGroup(allEsInSch.get(k).getEsId(), allSchoolBelongEdu.get(j).getEduId());
@@ -276,6 +291,7 @@ public class AutoDeployController {
 
         return 0;
     }
+
     int examinationSiteDeploy(int eduId){
         int numOfScience = 0;
         int numOfArt = 0;
@@ -313,7 +329,7 @@ public class AutoDeployController {
             NumberOfExcellent = numOfExcellent/30;
         }
         if(countExRoom < (NumberOfScience + NumberOfArt + NumberOfExcellent)){
-            flag = false;
+            flag1 = false;
             return -1;
         }
         big:for(int i = 0;i < eduList.size();i++){
