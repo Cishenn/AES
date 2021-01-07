@@ -35,7 +35,7 @@
             </template>
           </el-table-column>
           <el-table-column label="操作" width="180px" align="center">
-            <template>
+            <template slot-scope="scope">
               <el-button size="mini" type="success" @click="handleaccept(scope.$index, scope.row)">批准</el-button>
               <el-button size="mini" type="danger" @click="handlerepuls(scope.$index, scope.row)">打回</el-button>
             </template>
@@ -55,7 +55,7 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="信息上传" class="second">
-        <el-table class="table" :data="teachertablenoneapprove">
+        <el-table border class="table" :data="teacherTableapprove" ref="multipleTable">
           <el-table-column type="selection" width="55" align="center"/>
           <el-table-column label="姓名" prop="name" align="center" width="120px"/>
           <el-table-column label="年龄" prop="age" align="center" width="120px"/>
@@ -69,6 +69,12 @@
               <el-button size="mini">取消</el-button>
             </template>
           </el-table-column>
+          <!-- <el-table-column align="center" label="审核状态" width="180px">
+            <el-tag
+              :type="tags.type">
+              {{tags.name}}
+            </el-tag>
+          </el-table-column> -->
         </el-table>
         <div>
           <el-pagination
@@ -83,7 +89,7 @@
           </el-pagination>
         </div>
         <div>
-          <el-button class="submitBtn">提交给上级招办</el-button>
+          <el-button class="submitBtn" @click="submitBtn">提交给上级招办</el-button>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -99,18 +105,12 @@ export default {
       pagesize: 10,
       total: 0,
       schoolId: this.$store.state.schoolId,
-      teachertablenoneapprove: [{
-        name: '王明',
-        age: '40',
-        phone: '13856781234',
-        sex: '男',
-        grade: '高二',
-        subject: '数学'
-      }]
+      teachertablenoneapprove: [],
+      teacherTableapprove: []
     }
   },
   mounted () {
-    this.getTeachertable()
+    this.run()
   },
   created () {
     if (this.$store.state.schoolId === '') {
@@ -118,20 +118,111 @@ export default {
     }
   },
   methods: {
+    run () {
+      this.getTeachertablenoneapprove()
+      this.getTeachertableapprove()
+      // setTimeout(this.run, 5000)
+    },
+    handlerepuls () {
+      this.$prompt('请输入驳回原因', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        this.$message({
+          type: 'success',
+          message: '驳回成功！'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消驳回'
+        })
+      })
+    },
+    handleaccept (index, row) {
+      this.$confirm('此操作将通过考务人员审核, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios.post(`exStaff/schoolExamine?esId=${row.esId}&schoolExamine=${2}`).then(resp => {
+          this.$message({
+            message: '审核成功',
+            type: 'success'
+          })
+          this.getTeachertablenoneapprove()
+          this.getTeachertableapprove()
+        }).catch(resp => {
+          this.$message({
+            message: '审核失败',
+            type: 'danger'
+          })
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消审核'
+        })
+      })
+    },
+    submitBtn () {
+      console.log(this.$refs.multipleTable.selection.length)
+      this.$confirm('此操作将上交考务人员信息并且之后无法修改, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        var a = true
+        for (let i = 0; i < this.$refs.multipleTable.selection.length; i++) {
+          this.$axios.post(`exStaff/eduExamine?esId=${this.$refs.multipleTable.selection[i].esId}&eduExamine=${1}`)
+            .then(resp => {
+              console.log(resp)
+            }).catch(resp => {
+              a = false
+            })
+        }
+        if (!a) {
+          this.$message({
+            message: '上传失败，请重新上传',
+            type: 'false'
+          })
+        } else {
+          this.$message({
+            message: '上传成功！',
+            type: 'success'
+          })
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消上传'
+        })
+      })
+    },
     handleSizeChange (val) {
       this.pagesize = val
     },
     handleCurrentChange (val) {
       this.currentPage = val
     },
-    getTeachertable () {
-      this.$axios.get('exStaff/getList', {
+    getTeachertablenoneapprove () {
+      this.$axios.get('exStaff/getVerifying', {
         params: {
           schoolId: this.schoolId
         }
       }).then(resp => {
-        console.log(resp.data)
+        // console.log(resp.data)
         this.teachertablenoneapprove = resp.data.ExamStaff
+      })
+    },
+    getTeachertableapprove () {
+      this.$axios.get('exStaff/getVerified', {
+        params: {
+          schoolId: this.schoolId
+        }
+      }).then(resp => {
+        // console.log(resp.data)
+        this.teacherTableapprove = resp.data.ExamStaff
       })
     }
   }

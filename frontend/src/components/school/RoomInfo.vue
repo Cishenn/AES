@@ -214,19 +214,26 @@ export default {
         })
     },
     submitBtn () {
-      this.$confirm('此操作将提交所有考场给招办, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.updateroom()
-      }).catch(() => {
+      if (this.operate === 2) {
         this.$message({
-          type: 'info',
-          message: '已取消提交'
+          message: '当前考场已被招办审核，不能再上传考场!',
+          type: 'warning'
         })
-      })
-      this.getapprovalstate()
+      } else {
+        this.$confirm('此操作将提交所有考场给招办, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.updateroom()
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消提交'
+          })
+        })
+        this.getapprovalstate()
+      }
     },
     modifyexamroom () {
       this.$confirm('此操作将修改考场信息, 是否继续?', '提示', {
