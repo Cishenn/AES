@@ -166,4 +166,13 @@ public class ExamStaffImpl implements ExamStaffBiz {
             throw new ExamStaffException("update SchoolExamine examStaff error");
         }
     }
+
+    @Override
+    public void updateRejection(int esId, String finalRejection){
+        // 此处函数返回值需要int吗?
+        int res = examStaffMapper.updateRejection(esId, finalRejection);
+        if(res == 0){
+            throw new ExamStaffException("update finalRejection examStaff error");
+        }
+    }
 }

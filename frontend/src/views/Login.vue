@@ -43,6 +43,7 @@
 export default {
   data () {
     return {
+      teacherId: '1',
       username: '',
       password: '',
       istrue: false,
@@ -75,15 +76,14 @@ export default {
             password: this.password
           }
         }).then(resp => {
-          if (resp.data === 1) {
+          console.log(resp.data)
+          if (resp.data !== -1) {
             this.$message({
-              message: '登陆成功',
+              message: '登录成功',
               type: 'success'
             })
+            this.$store.commit('setteacherId', resp.data)
             this.$router.push('/teacher')
-          } else if (resp.data === -1) {
-            // alert('用户名或密码错误')
-            this.$message.error('用户名或密码错误')
           }
         }).catch(resp => {
           console.log(resp)

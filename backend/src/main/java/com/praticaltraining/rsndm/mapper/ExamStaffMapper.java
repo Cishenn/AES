@@ -4,6 +4,7 @@ import com.praticaltraining.rsndm.entity.ExamRoom;
 import com.praticaltraining.rsndm.entity.ExamStaff;
 import com.praticaltraining.rsndm.entity.Floor;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface ExamStaffMapper {
 
     int verifyNotPass(int esId);
 
-    int updateExStaff(ExamStaff examStaff);
+    int updateExStaff(@Param("examStaff") ExamStaff examStaff);
 
     List<ExamStaff> getExStaffListBySchoolId(int schoolId);
 
@@ -44,4 +45,6 @@ public interface ExamStaffMapper {
     List<ExamStaff> getExStaffListVerified(int schoolId);
 
     int updateSchoolExamine(int esId, int schoolExamine);
+
+    int updateRejection(int esId, String finalRejection);
 }

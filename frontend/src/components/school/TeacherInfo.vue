@@ -63,18 +63,26 @@
           <el-table-column label="性别" prop="sex" align="center" width="120px"/>
           <el-table-column label="年级" prop="grade" align="center" width="120px"/>
           <el-table-column label="科目" prop="subject" align="center" width="120px"/>
-          <el-table-column label="操作" width="180px" align="center">
+          <!-- <el-table-column label="操作" width="180px" align="center">
             <template>
               <el-button size="mini">选中</el-button>
               <el-button size="mini">取消</el-button>
             </template>
-          </el-table-column>
-          <!-- <el-table-column align="center" label="审核状态" width="180px">
-            <el-tag
-              :type="tags.type">
-              {{tags.name}}
-            </el-tag>
           </el-table-column> -->
+          <el-table-column
+            align="center"
+            prop="tag"
+            label="状态"
+            width="120px"
+            :filters="[{ text: '未提交', value: '未提交' }, { text: '已提交，未审核', value: '已提交,未审核' },{ text: '已审核', value: '已审核' }]"
+            :filter-method="filterTag"
+            filter-placement="bottom-end">
+            <template slot-scope="scope">
+              <el-tag
+                :type="scope.row.finalRejection"
+                disable-transitions>{{scope.row.eduExamine}}</el-tag>
+            </template>
+          </el-table-column>
         </el-table>
         <div>
           <el-pagination
@@ -106,7 +114,8 @@ export default {
       total: 0,
       schoolId: this.$store.state.schoolId,
       teachertablenoneapprove: [],
-      teacherTableapprove: []
+      teacherTableapprove: [],
+      tags: []
     }
   },
   mounted () {
@@ -118,6 +127,9 @@ export default {
     }
   },
   methods: {
+    filterTag (value, row) {
+      return row.eduExamine === value
+    },
     run () {
       this.getTeachertablenoneapprove()
       this.getTeachertableapprove()
@@ -177,6 +189,7 @@ export default {
           this.$axios.post(`exStaff/eduExamine?esId=${this.$refs.multipleTable.selection[i].esId}&eduExamine=${1}`)
             .then(resp => {
               console.log(resp)
+              this.getTeachertableapprove()
             }).catch(resp => {
               a = false
             })
@@ -223,6 +236,19 @@ export default {
       }).then(resp => {
         // console.log(resp.data)
         this.teacherTableapprove = resp.data.ExamStaff
+        console.log(this.teacherTableapprove)
+        for (let i = 0; i < this.teacherTableapprove.length; i++) {
+          if (this.teacherTableapprove[i].eduExamine === 0) {
+            this.teacherTableapprove[i].eduExamine = '未提交'
+            this.teacherTableapprove[i].finalRejection = 'danger'
+          } else if (this.teacherTableapprove[i].eduExamine === 1) {
+            this.teacherTableapprove[i].eduExamine = '已提交,未审核'
+            this.teacherTableapprove[i].finalRejection = 'info'
+          } else if (this.teacherTableapprove[i].eduExamine === 2) {
+            this.teacherTableapprove[i].eduExamine = '已通过'
+            this.teacherTableapprove[i].finalRejection = 'success'
+          }
+        }
       })
     }
   }
