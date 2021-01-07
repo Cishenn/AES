@@ -86,7 +86,10 @@ export default {
             this.$router.push('/teacher')
           }
         }).catch(resp => {
-          console.log(resp)
+          this.$message({
+            message: '服务器无响应',
+            type: 'false'
+          })
         })
       // this.$router.push('/teacher')
       }
@@ -112,6 +115,11 @@ export default {
           } else {
             this.$message.error('用户名或密码错误')
           }
+        }).catch(resp => {
+          this.$message({
+            message: '服务器无响应',
+            type: 'false'
+          })
         })
       }
     },
@@ -135,6 +143,11 @@ export default {
           } else {
             this.$message.error('用户名或密码错误')
           }
+        }).catch(resp => {
+          this.$message({
+            message: '服务器无响应',
+            type: 'false'
+          })
         })
       }
     },

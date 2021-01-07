@@ -15,7 +15,7 @@
         </div>
         <div class="line">
           <i class="el-icon-school"></i>
-          <el-select class="select-box" v-model="schoolId" filterable :filter-method="dataFilter" placeholder="请选择你的学校">
+          <el-select class="select-box" v-model="schoolId" placeholder="请选择你的学校">
             <el-option
               v-for="item in options"
               :key="item.schoolId"
@@ -40,14 +40,7 @@
 
         </div>
         <div>
-          <el-button type="primary" class="button-box" @click="regist">注册</el-button>
-          <div
-          style="
-          margin: 5px;"
-          class="router-to"
-          >
-            <router-link to="/Login" style="text-decoration: none ;color:blue">已有账号，现在去登录</router-link>
-          </div>
+          <el-button type="primary" class="button-box" @click="regist">Regist</el-button>
         </div>
       </div>
     </div>
@@ -65,12 +58,11 @@ export default {
     return {
       identifyCodes: '1234567890',
       identifyCode: '',
-      url: '../assets/classify.jpg',
+      // url: '../assets/classify.jpg',
       phonenum: '',
       password: '',
       schoolId: '',
       identity: '',
-      optionsCopy: [],
       options: [{
         schoolId: 1,
         schoolName: '合工大'
@@ -89,61 +81,30 @@ export default {
     this.$axios.get('school/school')
       .then(resp => {
         this.options = resp.data.School
-        this.optionsCopy = resp.data.School
         console.log(this.options[0])
       })
   },
   methods: {
-    dataFilter (val) {
-      this.schoolId = val
-      if (val) {
-        this.options = this.optionsCopy.filter((item) => {
-          if (!!~item.schoolName.indexOf(val) || !!~item.schoolName.toUpperCase().indexOf(val.toUpperCase())) {
-            return true
-          }
-        })
-      } else {
-        this.options = this.optionsCopy
-      }
-    },
     standardphonenum () {
       const phoneCodeVerification = /^[1][3,4,5,7,8][0-9]{9}$/
       if (!phoneCodeVerification.test(this.phonenum)) {
-        this.$message.error('电话号码格式错误!')
+        alert('电话号码格式错误')
         return false
       } else {
         return true
       }
     },
     regist () {
-      if (this.phonenum !== '' && this.password !== '' && this.schoolId !== '') {
-        if (this.standardphonenum()) {
-          if (this.identity === this.identifyCode) {
+      if (this.standardphonenum() && this.password !== '' && this.schoolId !== '') {
+        if (this.identity === this.identifyCode) {
           // console.log('success')
-            this.$axios.post(`testPersonnelLogin/register?telephoneNumber=${this.phonenum}&password=${this.password}&schoolId=${this.schoolId}`)
-              .then(resp => {
-                console.log(resp)
-                this.$message({
-                  message: '注册成功!',
-                  type: 'success'
-                })
-                this.$router.push('/login')
-              }).catch(resp => {
-                this.$message.error('注册失败，已存在该手机号的账号')
-              })
-          } else {
-            this.$message({
-              message: '验证码有误，请重新填写!',
-              type: 'warning'
-            })
-            this.refreshCode()
-          }
+
+        } else {
+          this.$message('验证码有误，请重新填写!')
+          this.refreshCode()
         }
       } else {
-        this.$message({
-          message: '请输入完整的信息!',
-          type: 'warning'
-        })
+        this.$message('请输入完整的信息')
       }
     },
     randomNum (min, max) {
@@ -199,7 +160,7 @@ i{
 .box{
   width: 100vw;
   height: 100vh;
-  background: url("../assets/back1.jpg") no-repeat;
+  /* background: url("../assets/back1.jpg") no-repeat; */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

@@ -135,15 +135,24 @@ export default {
       this.getTeachertableapprove()
       // setTimeout(this.run, 5000)
     },
-    handlerepuls () {
+    handlerepuls (index, row) {
       this.$prompt('请输入驳回原因', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消'
       }).then(({ value }) => {
-        this.$message({
-          type: 'success',
-          message: '驳回成功！'
-        })
+        this.$axios.post(`exStaff/finalRejection?esId=${row.esId}&finalRejection=${value}`)
+          .then(resp => {
+            this.$message({
+              type: 'success',
+              message: '驳回成功！'
+            })
+            this.getTeachertablenoneapprove()
+          }).catch(resp => {
+            this.$message({
+              message: '服务器无响应',
+              type: 'false'
+            })
+          })
       }).catch(() => {
         this.$message({
           type: 'info',
