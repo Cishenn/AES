@@ -81,8 +81,7 @@
           <el-button type="primary" @click="save">保存</el-button>
         </el-form-item>
       </el-form>
-  </div>
-
+    </div>
   </div>
 </template>
 
@@ -145,11 +144,9 @@ export default {
   },
   created () {
     if (this.$store.state.teacherId === '') {
-      // alert('不要随便乱进哦!')
       this.$router.push('/login')
     }
     this.personInfo.esId = this.$store.getters.getTeacherId
-    console.log(this.personInfo.esId)
     this.getSchools()
     this.getPersonalInfo()
   },
@@ -236,18 +233,50 @@ export default {
       this.personInfo.grade = this.form.grade
     },
     checkStatus () {
-      this.$notify({
-        title: '当前审核进度',
-        message: '这是提示文案',
-        duration: 3000
-      })
+      this.$axios
+        .get('exStaff/exStaff/exStaffId', {
+          params: {
+            esId: this.personInfo.esId
+          }
+        })
+        .then(resp => {
+          const checkCode = resp.data.schoolExamine
+          const desc = resp.data.finalRejection
+          const msg = this.getStatusInfo(checkCode, desc)
+          this.$notify({
+            title: '当前审核进度',
+            message: msg,
+            duration: 3000
+          })
+        })
+    },
+    getStatusInfo (checkCode, desc) {
+      let msg = ''
+      switch (checkCode) {
+        case 2:
+          msg = '已通过审核'
+          break
+        case 1:
+          msg = '信息审核中'
+          break
+        case 0:
+          msg = '信息未提交'
+          break
+        case -1:
+          msg = '提交被拒绝' + '\n' + desc
+          break
+        default:
+          msg = '出错了！'
+          break
+      }
+      return msg
     }
   }
 }
 
 </script>
 <style scoped>
-.box{
+.box {
   border-radius: 5px;
   padding: 20px;
 }
@@ -256,16 +285,16 @@ export default {
   float: right;
 }
 
-.title-box{
+.title-box {
   font-size: 20px;
   margin-bottom: 20px;
 }
 
-.Settinginfo{
+.Settinginfo {
   margin-left: 60px;
 }
 
-.upload-image{
+.upload-image {
   display: flex;
   align-items: center;
 }
