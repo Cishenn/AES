@@ -227,7 +227,7 @@ public class AutoDeployController {
             }
         }
         List<Integer> res=new Vector<>();
-        if(roomSum*3+examRoomBiz.floorsIsArange(eduId)>allStaff.size()){
+        if(roomSum*3+examRoomBiz.floorsIsArange(eduId)*2>allStaff.size()){
             res.add(6);
             res.add(roomSum*3+examRoomBiz.floorsIsArange(eduId)*2);
             res.add(allStaff.size());
