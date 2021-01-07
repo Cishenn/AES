@@ -261,6 +261,7 @@ public class AutoDeployController {
 
     int inspectionTeamOfStepOne(int eduId){
         List<ExamStaff> allStaff = examStaffBiz.allNoArrangeGetByEduId(eduId);
+        //打乱顺序
         Random r = new Random();
         for (int i = allStaff.size() - 1; i > 0; i--) {
             Collections.swap(allStaff, i, r.nextInt(i + 1));
