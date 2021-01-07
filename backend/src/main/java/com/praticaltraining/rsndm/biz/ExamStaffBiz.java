@@ -41,4 +41,6 @@ public interface ExamStaffBiz {
     List<ExamStaff> getExStaffListVerified(int schoolId);
 
     void updateSchoolExamine(int esId, int schoolExamine);
+
+    void updateRejection(int esId, String finalRejection);
 }

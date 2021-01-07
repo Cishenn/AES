@@ -84,7 +84,7 @@
 
     <update id="updateRejection">
         UPDATE exam_staff SET
-        finalRejection = #{finalRejection}
+        finalRejection = #{finalRejection},
         schoolExamine = -1
         WHERE esId = #{esId}
     </update>

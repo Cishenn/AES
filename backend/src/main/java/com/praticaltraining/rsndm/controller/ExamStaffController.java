@@ -97,4 +97,11 @@ public class ExamStaffController {
     void updateSchoolExamine(int esId, int schoolExamine){
         examStaffBiz.updateSchoolExamine(esId, schoolExamine);
     }
+
+    @PostMapping("/finalRejection")
+    @ResponseBody
+    @CrossOrigin
+    void updateRejection(int esId, String finalRejection){
+        examStaffBiz.updateRejection(esId, finalRejection);
+    }
 }
