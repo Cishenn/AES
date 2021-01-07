@@ -1,0 +1,691 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:w="urn:schemas-microsoft-com:office:word"
+    xmlns="http://www.w3.org/TR/REC-html40">
+    <head><meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <style type="text/css">
+        table  
+        {  
+            border-collapse: collapse;
+            border: none;  
+            width: 100%;  
+        }  
+        td,tr  
+        {  
+            border: solid #CCC 1px;
+            padding:3px;
+            font-size:9pt;
+        } 
+        .codestyle{
+            word-break: break-all;
+            mso-highlight:rgb(252, 252, 252);
+            padding-left: 5px; background-color: rgb(252, 252, 252); border: 1px solid rgb(225, 225, 232);
+        }
+        img {
+            width:100;
+        }
+    </style>
+    <meta name=ProgId content=Word.Document>
+    <meta name=Generator content="Microsoft Word 11">
+    <meta name=Originator content="Microsoft Word 11">
+    <xml><w:WordDocument><w:View>Print</w:View></xml></head>
+    <body><h1>1、通过id查考务人员信息接口</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>根据考务人员id传考务人员信息</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/exStaff/exStaffId</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET</li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">esId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考务人员id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">examStaff</td>
+<td style="text-align: left;">examStaff</td>
+<td>考务人员对象</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>2、更新考务人员信息接口</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>更新考务人员信息并提交审核</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/update</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">examStaff</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">examStaff</td>
+<td>考务人员对象</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>错误时会抛出异常</li>
+</ul></div><h1>3、查考务人员所在巡考组接口</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>根据考务人员id查所在巡考组</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/examStaff_it_itA/examStaff_it_itA</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">esId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考务人员id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">examStaff_it_itA</td>
+<td style="text-align: left;">examStaff_it_itA</td>
+<td>这个对象包含三个对象：1.考务人员对象 examStaff 2. 巡考组对象 inspectionTeam 3. 巡考组安排对象inspectionTeamArrangement</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>
+</li>
+</ul></div><h1>4、查考务人员所在监考组</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>根据考务人员id查所在监考组</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/examStaff_ig_igA/examStaff_ig_igA</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">esId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考务人员id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">examStaff_ig_igA</td>
+<td style="text-align: left;">examStaff_ig_igA</td>
+<td>这个对象包含三个对象：1.考务人员对象 examStaff 2. 监考组对象 invigilatorGroup 3. 监考组安排对象 invigilatorGroupArrangement</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>
+</li>
+</ul></div><h1>5、根据考务人员id来进行通过审核的操作</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>根据考务人员id来进行通过审核的操作</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/exStaff</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">esId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考务人员ID</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>错误时会抛出异常</li>
+</ul></div><h1>6、根据考务人员id进行schoolExamine修改状态</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>根据考务人员id进行schoolExamine修改状态</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/schoolExamine</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">esId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考务人员ID</td>
+</tr>
+<tr>
+<td style="text-align: left;">schoolExamine</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>审核状态(0: 未通过; 1 审核中; 2通过)</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>错误时会抛出异常</li>
+</ul></div><h1>7、根据学校id传考务人员的信息</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>根据学校id传考务人员的信息</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/getList</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET</li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">schoolId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>学校id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">examStaff</td>
+<td style="text-align: left;">examStaff</td>
+<td>考务人员对象</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>8、根据考务人员id传考务人员信息</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>根据考务人员id传考务人员信息</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/exStaff/exStaffId</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET</li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">esId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考务人员id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">examStaff</td>
+<td style="text-align: left;">examStaff</td>
+<td>考务人员对象</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>9、传全部已通过招生部门审核的考务人员的信息</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>!!!该接口目前不可用)</li>
+<li>传全部已通过招生部门审核的考务人员的信息</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/getQualifiedList</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET</li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">esId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考务人员id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">examStaff</td>
+<td style="text-align: left;">examStaff</td>
+<td>考务人员对象</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>10、招办审核考务人员信息，根据考务人员id进行（未）通过审核的相关操作</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>招办审核考务人员信息，根据考务人员id进行（未）通过审核的相关操作</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/eduExamine</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">esId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考务人员ID</td>
+</tr>
+<tr>
+<td style="text-align: left;">eduExamine</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>审核状态(0: 未通过; 1 审核中; 2通过)</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>错误时会抛出异常</li>
+</ul></div><h1>11、属于本校人员且schoolexamine为1的所有数据</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>属于本校人员且schoolexamine为1的所有数据</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/getVerifying</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET</li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">schoolId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>学校id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">examStaff</td>
+<td style="text-align: left;">examStaff</td>
+<td>考务人员对象</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>12、属于本校人员且schoolexamine为2的所有数据</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>属于本校人员且schoolexamine为2的所有数据</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/getVerified</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>GET</li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">schoolId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>学校id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">examStaff</td>
+<td style="text-align: left;">examStaff</td>
+<td>考务人员对象</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回错误代码请看首页的错误代码描述</li>
+</ul></div><h1>13、通过esId, 更新finalExamine 并设置schoolExamine为-1</h1><div style="margin-left:20px;"><h5>简要描述</h5>
+<ul>
+<li>通过esId, 更新finalExamine 并设置schoolExamine为-1</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>localhost:8080/exStaff/finalRejection</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">esId</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>考务人员ID</td>
+</tr>
+<tr>
+<td style="text-align: left;">finalExamine</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">String</td>
+<td>驳回意见</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code></code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>错误时会抛出异常</li>
+</ul></div></body></html>
