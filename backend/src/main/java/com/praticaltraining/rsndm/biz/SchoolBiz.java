@@ -16,4 +16,6 @@ public interface SchoolBiz {
     String getSchoolName(int schoolId);
 
     void setType(int schoolId,String typeOfExaminationSite);
+    
+    int getState(int schoolId);
 }

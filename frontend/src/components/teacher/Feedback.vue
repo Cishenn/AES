@@ -25,7 +25,12 @@ export default {
       reason: ''
     }
   },
-
+  created () {
+    if (this.$store.state.teacherId === '') {
+      // alert('不要随便乱进哦!')
+      this.$router.push('/login')
+    }
+  },
   components: {},
 
   computed: {},

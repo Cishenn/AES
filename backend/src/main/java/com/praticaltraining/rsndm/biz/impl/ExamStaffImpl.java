@@ -111,4 +111,31 @@ public class ExamStaffImpl implements ExamStaffBiz {
             throw new ExamStaffException("clear arrange error");
         }
     }
+
+    @Override
+    public List<ExamStaff> getExStaffListVerifying(int schoolId){
+        List<ExamStaff> res = examStaffMapper.getExStaffListVerifying(schoolId);
+        if(res == null){
+            throw new ExamStaffException("get ExamStaff Verifying error");
+        }
+        return res;
+    }
+
+    @Override
+    public List<ExamStaff> getExStaffListVerified(int schoolId){
+        List<ExamStaff> res = examStaffMapper.getExStaffListVerified(schoolId);
+        if(res == null){
+            throw new ExamStaffException("get ExamStaff Verified error");
+        }
+        return res;
+    }
+
+    @Override
+    public void updateSchoolExamine(int esId, int schoolExamine){
+        // 此处函数返回值需要int吗?
+        int res = examStaffMapper.updateSchoolExamine(esId, schoolExamine);
+        if(res == 0){
+            throw new ExamStaffException("update SchoolExamine examStaff error");
+        }
+    }
 }
