@@ -1,6 +1,10 @@
 <template>
   <div class="box">
-    <div class="title-box">个人信息</div>
+    <div class="title-box">个人信息
+      <el-tooltip effect="light" content="查看当前审核进度">
+        <el-button icon="el-icon-view" circle @click="checkStatus" class="checkBtn" />
+      </el-tooltip>
+    </div>
     <div class="Settinginfo">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="上传头像" prop="avatar">
@@ -230,6 +234,13 @@ export default {
       this.personInfo.sex = this.form.gender
       this.personInfo.schoolId = this.form.school
       this.personInfo.grade = this.form.grade
+    },
+    checkStatus () {
+      this.$notify({
+        title: '当前审核进度',
+        message: '这是提示文案',
+        duration: 3000
+      })
     }
   }
 }
@@ -237,22 +248,28 @@ export default {
 </script>
 <style scoped>
 .box{
-
   border-radius: 5px;
   padding: 20px;
 }
+
+.checkBtn {
+  float: right;
+}
+
 .title-box{
   font-size: 20px;
-  /* color: red; */
   margin-bottom: 20px;
 }
+
 .Settinginfo{
   margin-left: 60px;
 }
+
 .upload-image{
   display: flex;
   align-items: center;
 }
+
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
@@ -260,9 +277,11 @@ export default {
   position: relative;
   overflow: hidden;
 }
+
 .avatar-uploader .el-upload:hover {
   border-color: #409EFF;
 }
+
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -271,6 +290,7 @@ export default {
   line-height: 178px;
   text-align: center;
 }
+
 .avatar {
   width: 178px;
   height: 178px;
