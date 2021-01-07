@@ -84,6 +84,8 @@ export default {
             })
             this.$store.commit('setteacherId', resp.data)
             this.$router.push('/teacher')
+          } else {
+            this.$message.error('用户名或密码错误')
           }
         }).catch(resp => {
           this.$message({
