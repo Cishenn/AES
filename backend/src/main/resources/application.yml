@@ -2,8 +2,8 @@ spring:
   datasource:
     url: jdbc:mysql://${DATABASE_URL}/autoexam?serverTimezone=GMT%2B8&verifyServerCertificate=false&useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 123
+    username: ${USER}
+    password: ${PASSWORD}
   jackson:
     date-format: 'yyyy-MM-dd HH:mm:ss'
 mybatis:

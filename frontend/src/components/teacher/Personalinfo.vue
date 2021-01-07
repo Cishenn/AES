@@ -101,10 +101,11 @@ export default {
           { required: true, message: '请输入姓名', trigger: 'blur' }
         ],
         phone: [
-          { required: true, message: '请输入号码', trigger: 'blur' }
+          { required: true, message: '请输入号码', trigger: 'blur' },
+          { min: 11, max: 11, message: '请写正确号码', trigger: 'blur' }
         ],
         gender: [
-          { required: true, message: '请输入性别', trigger: 'change' }
+          { required: true, message: '请输入性别', trigger: 'blur' }
         ],
         school: [
           { required: true, message: '请输入学校', trigger: 'blur' }
@@ -113,7 +114,6 @@ export default {
           { required: true, message: '请输入年级', trigger: 'blur' }
         ]
       },
-      esId: '',
       grades: [
         {
           value: '高一',
@@ -130,6 +130,7 @@ export default {
       ],
       schools: [],
       personInfo: {
+        esId: '',
         name: '',
         telephoneNumber: '',
         sex: '',
@@ -138,15 +139,13 @@ export default {
       }
     }
   },
-  mounted () {
-    this.getinfo()
-  },
   created () {
     if (this.$store.state.teacherId === '') {
       // alert('不要随便乱进哦!')
       this.$router.push('/login')
     }
-    this.esId = this.$store.getters.getTeacherId
+    this.personInfo.esId = this.$store.getters.getTeacherId
+    console.log(this.personInfo.esId)
     this.getSchools()
     this.getPersonalInfo()
   },
@@ -170,7 +169,7 @@ export default {
       this.$axios
         .get('exStaff/exStaff/exStaffId', {
           params: {
-            esId: this.esId
+            esId: this.personInfo.esId
           }
         })
         .then(resp => {
@@ -187,28 +186,31 @@ export default {
         if (valid) {
           if (this.hasSomeChanges()) {
             this.updatePersonalInfo()
-            console.log(this.esId)
             this.saveChanges()
-            alert('修改信息成功')
+            this.$message({
+              type: 'success',
+              message: '修改信息成功'
+            })
           } else {
-            alert('您没有修改任何信息')
+            this.$message({
+              type: 'info',
+              message: '您没有修改任何信息'
+            })
           }
         } else {
-          alert('您有必填信息未填写')
+          this.$message({
+            type: 'error',
+            message: '您的表单尚未完成'
+          })
           return false
         }
       })
     },
     saveChanges () {
       this.$axios
-        .get('exStaff/update', {
-          params: {
-            esId: this.esId,
-            name: this.form.name,
-            telephoneNumber: this.personInfo.telephoneNumber,
-            sex: this.personInfo.sex,
-            schoolId: this.personInfo.schoolId,
-            grade: this.personInfo.grade
+        .post('exStaff/update', JSON.stringify(this.personInfo), {
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
           }
         })
     },
