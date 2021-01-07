@@ -12,6 +12,34 @@
        SELECT name FROM exam_staff
        WHERE esId=#{esId};
     </select>
+    <update id="updateToArrange" parameterType="ExamStaff">
+        UPDATE exam_staff SET
+        isArrange=1
+        WHERE esId = #{esId}
+    </update>
+
+    <select id="allNoArrangeGetByEduId" resultType="ExamStaff">
+       SELECT * FROM exam_staff
+       WHERE isArrange=0 AND eduExamine=2 AND schoolId IN
+       (SELECT schoolId FROM school
+       WHERE eduId IN (
+       SELECT eduId FROM enrollment_department
+       WHERE higherEduId=#{eduId}
+       ))
+    </select>
+
+    <select id="getSchoolId" resultType="int">
+       SELECT schoolId FROM exam_staff
+       WHERE esId=#{esId};
+    </select>
+
+    <select id="getQualifiedExStaffBySchoolId" resultType="ExamStaff">
+        select * from exam_staff
+        WHERE schoolId = #{schoolId} AND qualified=1
+    </select>
+
+
+
 </mapper>
 
 

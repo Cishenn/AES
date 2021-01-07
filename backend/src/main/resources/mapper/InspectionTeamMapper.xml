@@ -13,5 +13,14 @@
 
     <delete id="clearIT">
         DELETE FROM inspection_team
+        WHERE eduId=#{eduId}
     </delete>
+
+    <insert id="createInspectionTeam" parameterType="int">
+        INSERT INTO inspection_team (
+           firstInspectionPersonId,secondInspectionPersonId,eduId
+        ) VALUES (
+           #{firstInspectionPersonId},#{secondInspectionPersonId},#{eduId}
+        )
+    </insert>
 </mapper>

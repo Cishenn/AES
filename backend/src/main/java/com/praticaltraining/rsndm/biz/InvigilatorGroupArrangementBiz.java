@@ -7,5 +7,7 @@ import java.util.List;
 public interface InvigilatorGroupArrangementBiz {
     List<InvigilatorGroupArrangement> getAllInvigilatorGroupArrangementOfOneInvigilatorGroup(int invigilatorGroupId);
 
-    void clearIGA();
+    void clearIGA(int eduId);
+
+    void createInvigilatorGroupArr(int invigilatorGroupId,int schoolId);
 }

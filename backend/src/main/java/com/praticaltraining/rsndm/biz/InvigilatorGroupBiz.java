@@ -7,5 +7,13 @@ import java.util.List;
 public interface InvigilatorGroupBiz {
     List<InvigilatorGroup> getAllByEduId(int eduId);
 
-    void clearIG();
+    List<InvigilatorGroup> getAllByHighEduId(int higherEduId);
+
+    void clearIG(int eduId);
+
+    void createInvigilatorGroup(int examinerId,int eduId);
+
+    void setFirst(int firstInvigilatorId,int invigilatorGroupId);
+
+    void setSecond(int secondInvigilatorId,int invigilatorGroupId);
 }

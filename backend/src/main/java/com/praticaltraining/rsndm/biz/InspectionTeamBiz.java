@@ -9,5 +9,7 @@ public interface InspectionTeamBiz {
 
     List<InspectionTeam> getAllByEduId(int eduId);
 
-    void clearIT();
+    void clearIT(int eduId);
+
+    void createInspectionTeam(int firstInspectionPersonId,int secondInspectionPersonId,int eduId);
 }

@@ -3,6 +3,8 @@ package com.praticaltraining.rsndm.biz.impl;
 import com.praticaltraining.rsndm.biz.InspectionTeamArrangementBiz;
 import com.praticaltraining.rsndm.entity.InspectionTeamArrangement;
 import com.praticaltraining.rsndm.exception.InspectionTeamArrangementException;
+import com.praticaltraining.rsndm.exception.InspectionTeamException;
+import com.praticaltraining.rsndm.exception.InvigilatorGroupArrangementException;
 import com.praticaltraining.rsndm.mapper.InspectionTeamArrangementMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +26,15 @@ public class InspectionTeamArrangementImpl implements InspectionTeamArrangementB
     }
 
     @Override
-    public void clearITA(){
-        int res = inspectionTeamArrangementMapper.clearITA();
+    public void clearITA(int eduId){
+        inspectionTeamArrangementMapper.clearITA(eduId);
+    }
+
+    @Override
+    public void createInspectionTeamArrange(int inspectionTeamId, int schoolId) {
+        int res = inspectionTeamArrangementMapper.createInspectionTeamArrange(inspectionTeamId,schoolId);
         if(res == 0){
-            throw new InspectionTeamArrangementException("clear ITA error");
+            throw new InspectionTeamArrangementException("create ITA error");
         }
     }
 }

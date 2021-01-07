@@ -40,4 +40,25 @@
         update exam_room SET
         isArrange = 0
     </update>
+
+    <select id="roomsIsArangeOfOneSchool" resultType="int">
+        select COUNT(*) from exam_room
+        WHERE schoolId = #{schoolId} AND isArrange= 1
+    </select>
+
+    <select id="floorsIsArange" resultType="int">
+        select COUNT(distinct floorId) from exam_room
+        where isArrange= 1 AND schoolId IN(
+            select schoolId from school
+            where eduId IN(
+                select eduId from enrollment_department
+                where higherEduId=#{eduId}
+            )
+        )
+    </select>
+
+    <select id="floorsIsArangeOfOneSchool" resultType="int">
+        select COUNT(distinct floorId) from exam_room
+        where isArrange= 1 AND schoolId=#{schoolId}
+    </select>
 </mapper>

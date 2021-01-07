@@ -9,5 +9,7 @@ import java.util.List;
 public interface InspectionTeamArrangementMapper {
     List<InspectionTeamArrangement> getAllInspectionTeamArrangementOfOneInspectionTeam(int inspectionTeamId);
 
-    int clearITA();
+    int clearITA(int eduId);
+
+    int createInspectionTeamArrange(int inspectionTeamId,int schoolId);
 }

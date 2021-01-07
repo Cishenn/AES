@@ -24,10 +24,40 @@ public class InvigilatorGroupImpl implements InvigilatorGroupBiz {
     }
 
     @Override
-    public void clearIG(){
-        int res = invigilatorGroupMapper.clearIG();
+    public List<InvigilatorGroup> getAllByHighEduId(int higherEduId) {
+        List<InvigilatorGroup> res=invigilatorGroupMapper.getAllByHighEduId(higherEduId);
+        if(res==null){
+            throw new InvigilatorGroupException("InvigilatorGroup getAllbyHigherEduId error");
+        }
+        return res;
+    }
+
+    @Override
+    public void clearIG(int eduId){
+        invigilatorGroupMapper.clearIG(eduId);
+    }
+
+    @Override
+    public void createInvigilatorGroup(int examinerId, int eduId) {
+        int res = invigilatorGroupMapper.createInvigilatorGroup(examinerId,eduId);
         if(res == 0){
-            throw new InvigilatorGroupException("Clear IG error");
+            throw new InvigilatorGroupException("create IG error");
+        }
+    }
+
+    @Override
+    public void setFirst(int firstInvigilatorId,int invigilatorGroupId) {
+        int res = invigilatorGroupMapper.setFirst(firstInvigilatorId,invigilatorGroupId);
+        if(res == 0){
+            throw new InvigilatorGroupException("set IG first error");
+        }
+    }
+
+    @Override
+    public void setSecond(int secondInvigilatorId,int invigilatorGroupId) {
+        int res = invigilatorGroupMapper.setSecond(secondInvigilatorId,invigilatorGroupId);
+        if(res == 0){
+            throw new InvigilatorGroupException("set IG second error");
         }
     }
 }

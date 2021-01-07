@@ -7,5 +7,16 @@
 
     <delete id="clearIGA">
         DELETE FROM invigilator_group_arrangement
+        WHERE schoolId IN
+        (SELECT schoolId FROM school
+        WHERE eduId=#{eduId})
     </delete>
+
+    <insert id="createInvigilatorGroupArr" parameterType="int">
+        INSERT INTO invigilator_group_arrangement (
+           invigilatorGroupId,schoolId
+        ) VALUES (
+           #{invigilatorGroupId},#{schoolId}
+        )
+    </insert>
 </mapper>

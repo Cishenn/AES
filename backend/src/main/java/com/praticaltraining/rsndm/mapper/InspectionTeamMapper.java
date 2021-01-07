@@ -11,5 +11,7 @@ public interface InspectionTeamMapper {
 
     List<InspectionTeam> getAllByEduId(int eduId);
 
-    int clearIT();
+    int clearIT(int eduId);
+
+    int createInspectionTeam(int firstInspectionPersonId,int secondInspectionPersonId,int eduId);
 }

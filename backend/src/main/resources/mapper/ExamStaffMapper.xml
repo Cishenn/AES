@@ -59,5 +59,8 @@
     <update id="clearArrange">
         update exam_staff SET
         isArrange = 0
+        WHERE schoolId IN
+        (SELECT schoolId FROM school
+        WHERE eduId=#{eduId})
     </update>
 </mapper>

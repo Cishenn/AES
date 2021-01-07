@@ -6,8 +6,37 @@
        WHERE eduId=#{eduId};
     </select>
 
-    <delete id="clearIG">
+    <select id="getAllByHighEduId" resultType="InvigilatorGroup" parameterType="int">
+       SELECT * FROM invigilator_group
+       WHERE eduId IN(
+       SELECT eduId FROM enrollment_department
+       WHERE higherEduId=#{higherEduId}
+       );
+    </select>
+
+    <delete id="clearIG" parameterType="int">
         DELETE FROM invigilator_group
+        WHERE eduId=#{eduId}
     </delete>
+
+    <insert id="createInvigilatorGroup" parameterType="int">
+        INSERT INTO invigilator_group (
+           examinerId,eduId
+        ) VALUES (
+           #{examinerId},#{eduId}
+        )
+    </insert>
+
+    <update id="setFirst">
+        UPDATE invigilator_group SET
+        firstInvigilatorId = #{firstInvigilatorId}
+        WHERE invigilatorGroupId = #{invigilatorGroupId}
+    </update>
+
+    <update id="setSecond">
+        UPDATE invigilator_group SET
+        secondInvigilatorId = #{secondInvigilatorId}
+        WHERE invigilatorGroupId = #{invigilatorGroupId}
+    </update>
 
 </mapper>

@@ -24,10 +24,15 @@ public class InvigilatorGroupArrangementImpl implements InvigilatorGroupArrangem
     }
 
     @Override
-    public void clearIGA(){
-        int res = invigilatorGroupArrangementMapper.clearIGA();
+    public void clearIGA(int eduId){
+        invigilatorGroupArrangementMapper.clearIGA(eduId);
+    }
+
+    @Override
+    public void createInvigilatorGroupArr(int invigilatorGroupId, int schoolId) {
+        int res = invigilatorGroupArrangementMapper.createInvigilatorGroupArr(invigilatorGroupId,schoolId);
         if(res == 0){
-            throw new InvigilatorGroupArrangementException("clear IGA error");
+            throw new InvigilatorGroupArrangementException("create IGA error");
         }
     }
 }

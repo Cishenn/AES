@@ -73,4 +73,21 @@ public class ExamRoomImpl implements ExamRoomBiz {
             throw new ExamRoomException("clear arrange error");
         }
     }
+
+    @Override
+    public int roomsIsArangeOfOneSchool(int schoolId) {
+        return examRoomMapper.roomsIsArangeOfOneSchool(schoolId);
+    }
+
+    @Override
+    public int floorsIsArange(int eduId) {
+        return examRoomMapper.floorsIsArange(eduId);
+    }
+
+    @Override
+    public int floorsIsArangeOfOneSchool(int schoolId) {
+        return examRoomMapper.floorsIsArangeOfOneSchool(schoolId);
+    }
+
+
 }

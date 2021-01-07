@@ -29,5 +29,13 @@ public interface ExamStaffMapper {
 
     List<ExamStaff> getQualifiedExStaffList(int eduId);
 
-    int clearArrange();
+    int clearArrange(int eduId);
+
+    int updateToArrange(int esId);
+
+    List<ExamStaff> allNoArrangeGetByEduId(int eduId);
+
+    int getSchoolId(int esId);
+
+    List<ExamStaff> getQualifiedExStaffBySchoolId(int schoolId);
 }

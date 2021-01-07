@@ -105,10 +105,38 @@ public class ExamStaffImpl implements ExamStaffBiz {
     }
 
     @Override
-    public void clearArrange(){
-        int res = examStaffMapper.clearArrange();
+    public void clearArrange(int eduId){
+        examStaffMapper.clearArrange(eduId);
+    }
+
+    @Override
+    public void updateToArrange(int esId) {
+        int res = examStaffMapper.updateToArrange(esId);
         if(res == 0){
-            throw new ExamStaffException("clear arrange error");
+            throw new ExamStaffException("update arrange error");
         }
+    }
+
+    @Override
+    public List<ExamStaff> allNoArrangeGetByEduId(int eduId) {
+        List<ExamStaff> res = examStaffMapper.allNoArrangeGetByEduId(eduId);
+        if(res == null){
+            throw new ExamStaffException("get allNoArrange ExStaff List error");
+        }
+        return res;
+    }
+
+    @Override
+    public int getSchoolId(int esId) {
+        return examStaffMapper.getSchoolId(esId);
+    }
+
+    @Override
+    public List<ExamStaff> getQualifiedExStaffBySchoolId(int schoolId) {
+        List<ExamStaff> res = examStaffMapper.getQualifiedExStaffBySchoolId(schoolId);
+        if(res == null){
+            throw new ExamStaffException("get QualifiedExStaffBySchoolId ExStaff List error");
+        }
+        return res;
     }
 }

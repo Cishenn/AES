@@ -6,6 +6,17 @@
     </select>
 
     <delete id="clearITA">
-        delete FROM inspection_team_arrangement
+        DELETE FROM inspection_team_arrangement
+        WHERE schoolId IN
+        (SELECT schoolId FROM school
+        WHERE eduId=#{eduId})
     </delete>
+
+    <insert id="createInspectionTeamArrange" parameterType="int">
+        INSERT INTO inspection_team_arrangement (
+           inspectionTeamId,schoolId
+        ) VALUES (
+           #{inspectionTeamId},#{schoolId}
+        )
+    </insert>
 </mapper>
