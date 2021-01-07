@@ -45,4 +45,6 @@ public interface ExamStaffMapper {
     List<ExamStaff> getExStaffListVerified(int schoolId);
 
     int updateSchoolExamine(int esId, int schoolExamine);
+
+    int updateRejection(int esId, String finalRejection);
 }

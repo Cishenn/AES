@@ -81,4 +81,11 @@
         schoolExamine = #{schoolExamine}
         WHERE esId = #{esId}
     </update>
+
+    <update id="updateRejection">
+        UPDATE exam_staff SET
+        finalRejection = #{finalRejection}
+        schoolExamine = -1
+        WHERE esId = #{esId}
+    </update>
 </mapper>
