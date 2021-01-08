@@ -47,4 +47,6 @@ public interface ExamStaffMapper {
     int updateSchoolExamine(int esId, int schoolExamine);
 
     int updateRejection(int esId, String finalRejection);
+
+    int addStateMessage(int esId, String stateMessage);
 }
