@@ -1,12 +1,12 @@
 <template>
   <div class="schoolInfo">
     <div class="container">
-      <div style="font-size:20px;color: #FFFFFF;;margin-top: 26px;">下属学校</div>
+      <div style="font-size:20px;color: #FFFFFF;;margin-top: 12px;">下属学校</div>
       <div class="search">
           <el-input v-model="searchfor" placeholder="请输入"
                     suffix-icon="el-icon-search"></el-input>
       </div>
-      <div style=" margin-left: 320px;margin-top: 70px;background-color: #FFFFFF;">
+      <div style=" margin-left: 120px;margin-top: 70px;background-color: #FFFFFF;">
         <el-table class="schoolTable"
         :data="tableData"
         border
@@ -16,6 +16,15 @@
           <el-table-column label="学校考生数" prop="studentsNum" width="120px"/>
           <el-table-column label="学校考务人员数" prop="invigilatorNum" width="120px"/>
           <el-table-column label="学校考场数" prop="roomNum" width="120px"/>
+          <el-table-column
+            fixed="right"
+            label="操作"
+            width="100">
+            <template slot-scope="scope">
+              <el-button @click="handleClick(scope.row)" type="text" size="small" index="/admissions/schoolDetail">查看</el-button>
+              <el-button type="text" size="small">编辑</el-button>
+            </template>
+          </el-table-column>
         </el-table>
         <el-pagination class="schoolPagination"
           background
@@ -89,8 +98,6 @@ export default {
     color:#fff;
     font-weight:400;
     overflow: auto;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
   }
   .schoolTable{
     height: 40%;

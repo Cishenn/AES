@@ -32,15 +32,15 @@ export default {
       teNum: '100000'
     }
   },
-  methods: {
-    change (e) {
-      this.$forceUpdate()
-    }
-  },
   created () {
     if (this.$store.state.addmissionsId === '') {
       alert('请不要乱输入网址哦')
       this.$router.push('/login')
+    }
+  },
+  methods: {
+    change (e) {
+      this.$forceUpdate()
     }
   }
 }
@@ -48,10 +48,10 @@ export default {
 
 <style>
   .mainarea{
-    margin-left: 400px;
+    margin-left: 60px;
   }
   .inputLi{
-    margin-top: 150px;
+    margin-top: 50px;
   }
   .inputWen{
     margin-top: 20px;

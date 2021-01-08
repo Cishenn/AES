@@ -31,6 +31,12 @@
               label="考场房间号"
               width="120">
             </el-table-column>
+            <el-table-column label="审核" width="180px">
+              <template>
+                <el-button size="mini">批准</el-button>
+                <el-button size="mini">打回</el-button>
+              </template>
+            </el-table-column>
           </el-table>
           <el-pagination
             background
@@ -80,10 +86,11 @@
               label="是否具有主考资格"
               width="150">
             </el-table-column>
-            <el-table-column
-              prop="examine"
-              label="是否通过审核"
-              width="120">
+            <el-table-column label="审核" width="180px">
+              <template>
+                <el-button size="mini">批准</el-button>
+                <el-button size="mini">打回</el-button>
+              </template>
             </el-table-column>
           </el-table>
           <el-pagination
@@ -144,12 +151,6 @@ export default {
         roomBuilding: '01',
         roomFloor: '2',
         roomNo: '201'
-      }, {
-        roomSchool: '合肥第一中学',
-        roomId: '1',
-        roomBuilding: '01',
-        roomFloor: '2',
-        roomNo: '201'
       }],
       examPersonData: [{
         name: 'Crilias',
@@ -162,13 +163,13 @@ export default {
         examine: 'Crilias'
       }]
     }
-  },
-  created () {
+  },  created () {
     if (this.$store.state.addmissionsId === '') {
       alert('请不要乱输入网址哦')
       this.$router.push('/login')
     }
   },
+
   components: {},
 
   computed: {},
