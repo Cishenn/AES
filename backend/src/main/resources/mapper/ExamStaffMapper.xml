@@ -33,7 +33,7 @@
         grade = #{examStaff.grade},
         subject = #{examStaff.subject},
         qualified = #{examStaff.qualified},
-        schoolExamine = #{examStaff.schoolExamine},
+        schoolExamine = 1,
         photograph = #{examStaff.photograph},
         eduExamine = #{examStaff.eduExamine},
         finalRejection = #{examStaff.finalRejection}
