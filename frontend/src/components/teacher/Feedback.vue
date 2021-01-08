@@ -4,11 +4,11 @@
     <div class="form-box">
       <el-form label-width="80px">
         <el-form-item label="反馈内容">
-          <el-input type="textarea" v-model="reason" style="width:300px"></el-input>
+          <el-input type="textarea" :rows="5" v-model="reason" style="width:300px"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即提交</el-button>
-          <el-button>取消</el-button>
+          <el-button type="primary" @click="onSubmit">提交</el-button>
+          <el-button @click="clear">清空</el-button>
         </el-form-item>
       </el-form>
 
@@ -28,13 +28,25 @@ export default {
       this.$router.push('/login')
     }
   },
-  components: {},
-
-  computed: {},
-
-  mounted: {},
-
-  methods: {}
+  methods: {
+    onSubmit () {
+      if (this.reason === '') {
+        this.$message({
+          message: '反馈内容不能为空!',
+          type: 'info'
+        })
+      } else {
+        this.$message({
+          message: '功能待补充!',
+          type: 'error'
+        })
+        // this.$axios
+      }
+    },
+    clear () {
+      this.reason = ''
+    }
+  }
 }
 
 </script>
