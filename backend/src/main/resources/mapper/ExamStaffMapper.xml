@@ -90,8 +90,9 @@
     </update>
 
     <update id="addStateMessage">
-        UPDATE state_notes SET
-        stateMessage = #{stateMessage}
+        UPDATE status_notes SET
+        stateMseeage = #{stateMessage}
         WHERE esId = #{esId}
+        AND aduitState = 1
     </update>
 </mapper>
