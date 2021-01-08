@@ -175,4 +175,13 @@ public class ExamStaffImpl implements ExamStaffBiz {
             throw new ExamStaffException("update finalRejection examStaff error");
         }
     }
+
+    @Override
+    public void addStateMessage(int esId, String stateMessage){
+        // 此处函数返回值需要int吗?
+        int res = examStaffMapper.addStateMessage(esId, stateMessage);
+        if(res == 0){
+            throw new ExamStaffException("add stateMessage examStaff error");
+        }
+    }
 }

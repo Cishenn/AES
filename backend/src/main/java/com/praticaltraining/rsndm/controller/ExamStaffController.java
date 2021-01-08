@@ -104,4 +104,11 @@ public class ExamStaffController {
     void updateRejection(int esId, String finalRejection){
         examStaffBiz.updateRejection(esId, finalRejection);
     }
+
+    @PostMapping("/feedback")
+    @ResponseBody
+    @CrossOrigin
+    void addStateMessage(int esId, String stateMessage){
+        examStaffBiz.addStateMessage(esId, stateMessage);
+    }
 }

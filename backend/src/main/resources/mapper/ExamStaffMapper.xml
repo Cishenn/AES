@@ -88,4 +88,11 @@
         schoolExamine = -1
         WHERE esId = #{esId}
     </update>
+
+    <update id="addStateMessage">
+        UPDATE status_notes SET
+        stateMseeage = #{stateMessage}
+        WHERE esId = #{esId}
+        AND aduitState = 1
+    </update>
 </mapper>
