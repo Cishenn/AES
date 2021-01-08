@@ -31,7 +31,11 @@ export default {
     this.getTitle()
   },
   created () {
-    // get avatar and username
+    if (this.$store.state.teacherId === '') {
+      // alert('不要随便乱进哦!')
+      this.$router.push('/login')
+    }
+
   },
   methods: {
     getTitle () {

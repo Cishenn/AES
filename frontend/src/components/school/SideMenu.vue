@@ -23,6 +23,7 @@
 export default {
   data () {
     return {
+      schoolId: this.$store.state.schoolId,
       avatarUrl: 'https://cube.elemecdn.com/0/c7/731d222b16d4537c0dcb5dfdc0402svg.svg'
     }
   },
