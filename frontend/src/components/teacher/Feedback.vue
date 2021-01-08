@@ -36,11 +36,14 @@ export default {
           type: 'info'
         })
       } else {
+        const esId = this.$store.getters.getTeacherId
+        // 考务人员aduitStatus为1时才能成功提交
+        this.$axios
+          .post(`exStaff/feedback?esId=${esId}&stateMessage=${this.reason}`)
         this.$message({
-          message: '功能待补充!',
-          type: 'error'
+          message: '反馈已提交!',
+          type: 'success'
         })
-        // this.$axios
       }
     },
     clear () {
