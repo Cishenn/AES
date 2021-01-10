@@ -33,8 +33,6 @@ public class AutoDeployController {
     @Autowired
     private SchoolBiz schoolBiz;
 
-    boolean flag1 = true;
-
     @Autowired
     private InvigilatorGroupBiz invigilatorGroupBiz;
     @Autowired
@@ -48,8 +46,8 @@ public class AutoDeployController {
     @RequestMapping(value = "/stepOne",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
     List<Integer> autoDeployStepOne(int eduId){
-        examinationSiteDeploy(eduId);
-        if(flag1 == true){
+        int flag = examinationSiteDeploy(eduId);
+        if(flag == 0){
             List<Integer> res=invigilatorGroupOfStepOne(eduId);
             inspectionTeamOfStepOne(eduId);
             return res;
@@ -309,9 +307,11 @@ public class AutoDeployController {
             numOfExcellent += NOC.getNumOfExcellent();
             List<School> school = schoolBiz.getByEduId(eduList.get(i));
             for(int j = 0;j<school.size();j++){
-                countExRoom += examRoomBiz.getNumberOfExRoom(school.get(j).getSchoolId()) - 3;
-                schoolBiz.setType(school.get(j).getSchoolId(),"无");
-                examRoomBiz.clearArrange(school.get(j).getSchoolId());
+                if(school.get(j).getExRoomExamine()==2) {
+                    countExRoom += examRoomBiz.getNumberOfExRoom(school.get(j).getSchoolId()) - 3;
+                    schoolBiz.setType(school.get(j).getSchoolId(), "无");
+                    examRoomBiz.clearArrange(school.get(j).getSchoolId());
+                }
             }
         }
         if(numOfScience%30 != 0){
@@ -330,12 +330,12 @@ public class AutoDeployController {
             NumberOfExcellent = numOfExcellent/30;
         }
         if(countExRoom < (NumberOfScience + NumberOfArt + NumberOfExcellent)){
-            flag1 = false;
             return -1;
         }
         big:for(int i = 0;i < eduList.size();i++){
             List<School> school = schoolBiz.getByEduId(eduList.get(i));
             for(int j = 0;j < school.size();j++){
+                if(school.get(j).getExRoomExamine() == 2){
                 if(NumberOfScience>0){
                     if(examRoomBiz.getNumberOfExRoom(school.get(j).getSchoolId()) - 3 <= NumberOfScience){
                         NumberOfScience = NumberOfScience - (examRoomBiz.getNumberOfExRoom(school.get(j).getSchoolId()) - 3);
@@ -472,6 +472,7 @@ public class AutoDeployController {
                 }else{
                     break big;
                 }
+            }
             }
         }
         return 0;
