@@ -12,9 +12,9 @@
         border
         header-cell-class-name="tableStyle"
         >
-          <el-table-column label="学校名称" prop="schoolName" width="120px"/>
-          <el-table-column label="学校考务人员数" prop="invigilatorNum" width="120px"/>
-          <el-table-column label="学校考场数" prop="roomNum" width="120px"/>
+          <el-table-column label="学校名称" prop="schoolName" width="120px" align="center"/>
+          <el-table-column label="学校考务人员数" prop="exRoomExamine" width="120px" align="center"/>
+          <el-table-column label="学校考场数" prop="eduId" width="120px" align="center"/>
           <el-table-column
             fixed="right"
             label="操作"
@@ -73,6 +73,27 @@ export default {
       }).then(resp => {
         // console.log(resp.data)
         this.schoolTable = resp.data.School
+        console.log(this.schoolTable)
+        const length = this.schoolTable.length
+        for (let i = 0; i < length; i++) {
+          // 以eduId暂存考场数目，以exroomexamine暂存考务人员数目
+          this.$axios.get('exRoom/countSelect/schoolId', {
+            params: {
+              schoolId: this.schoolTable[i].schoolId
+            }
+          }).then(resp => {
+            this.schoolTable[i].eduId = resp.data
+          }).catch(resp => {
+            this.$message.error('获取考场数目不成功')
+          })
+          this.$axios.get('exStaff/countSelect/schoolId', {
+            params: {
+              schoolId: this.schoolTable[i].schoolId
+            }
+          }).then(resp => {
+            this.schoolTable[i].exRoomExamine = resp.data
+          })
+        }
       })
     },
     handleClick (index, row) {

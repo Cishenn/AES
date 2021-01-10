@@ -229,6 +229,9 @@ export default {
         } else if (this.roomstate === 2) {
           this.tags.type = 'success'
           this.tags.name = '已审核'
+        } else if (this.roomstate === 3) {
+          this.tags.type = 'danger'
+          this.tags.name = '被打回'
         }
       }).catch(resp => {
         alert('服务器无响应')
