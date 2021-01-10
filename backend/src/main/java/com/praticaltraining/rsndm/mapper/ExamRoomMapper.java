@@ -28,4 +28,6 @@ public interface ExamRoomMapper {
     int clearArrange(int schoolId);
 
     int setArrange(int exRoomId);
+
+    List<ExamRoom> getAllArrangedExamRoom(int schoolId);
 }

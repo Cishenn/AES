@@ -96,4 +96,13 @@ public class ExamRoomImpl implements ExamRoomBiz {
             throw new ExamRoomException("set arrange error");
         }
     }
+
+    @Override
+    public List<ExamRoom> getAllArrangedExamRoom(int schoolId) {
+        List<ExamRoom> res = examRoomMapper.getAllArrangedExamRoom(schoolId);
+        if(res == null){
+            throw new ExamRoomException("getAll arranged ExamRoom error");
+        }
+        return res;
+    }
 }

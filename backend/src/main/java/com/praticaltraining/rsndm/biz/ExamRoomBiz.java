@@ -22,8 +22,10 @@ public interface ExamRoomBiz {
     int floorsIsArange(int eduId);
 
     int floorsIsArangeOfOneSchool(int schoolId);
-    
+
     void clearArrange(int schoolId);
 
     void setArrange(int exRoomId);
+
+    List<ExamRoom> getAllArrangedExamRoom(int schoolId);
 }

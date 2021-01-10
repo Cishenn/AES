@@ -9,7 +9,17 @@ import java.util.List;
 public interface InvigilatorGroupArrangementMapper {
     List<InvigilatorGroupArrangement> getAllInvigilatorGroupArrangementOfOneInvigilatorGroup(int invigilatorGroupId);
 
+    List<InvigilatorGroupArrangement> getAllOfOneSchool(int schoolId);
+
     int clearIGA(int eduId);
 
     int createInvigilatorGroupArr(int invigilatorGroupId,int schoolId);
+
+    int setRoomSessions(int exRoomId,int sessions,int igArrangeId);
+
+    int createOther(InvigilatorGroupArrangement invigilatorGroupArrangement);
+
+    int clearNewIGA(int eduId,int sessions);
+
+    int resetRoomSessions(int eduId);
 }

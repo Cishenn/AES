@@ -68,4 +68,9 @@
         select COUNT(distinct floorId) from exam_room
         where isArrange= 1 AND schoolId=#{schoolId}
     </select>
+
+    <select id="getAllArrangedExamRoom" resultType="com.praticaltraining.rsndm.entity.ExamRoom">
+        select * from exam_room
+        WHERE schoolId = #{schoolId} AND isArrange= 1
+    </select>
 </mapper>

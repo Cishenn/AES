@@ -1,12 +1,7 @@
 package com.praticaltraining.rsndm.controller;
 
 import com.praticaltraining.rsndm.biz.*;
-import com.praticaltraining.rsndm.entity.ExamStaff;
-import com.praticaltraining.rsndm.entity.InspectionTeam;
-import com.praticaltraining.rsndm.entity.InvigilatorGroup;
-import com.praticaltraining.rsndm.entity.ExamRoom;
-import com.praticaltraining.rsndm.entity.NumberOfCandidates;
-import com.praticaltraining.rsndm.entity.School;
+import com.praticaltraining.rsndm.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +59,8 @@ public class AutoDeployController {
 
     @RequestMapping(value = "/stepTwo",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
-    int autoDeployStepTwo(){
+    int autoDeployStepTwo(int eduId){
+        invigilatorGroupArrangeOfStepTwo(eduId);
         return 0;
     }
 
@@ -477,4 +473,92 @@ public class AutoDeployController {
         return 0;
     }
 
+    void invigilatorGroupArrangeOfStepTwo(int eduId){
+        invigilatorGroupArrangementBiz.clearNewIGA(eduId,2);
+        invigilatorGroupArrangementBiz.clearNewIGA(eduId,3);
+        invigilatorGroupArrangementBiz.clearNewIGA(eduId,4);
+        invigilatorGroupArrangementBiz.resetRoomSessions(eduId);
+        List<Integer> allEduBelong=enrollmentDepartmentBiz.eduIdAllBelong(eduId);
+        for(int i=0;i<allEduBelong.size();i++){
+            List<School> allSchBelong=schoolBiz.getByEduId(allEduBelong.get(i));
+            for(int j=0;j<allSchBelong.size();j++){
+                List<InvigilatorGroupArrangement> allInitArrange=invigilatorGroupArrangementBiz.getAllOfOneSchool(allSchBelong.get(j).getSchoolId());
+                Random r=new Random();
+                for (int k = allInitArrange.size() - 1; k > 0; k--) {
+                    Collections.swap(allInitArrange, k, r.nextInt(k + 1));
+                }
+                int indexOfRoom=0;
+                List<ExamRoom> allArrangedRoom=examRoomBiz.getAllArrangedExamRoom(allSchBelong.get(j).getSchoolId());
+                if(allInitArrange.size()==1){
+                    invigilatorGroupArrangementBiz.setRoomSessions(allArrangedRoom.get(indexOfRoom).getExRoomId(),1,allInitArrange.get(0).getIgArrangeId());
+                    for(int k=0;k<3;k++){
+                        InvigilatorGroupArrangement newIGA=new InvigilatorGroupArrangement();
+                        newIGA.setInvigilatorGroupId(allInitArrange.get(0).getInvigilatorGroupId());
+                        newIGA.setSchoolId(allInitArrange.get(0).getSchoolId());
+                        newIGA.setExRoomId(allArrangedRoom.get(indexOfRoom).getExRoomId());
+                        newIGA.setSessions(k+2);
+                        invigilatorGroupArrangementBiz.createOther(newIGA);
+                    }
+                }else if(allInitArrange.size()==2){
+                    invigilatorGroupArrangementBiz.setRoomSessions(allArrangedRoom.get(0).getExRoomId(),1,allInitArrange.get(0).getIgArrangeId());
+                    invigilatorGroupArrangementBiz.setRoomSessions(allArrangedRoom.get(1).getExRoomId(),1,allInitArrange.get(1).getIgArrangeId());
+                    for(int k=0;k<3;k++){
+                        for(int x=0;x<2;x++){
+                            InvigilatorGroupArrangement newIGA=new InvigilatorGroupArrangement();
+                            newIGA.setInvigilatorGroupId(allInitArrange.get(x).getInvigilatorGroupId());
+                            newIGA.setSchoolId(allInitArrange.get(x).getSchoolId());
+                            newIGA.setExRoomId(allArrangedRoom.get((x+k+1)%2).getExRoomId());
+                            newIGA.setSessions(k%3+2);
+                            invigilatorGroupArrangementBiz.createOther(newIGA);
+                        }
+                    }
+                }else{
+                    for(int k=0;k<allInitArrange.size();k++){
+                        invigilatorGroupArrangementBiz.setRoomSessions(allArrangedRoom.get(indexOfRoom).getExRoomId(),1,allInitArrange.get(k).getIgArrangeId());
+                        indexOfRoom++;
+                    }
+                    List<List<InvigilatorGroupArrangement>> tempList=new Vector<>();
+                    List<InvigilatorGroupArrangement> tempOne=new Vector<>();
+                    for(int k=0;k<allInitArrange.size();k++){
+                        tempOne.add(allInitArrange.get(k));
+                    }
+                    tempList.add(tempOne);
+                    for(int k=0;k<3;k++){
+                        for (int x = allInitArrange.size() - 1; x > 0; x--) {
+                            Collections.swap(allInitArrange, x, r.nextInt(x + 1));
+                        }
+                        boolean isWrong=true;
+                        while (isWrong && allArrangedRoom.size()>3) {
+                            isWrong = false;
+                            for (int x = 0; x < tempList.size(); x++) {
+                                for (int y = 0; y < allInitArrange.size(); y++) {
+                                    if (tempList.get(x).get(y).getInvigilatorGroupId() == allInitArrange.get(y).getInvigilatorGroupId()) {
+                                        Collections.swap(allInitArrange, y, r.nextInt(allInitArrange.size()));
+                                        isWrong = true;
+                                        break;
+                                    }
+                                }
+                                if(isWrong){
+                                    break;
+                                }
+                            }
+                        }
+                        List<InvigilatorGroupArrangement> tempTwo=new Vector<>();
+                        indexOfRoom=0;
+                        for(int x=0;x<allInitArrange.size();x++){
+                            InvigilatorGroupArrangement newIGA=new InvigilatorGroupArrangement();
+                            newIGA.setInvigilatorGroupId(allInitArrange.get(x).getInvigilatorGroupId());
+                            newIGA.setSchoolId(allInitArrange.get(x).getSchoolId());
+                            newIGA.setExRoomId(allArrangedRoom.get(indexOfRoom).getExRoomId());
+                            newIGA.setSessions(k+2);
+                            invigilatorGroupArrangementBiz.createOther(newIGA);
+                            tempTwo.add(allInitArrange.get(x));
+                            indexOfRoom++;
+                        }
+                        tempList.add(tempTwo);
+                    }
+                }
+            }
+        }
+    }
 }

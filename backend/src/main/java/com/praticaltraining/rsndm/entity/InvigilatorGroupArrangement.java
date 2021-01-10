@@ -9,4 +9,5 @@ public class InvigilatorGroupArrangement{
     int schoolId;
     int exRoomId;
     int sessions;
+
 }

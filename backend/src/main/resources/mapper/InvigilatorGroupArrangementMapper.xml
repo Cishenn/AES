@@ -5,6 +5,26 @@
         WHERE invigilatorGroupId=#{invigilatorGroupId};
     </select>
 
+    <select id="getAllOfOneSchool" resultType="InvigilatorGroupArrangement">
+        SELECT * FROM invigilator_group_arrangement
+        WHERE schoolId=#{schoolId};
+    </select>
+
+    <update id="setRoomSessions">
+        UPDATE invigilator_group_arrangement SET
+        exRoomId = #{exRoomId},
+        sessions = #{sessions}
+        WHERE igArrangeId = #{igArrangeId}
+    </update>
+
+    <insert id="createOther" parameterType="InvigilatorGroupArrangement">
+        INSERT INTO invigilator_group_arrangement (
+           invigilatorGroupId,schoolId,exRoomId,sessions
+        ) VALUES (
+           #{invigilatorGroupId},#{schoolId},#{exRoomId},#{sessions}
+        )
+    </insert>
+
     <delete id="clearIGA">
         DELETE FROM invigilator_group_arrangement
         WHERE schoolId IN
@@ -19,4 +39,26 @@
            #{invigilatorGroupId},#{schoolId}
         )
     </insert>
+
+    <delete id="clearNewIGA">
+        DELETE FROM invigilator_group_arrangement
+        WHERE sessions = #{sessions} AND schoolId IN
+        (SELECT schoolId FROM school
+        WHERE eduId IN (
+        SELECT eduId FROM enrollment_department
+        WHERE higherEduId = #{eduId}
+        ))
+    </delete>
+
+    <update id="resetRoomSessions">
+        UPDATE invigilator_group_arrangement SET
+        exRoomId = null,
+        sessions = null
+        WHERE schoolId IN
+        (SELECT schoolId FROM school
+        WHERE eduId IN (
+        SELECT eduId FROM enrollment_department
+        WHERE higherEduId = #{eduId}
+        ))
+    </update>
 </mapper>
