@@ -90,7 +90,6 @@ export default {
       .then(resp => {
         this.options = resp.data.School
         this.optionsCopy = resp.data.School
-        console.log(this.options[0])
       })
   },
   methods: {
@@ -116,7 +115,7 @@ export default {
       }
     },
     regist () {
-      if (this.phonenum !== '' && this.password !== '' && this.schoolId !== '') {
+      if (this.phonenum !== '' && this.password !== '' && this.schoolId !== '' && this.identity !== '') {
         if (this.standardphonenum()) {
           if (this.identity === this.identifyCode) {
           // console.log('success')
@@ -138,6 +137,7 @@ export default {
             })
             this.refreshCode()
           }
+        } else {
         }
       } else {
         this.$message({

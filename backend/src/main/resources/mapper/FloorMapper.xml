@@ -2,30 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.praticaltraining.rsndm.mapper.FloorMapper">
     <select id="getAllFloor" resultType="com.praticaltraining.rsndm.entity.Floor">
-        select * from Floor
+        select * from floor
         WHERE schoolId = #{schoolId}
     </select>
 
     <select id="getFloorByBuilding" resultType="com.praticaltraining.rsndm.entity.Floor">
-        select * from Floor
+        select * from floor
         WHERE schoolId = #{schoolId}
         AND building = #{building}
     </select>
 
     <select id="getBuilding" resultType="String">
-        select DISTINCT building from Floor
+        select DISTINCT building from floor
         WHERE schoolId = #{schoolId}
     </select>
 
     <select id="getFloorId" resultType="int">
-        select floorId from Floor
+        select floorId from floor
         WHERE schoolId = #{schoolId}
         AND building = #{building}
         AND floorStep = #{floorStep}
     </select>
 
     <select id="getOneFloor" resultType="com.praticaltraining.rsndm.entity.Floor">
-        select * FROM Floor
+        select * FROM floor
         WHERE floorId = #{floorId}
     </select>
 </mapper>

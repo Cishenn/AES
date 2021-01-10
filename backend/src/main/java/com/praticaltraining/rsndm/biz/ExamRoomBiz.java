@@ -28,4 +28,8 @@ public interface ExamRoomBiz {
     void setArrange(int exRoomId);
 
     List<ExamRoom> getAllArrangedExamRoom(int schoolId);
+    
+    int getSelectedRoom(int schoolId);
+
+    List<Integer> isArrangeFloorId(int schoolId);
 }

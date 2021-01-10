@@ -84,9 +84,14 @@ export default {
             })
             this.$store.commit('setteacherId', resp.data)
             this.$router.push('/teacher')
+          } else {
+            this.$message.error('用户名或密码错误')
           }
         }).catch(resp => {
-          console.log(resp)
+          this.$message({
+            message: '服务器无响应',
+            type: 'false'
+          })
         })
       // this.$router.push('/teacher')
       }
@@ -112,6 +117,11 @@ export default {
           } else {
             this.$message.error('用户名或密码错误')
           }
+        }).catch(resp => {
+          this.$message({
+            message: '服务器无响应',
+            type: 'false'
+          })
         })
       }
     },
@@ -130,11 +140,16 @@ export default {
               message: '登陆成功',
               type: 'success'
             })
-            this.$store.commit('setaddmissionsId', resp.data)
+            this.$store.commit('seteduId', resp.data)
             this.$router.push('/admissions')
           } else {
             this.$message.error('用户名或密码错误')
           }
+        }).catch(resp => {
+          this.$message({
+            message: '服务器无响应',
+            type: 'false'
+          })
         })
       }
     },

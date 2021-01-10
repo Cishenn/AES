@@ -33,7 +33,7 @@
         grade = #{examStaff.grade},
         subject = #{examStaff.subject},
         qualified = #{examStaff.qualified},
-        schoolExamine = #{examStaff.schoolExamine},
+        schoolExamine = 1,
         photograph = #{examStaff.photograph},
         eduExamine = #{examStaff.eduExamine},
         finalRejection = #{examStaff.finalRejection}
@@ -88,4 +88,26 @@
         schoolExamine = -1
         WHERE esId = #{esId}
     </update>
+
+    <update id="addStateMessage">
+        UPDATE status_notes SET
+        stateMseeage = #{stateMessage}
+        WHERE esId = #{esId}
+        AND aduitState = 1
+    </update>
+
+    <select id="getSelectedStaff" resultType="int">
+        SELECT COUNT(*) FROM exam_staff
+        WHERE schoolId = #{schoolId}
+        AND (eduExamine = 1
+        OR eduExamine = 2)
+    </select>
+
+    <select id="getExStaffListSE" resultType="com.praticaltraining.rsndm.entity.ExamStaff">
+        select * from exam_staff
+        WHERE schoolId = #{schoolId}
+        AND schoolExamine = 2
+        AND (eduExamine = 1
+        OR eduExamine = 2)
+    </select>
 </mapper>

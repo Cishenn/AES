@@ -1,27 +1,42 @@
 <template>
   <div class="schoolInfo">
     <div class="container">
-      <div style="font-size:20px;color: #FFFFFF;;margin-top: 26px;">下属学校</div>
+      <div style="font-size:20px;color: #FFFFFF;;margin-top: 12px;">下属学校</div>
       <div class="search">
           <el-input v-model="searchfor" placeholder="请输入"
-                    suffix-icon="el-icon-search"></el-input>
+          suffix-icon="el-icon-search"></el-input>
       </div>
-      <div style=" margin-left: 320px;margin-top: 70px;background-color: #FFFFFF;">
+      <div style=" margin-left: 120px;margin-top: 70px;background-color: #FFFFFF;">
         <el-table class="schoolTable"
-        :data="tableData"
+        :data="schoolTable.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage"
         border
         header-cell-class-name="tableStyle"
         >
-          <el-table-column label="学校名称" prop="schoolName" width="120px"/>
-          <el-table-column label="学校考生数" prop="studentsNum" width="120px"/>
-          <el-table-column label="学校考务人员数" prop="invigilatorNum" width="120px"/>
-          <el-table-column label="学校考场数" prop="roomNum" width="120px"/>
+          <el-table-column label="学校名称" prop="schoolName" width="120px" align="center"/>
+          <el-table-column label="学校考务人员数" prop="exRoomExamine" width="120px" align="center"/>
+          <el-table-column label="学校考场数" prop="eduId" width="120px" align="center"/>
+          <el-table-column
+            fixed="right"
+            label="操作"
+            width="100">
+            <template slot-scope="scope">
+              <el-button @click="handleClick(scope.$index, scope.row)" type="text" size="small" >查看</el-button>
+              <!-- <el-button type="text" size="small">编辑</el-button> -->
+            </template>
+          </el-table-column>
         </el-table>
-        <el-pagination class="schoolPagination"
-          background
-          layout="prev, pager, next"
-          :total="1000">
-        </el-pagination>
+        <div>
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[5,10,15,20]"
+            :page-size="pagesize"
+            class="pagination"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="schoolTable.length">
+          </el-pagination>
+        </div>
       </div>
     </div>
   </div>
@@ -31,49 +46,66 @@
 export default {
   data () {
     return {
+      eduId: this.$store.state.eduId,
       searchfor: '',
-      tableData: [{
-        schoolName: '合肥第一中学',
-        studentsNum: '100000',
-        invigilatorNum: '100000',
-        roomNum: '100000'
-      }, {
-        schoolName: '合肥第一中学',
-        studentsNum: '100000',
-        invigilatorNum: '100000',
-        roomNum: '100000'
-      }, {
-        schoolName: '合肥第一中学',
-        studentsNum: '100000',
-        invigilatorNum: '100000',
-        roomNum: '100000'
-      }, {
-        schoolName: '合肥第一中学',
-        studentsNum: '100000',
-        invigilatorNum: '100000',
-        roomNum: '100000'
-      }, {
-        schoolName: '合肥第一中学',
-        studentsNum: '100000',
-        invigilatorNum: '100000',
-        roomNum: '100000'
-      }, {
-        schoolName: '合肥第一中学',
-        studentsNum: '100000',
-        invigilatorNum: '100000',
-        roomNum: '100000'
-      }, {
-        schoolName: '合肥第一中学',
-        studentsNum: '100000',
-        invigilatorNum: '100000',
-        roomNum: '100000'
-      }]
+      schoolTable: [],
+      stripe: true,
+      currentPage: 1,
+      pagesize: 5,
+      total: 0
     }
   },
   created () {
-    if (this.$store.state.addmissionsId === '') {
+    if (this.$store.state.eduId === '') {
       alert('请不要乱输入网址哦')
       this.$router.push('/login')
+    }
+  },
+  mounted () {
+    this.getAllschool()
+  },
+  methods: {
+    getAllschool () {
+      this.$axios.get('school/school/eduId', {
+        params: {
+          eduId: this.eduId
+        }
+      }).then(resp => {
+        // console.log(resp.data)
+        this.schoolTable = resp.data.School
+        console.log(this.schoolTable)
+        const length = this.schoolTable.length
+        for (let i = 0; i < length; i++) {
+          // 以eduId暂存考场数目，以exroomexamine暂存考务人员数目
+          this.$axios.get('exRoom/countSelect/schoolId', {
+            params: {
+              schoolId: this.schoolTable[i].schoolId
+            }
+          }).then(resp => {
+            this.schoolTable[i].eduId = resp.data
+          }).catch(resp => {
+            this.$message.error('获取考场数目不成功')
+          })
+          this.$axios.get('exStaff/countSelect/schoolId', {
+            params: {
+              schoolId: this.schoolTable[i].schoolId
+            }
+          }).then(resp => {
+            this.schoolTable[i].exRoomExamine = resp.data
+          })
+        }
+      })
+    },
+    handleClick (index, row) {
+      console.log(this.schoolTable[index])
+      this.$store.commit('setsubordinatesschoolsId', this.schoolTable[index].schoolId)
+      this.$router.push('/admissions/schoolDetail')
+    },
+    handleSizeChange (val) {
+      this.pagesize = val
+    },
+    handleCurrentChange (val) {
+      this.currentPage = val
     }
   }
 }
@@ -89,8 +121,6 @@ export default {
     color:#fff;
     font-weight:400;
     overflow: auto;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
   }
   .schoolTable{
     height: 40%;

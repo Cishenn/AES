@@ -175,4 +175,31 @@ public class ExamStaffImpl implements ExamStaffBiz {
             throw new ExamStaffException("update finalRejection examStaff error");
         }
     }
+
+    @Override
+    public void addStateMessage(int esId, String stateMessage){
+        // 此处函数返回值需要int吗?
+        int res = examStaffMapper.addStateMessage(esId, stateMessage);
+        if(res == 0){
+            throw new ExamStaffException("add stateMessage examStaff error");
+        }
+    }
+
+    @Override
+    public int getSelectedStaff(int schoolId){
+        int res = examStaffMapper.getSelectedStaff(schoolId);
+        if(res == -1){
+            throw new ExamStaffException("get selected examStaff error");
+        }
+        return res;
+    }
+
+    @Override
+    public List<ExamStaff> getExStaffListSE(int schoolId){
+        List<ExamStaff> res = examStaffMapper.getExStaffListSE(schoolId);
+        if(res == null){
+            throw new ExamStaffException("get ExamStaff school&edu Examine Verifying error");
+        }
+        return res;
+    }
 }

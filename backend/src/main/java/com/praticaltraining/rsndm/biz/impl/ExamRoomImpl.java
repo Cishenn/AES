@@ -105,4 +105,19 @@ public class ExamRoomImpl implements ExamRoomBiz {
         }
         return res;
     }
+
+    @Override
+    public int getSelectedRoom(int schoolId){
+        int res = examRoomMapper.getSelectedRoom(schoolId);
+        if(res == -1){
+            throw new ExamRoomException("get selected room error");
+        }
+        return res;
+    }
+
+    @Override
+    public List<Integer> isArrangeFloorId(int schoolId){
+        List<Integer> res = examRoomMapper.isArrangeFloorId(schoolId);
+        return res;
+    }
 }

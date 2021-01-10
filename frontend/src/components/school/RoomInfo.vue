@@ -186,16 +186,19 @@ export default {
         }
       }).then(resp => {
         this.operate = resp.data
-        // console.log(resp.data)
+        console.log(resp.data)
         if (resp.data === 1) {
           this.tags.name = '已提交，未审核'
           this.tags.type = 'info'
         } else if (resp.data === 2) {
           this.tags.name = '已审核'
           this.tags.type = 'success'
+        } else if (resp.data === 3) {
+          this.tags.name = '被打回'
+          this.tags.type = 'danger'
         }
       }).catch()
-      setTimeout(this.getapprovalstate, 1000)
+      // setTimeout(this.getapprovalstate, 1000)
     },
     updateroom () {
       this.$axios.post(`school/exRoomExamine/schoolId?schoolId=${this.schoolId}`)

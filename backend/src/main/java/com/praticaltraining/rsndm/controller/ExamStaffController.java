@@ -104,4 +104,27 @@ public class ExamStaffController {
     void updateRejection(int esId, String finalRejection){
         examStaffBiz.updateRejection(esId, finalRejection);
     }
+
+    @PostMapping("/feedback")
+    @ResponseBody
+    @CrossOrigin
+    void addStateMessage(int esId, String stateMessage){
+        examStaffBiz.addStateMessage(esId, stateMessage);
+    }
+
+    @GetMapping("/countSelect/schoolId")
+    @ResponseBody
+    @CrossOrigin
+    int getSelectedStaff(int schoolId){
+        return examStaffBiz.getSelectedStaff(schoolId);
+    }
+
+    @GetMapping("/getSchoolEduExamine")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<ExamStaff>>> getExStaffListSE(int schoolId){
+        Map<String,List<ExamStaff>> result = new HashMap<>();
+        result.put("ExamStaff",examStaffBiz.getExStaffListSE(schoolId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
