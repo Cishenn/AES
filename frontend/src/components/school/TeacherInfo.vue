@@ -55,7 +55,11 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="信息上传" class="second">
-        <el-table border class="table" :data="teacherTableapprove.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage" ref="multipleTable">
+        <el-table border class="table"
+          :data="teacherTableapprove.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+          :stripe="stripe"
+          :current-page.sync="currentPage"
+          ref="multipleTable">
           <el-table-column type="selection" width="55" align="center"/>
           <el-table-column label="姓名" prop="name" align="center" width="120px"/>
           <el-table-column label="年龄" prop="age" align="center" width="120px"/>
