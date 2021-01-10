@@ -140,7 +140,7 @@ export default {
               message: '登陆成功',
               type: 'success'
             })
-            this.$store.commit('setaddmissionsId', resp.data)
+            this.$store.commit('seteduId', resp.data)
             this.$router.push('/admissions')
           } else {
             this.$message.error('用户名或密码错误')

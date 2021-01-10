@@ -33,7 +33,7 @@ export default {
     }
   },
   created () {
-    if (this.$store.state.addmissionsId === '') {
+    if (this.$store.state.eduId === '') {
       alert('请不要乱输入网址哦')
       this.$router.push('/login')
     }

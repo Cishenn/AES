@@ -15,21 +15,25 @@ import Personalinfo from '../components/teacher/Personalinfo.vue'
 import history from '../components/teacher/History.vue'
 import feedback from '../components/teacher/Feedback.vue'
 import SchoolDetail from '../components/admissions/SchoolDetail.vue'
+import Error404 from '../views/404Error.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '',
-    redirect: '/login'
+    redirect: '/login',
+    meta: { title: '登录' }
   },
   {
     path: '/login',
-    component: Login
+    component: Login,
+    meta: { title: '登录' }
   },
   {
     path: '/register',
-    component: Register
+    component: Register,
+    meta: { title: '注册' }
   },
   {
     path: '/school',
@@ -38,11 +42,13 @@ const routes = [
     children: [
       {
         path: 'teacherInfo',
-        component: TeacherInfo
+        component: TeacherInfo,
+        meta: { title: '教师设置' }
       },
       {
         path: 'roomInfo',
-        component: RoomInfo
+        component: RoomInfo,
+        meta: { title: '考场设置' }
       }
     ]
   },
@@ -53,19 +59,23 @@ const routes = [
     children: [
       {
         path: 'schoolInfo',
-        component: SchoolInfo
+        component: SchoolInfo,
+        meta: { title: '学校信息' }
       },
       {
         path: 'inputStudents',
-        component: InputStudents
+        component: InputStudents,
+        meta: { title: '考生输入' }
       },
       {
         path: 'schoolDetail',
-        component: SchoolDetail
+        component: SchoolDetail,
+        meta: { title: '学校细节' }
       },
       {
         path: 'allocation',
-        component: Allocation
+        component: Allocation,
+        meta: { title: 'Allocation' }
       }
     ]
   },
@@ -76,21 +86,29 @@ const routes = [
     children: [
       {
         path: 'personalinfo',
-        component: Personalinfo
+        component: Personalinfo,
+        meta: { title: '个人信息' }
       },
       {
         path: 'history',
-        component: history
+        component: history,
+        meta: { title: '历史记录' }
       },
       {
         path: 'feedback',
-        component: feedback
+        component: feedback,
+        meta: { title: '反馈信息' }
       }
     ]
   },
   {
     path: '/test',
     component: Test
+  },
+  {
+    path: '*',
+    component: Error404,
+    meta: { title: '404' }
   }
 ]
 
@@ -98,6 +116,11 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+router.beforeEach((to, from, next) => {
+  // 根据路由元信息设置文档标题
+  window.document.title = to.meta.title
+  next()
 })
 
 export default router

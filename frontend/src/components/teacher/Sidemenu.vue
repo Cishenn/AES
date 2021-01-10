@@ -35,7 +35,6 @@ export default {
       // alert('不要随便乱进哦!')
       this.$router.push('/login')
     }
-
   },
   methods: {
     getTitle () {
