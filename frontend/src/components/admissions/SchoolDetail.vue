@@ -112,7 +112,21 @@
                   :type="scope.row.finalRejection"
                   disable-transitions>{{scope.row.qualified}}</el-tag>
               </template>
-          </el-table-column>
+            </el-table-column>
+            <el-table-column
+              align="center"
+              prop="tag"
+              label="审核状态"
+              width="120px"
+              :filters="[{ text: '未审核', value: '未审核' }, { text: '已审核', value: '已审核' }]"
+              :filter-method="filterTag2"
+              filter-placement="bottom-end">
+              <template slot-scope="scope">
+                <el-tag
+                  :type="scope.row.photograph"
+                  disable-transitions>{{scope.row.eduExamine}}</el-tag>
+              </template>
+            </el-table-column>
           </el-table>
           <el-pagination
             @size-change ="handlesizechange2"
@@ -177,36 +191,39 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        // var a = true
-        // for (let i = 0; i < this.$refs.multipleTable.selection.length; i++) {
-        //   this.$axios.post(`exStaff/eduExamine?esId=${this.$refs.multipleTable.selection[i].esId}&eduExamine=${1}`)
-        //     .then(resp => {
-        //       console.log(resp)
-        //       this.getTeachertableapprove()
-        //     }).catch(resp => {
-        //       a = false
-        //     })
-        // }
-        // if (!a) {
-        //   this.$message({
-        //     message: '上传失败，请重新上传',
-        //     type: 'false'
-        //   })
-        // } else {
-        //   this.$message({
-        //     message: '上传成功！',
-        //     type: 'success'
-        //   })
-        // }
+        var a = true
+        for (let i = 0; i < this.$refs.multipleTable.selection.length; i++) {
+          this.$axios.post(`exStaff/eduExamine?esId=${this.$refs.multipleTable.selection[i].esId}&eduExamine=${2}`)
+            .then(resp => {
+              console.log(resp)
+              this.getteacherTable()
+            }).catch(resp => {
+              a = false
+            })
+        }
+        if (!a) {
+          this.$message({
+            message: '通过失败，请重新上传',
+            type: 'false'
+          })
+        } else {
+          this.$message({
+            message: '通过成功！',
+            type: 'success'
+          })
+        }
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消上传'
+          message: '已取消审核'
         })
       })
     },
     filterTag (value, row) {
       return row.qualified === value
+    },
+    filterTag2 (value, row) {
+      return row.eduExamine === value
     },
     getteacherTable () {
       this.$axios.get('exStaff/getSchoolEduExamine', {
@@ -224,6 +241,13 @@ export default {
           } else {
             this.teacherTable[i].qualified = '否'
             this.teacherTable[i].finalRejection = 'danger'
+          }
+          if (this.teacherTable[i].eduExamine === 1) {
+            this.teacherTable[i].photograph = 'info'
+            this.teacherTable[i].eduExamine = '未审核'
+          } else if (this.teacherTable[i].eduExamine === 2) {
+            this.teacherTable[i].photograph = 'success'
+            this.teacherTable[i].eduExamine = '已审核'
           }
         }
       })
