@@ -118,4 +118,13 @@ public class ExamStaffController {
     int getSelectedStaff(int schoolId){
         return examStaffBiz.getSelectedStaff(schoolId);
     }
+
+    @GetMapping("/getSchoolEduExamine")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<ExamStaff>>> getExStaffListSE(int schoolId){
+        Map<String,List<ExamStaff>> result = new HashMap<>();
+        result.put("ExamStaff",examStaffBiz.getExStaffListSE(schoolId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

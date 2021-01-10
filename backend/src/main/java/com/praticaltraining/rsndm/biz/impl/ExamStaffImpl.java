@@ -193,4 +193,13 @@ public class ExamStaffImpl implements ExamStaffBiz {
         }
         return res;
     }
+
+    @Override
+    public List<ExamStaff> getExStaffListSE(int schoolId){
+        List<ExamStaff> res = examStaffMapper.getExStaffListSE(schoolId);
+        if(res == null){
+            throw new ExamStaffException("get ExamStaff school&edu Examine Verifying error");
+        }
+        return res;
+    }
 }

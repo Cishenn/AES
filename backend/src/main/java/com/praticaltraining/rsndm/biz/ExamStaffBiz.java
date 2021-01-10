@@ -47,4 +47,7 @@ public interface ExamStaffBiz {
     void addStateMessage(int esId, String stateMessage);
 
     int getSelectedStaff(int schoolId);
+
+    List<ExamStaff> getExStaffListSE(int schoolId);
+
 }
