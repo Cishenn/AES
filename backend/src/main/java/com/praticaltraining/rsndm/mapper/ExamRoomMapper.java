@@ -30,4 +30,6 @@ public interface ExamRoomMapper {
     int setArrange(int exRoomId);
 
     int getSelectedRoom(int schoolId);
+
+    List<Integer> isArrangeFloorId(int schoolId);
 }

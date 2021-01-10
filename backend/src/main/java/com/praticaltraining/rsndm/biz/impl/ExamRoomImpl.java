@@ -105,4 +105,10 @@ public class ExamRoomImpl implements ExamRoomBiz {
         }
         return res;
     }
+
+    @Override
+    public List<Integer> isArrangeFloorId(int schoolId){
+        List<Integer> res = examRoomMapper.isArrangeFloorId(schoolId);
+        return res;
+    }
 }

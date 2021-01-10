@@ -14,9 +14,30 @@
 
     <insert id="createInspectionTeamArrange" parameterType="int">
         INSERT INTO inspection_team_arrangement (
-           inspectionTeamId,schoolId
+           inspectionTeamId,schoolId,sessions
         ) VALUES (
-           #{inspectionTeamId},#{schoolId}
+           #{inspectionTeamId},#{schoolId},#{sessions}
         )
     </insert>
+
+    <select id="getITAOfSchool" resultType="com.praticaltraining.rsndm.entity.InspectionTeamArrangement">
+        SELECT * FROM inspection_team_arrangement
+        WHERE schoolId=#{schoolId};
+    </select>
+
+    <update id="setFloorId">
+        UPDATE inspection_team_arrangement SET
+        floorId = #{floorId}
+        WHERE itArrangeId = #{itArrangeId}
+    </update>
+
+    <update id="clearITAmsg">
+        UPDATE inspection_team_arrangement SET
+        floorId = NULL
+        WHERE schoolId IN
+        (
+        SELECT schoolId FROM school
+        WHERE eduId=#{eduId}
+        )
+    </update>
 </mapper>

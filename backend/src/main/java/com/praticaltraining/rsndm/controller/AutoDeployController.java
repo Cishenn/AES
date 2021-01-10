@@ -1,22 +1,14 @@
 package com.praticaltraining.rsndm.controller;
 
 import com.praticaltraining.rsndm.biz.*;
-import com.praticaltraining.rsndm.entity.ExamStaff;
-import com.praticaltraining.rsndm.entity.InspectionTeam;
-import com.praticaltraining.rsndm.entity.InvigilatorGroup;
-import com.praticaltraining.rsndm.entity.ExamRoom;
-import com.praticaltraining.rsndm.entity.NumberOfCandidates;
-import com.praticaltraining.rsndm.entity.School;
+import com.praticaltraining.rsndm.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.Vector;
+import java.util.*;
 import java.util.List;
 
 @RestController
@@ -32,7 +24,6 @@ public class AutoDeployController {
     private EnrollmentDepartmentBiz enrollmentDepartmentBiz;
     @Autowired
     private SchoolBiz schoolBiz;
-
     @Autowired
     private InvigilatorGroupBiz invigilatorGroupBiz;
     @Autowired
@@ -62,7 +53,8 @@ public class AutoDeployController {
 
     @RequestMapping(value = "/stepTwo",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
-    int autoDeployStepTwo(){
+    int autoDeployStepTwo(int eduId){
+        inspectionTeamOfStepTwo(eduId);
         return 0;
     }
 
@@ -280,7 +272,9 @@ public class AutoDeployController {
             for (int j = 0; j < allSchoolBelongEdu.size(); j++){
                 int count=examRoomBiz.floorsIsArangeOfOneSchool(allSchoolBelongEdu.get(j).getSchoolId());
                 for(int k=0;k<count;k++){
-                    inspectionTeamArrangementBiz.createInspectionTeamArrange(allInspectionTeamOfOneEduId.get(indexOfITE).getInspectionTeamId(),allSchoolBelongEdu.get(j).getSchoolId());
+                    for(int m = 0;m < 4;m++){
+                        inspectionTeamArrangementBiz.createInspectionTeamArrange(allInspectionTeamOfOneEduId.get(indexOfITE).getInspectionTeamId(),allSchoolBelongEdu.get(j).getSchoolId(),m+1);
+                    }
                     indexOfITE++;
                 }
             }
@@ -476,6 +470,74 @@ public class AutoDeployController {
             }
         }
         return 0;
+    }
+
+    void inspectionTeamOfStepTwo(int eduId){
+        List<Integer> eduList= enrollmentDepartmentBiz.eduIdAllBelong(eduId);
+        for(int i = 0;i < eduList.size();i++){
+            inspectionTeamArrangementBiz.clearITAmsg(eduList.get(i));
+            List<School> schools = schoolBiz.getByEduId(eduList.get(i));
+            for(int j = 0;j < schools.size();j++){
+                List<InspectionTeamArrangement> ITA = inspectionTeamArrangementBiz.getITAOfSchool(schools.get(j).getSchoolId());
+                if(ITA.size() != 0){
+                    List<Integer> isArrangeFloorId = examRoomBiz.isArrangeFloorId(schools.get(j).getSchoolId());
+                    if(isArrangeFloorId.size()<4){
+                        for(int m = 0;m < 4;m++){
+                            List<InspectionTeamArrangement> ITm = new ArrayList<>();
+                            for(int n = 0;n < ITA.size();n++){
+                                if(ITA.get(n).getSessions()==m+1){
+                                    ITm.add(ITA.get(n));
+                                }
+                            }
+                            Random r=new Random();
+                            for (int k = ITm.size() - 1; k > 0; k--) {
+                                Collections.swap(ITm, k, r.nextInt(k + 1));
+                            }
+                            for(int n = 0;n < ITm.size();n++){
+                                ITm.get(n).setFloorId(isArrangeFloorId.get(n));
+                            }
+                            for(int k = 0;k < ITm.size();k++){
+                                inspectionTeamArrangementBiz.setFloorId(ITm.get(k).getItArrangeId(),ITm.get(k).getFloorId());
+                            }
+                        }
+                    }else{
+                        List<InspectionTeamArrangement> tmp = new ArrayList<>();
+                        for(int m = 0;m < 4;m++){
+                            List<InspectionTeamArrangement> ITm = new ArrayList<>();
+                            for(int n = 0;n < ITA.size();n++){
+                                if(ITA.get(n).getSessions()==m+1){
+                                    ITm.add(ITA.get(n));
+                                }
+                            }
+                            boolean flag = true;
+                            refund:while(flag){
+                                Random r=new Random();
+                                for (int k = ITm.size() - 1; k > 0; k--) {
+                                    Collections.swap(ITm, k, r.nextInt(k + 1));
+                                }
+                                for(int n = 0;n < ITm.size();n++){
+                                    ITm.get(n).setFloorId(isArrangeFloorId.get(n));
+                                }
+                                for(int k = 0;k < tmp.size();k++){
+                                    for(int n = 0;n < ITm.size();n++){
+                                        if(tmp.get(k).getInspectionTeamId()==ITm.get(n).getInspectionTeamId()){
+                                            if(tmp.get(k).getFloorId()==ITm.get(n).getFloorId()){
+                                                continue refund;
+                                            }
+                                        }
+                                    }
+                                }
+                                flag = false;
+                            }
+                            for(int k = 0;k < ITm.size();k++){
+                                inspectionTeamArrangementBiz.setFloorId(ITm.get(k).getItArrangeId(),ITm.get(k).getFloorId());
+                            }
+                            tmp.addAll(ITm);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }

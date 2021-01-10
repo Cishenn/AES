@@ -31,10 +31,32 @@ public class InspectionTeamArrangementImpl implements InspectionTeamArrangementB
     }
 
     @Override
-    public void createInspectionTeamArrange(int inspectionTeamId, int schoolId) {
-        int res = inspectionTeamArrangementMapper.createInspectionTeamArrange(inspectionTeamId,schoolId);
+    public void createInspectionTeamArrange(int inspectionTeamId, int schoolId,int sessions) {
+        int res = inspectionTeamArrangementMapper.createInspectionTeamArrange(inspectionTeamId,schoolId,sessions);
         if(res == 0){
             throw new InspectionTeamArrangementException("create ITA error");
+        }
+    }
+
+    @Override
+    public List<InspectionTeamArrangement> getITAOfSchool(int schoolId){
+        List<InspectionTeamArrangement> res = inspectionTeamArrangementMapper.getITAOfSchool(schoolId);
+        return res;
+    }
+
+    @Override
+    public void setFloorId(int itArrangeId,int floorId){
+        int res = inspectionTeamArrangementMapper.setFloorId(itArrangeId,floorId);
+        if(res == 0){
+            throw new InspectionTeamArrangementException("set floorId error");
+        }
+    }
+
+    @Override
+    public void clearITAmsg(int eduId){
+        int res = inspectionTeamArrangementMapper.clearITAmsg(eduId);
+        if(res == 0){
+            throw new InspectionTeamArrangementException("clear floorid error");
         }
     }
 }

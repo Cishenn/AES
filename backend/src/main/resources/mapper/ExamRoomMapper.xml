@@ -75,4 +75,10 @@
         AND (school.exRoomExamine = 1
         OR school.exRoomExamine = 2)
     </select>
+
+    <select id="isArrangeFloorId" resultType="int">
+        SELECT DISTINCT floorId FROM `exam_room`
+        WHERE schoolId = #{schoolId}
+        AND isArrange = 1
+    </select>
 </mapper>

@@ -11,5 +11,11 @@ public interface InspectionTeamArrangementMapper {
 
     int clearITA(int eduId);
 
-    int createInspectionTeamArrange(int inspectionTeamId,int schoolId);
+    int createInspectionTeamArrange(int inspectionTeamId,int schoolId,int sessions);
+
+    List<InspectionTeamArrangement> getITAOfSchool(int schoolId);
+
+    int setFloorId(int itArrangeId,int floorId);
+
+    int clearITAmsg(int eduId);
 }

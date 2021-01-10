@@ -10,5 +10,11 @@ public interface InspectionTeamArrangementBiz {
 
     void clearITA(int eduId);
 
-    void createInspectionTeamArrange(int inspectionTeamId,int schoolId);
+    void createInspectionTeamArrange(int inspectionTeamId,int schoolId,int sessions);
+
+    List<InspectionTeamArrangement> getITAOfSchool(int schoolId);
+
+    void setFloorId(int itArrangeId,int floorId);
+
+    void clearITAmsg(int eduId);
 }
