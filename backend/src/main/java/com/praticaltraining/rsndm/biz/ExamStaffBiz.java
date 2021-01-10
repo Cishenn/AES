@@ -45,4 +45,6 @@ public interface ExamStaffBiz {
     void updateRejection(int esId, String finalRejection);
 
     void addStateMessage(int esId, String stateMessage);
+
+    int getSelectedStaff(int schoolId);
 }

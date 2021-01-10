@@ -111,4 +111,11 @@ public class ExamStaffController {
     void addStateMessage(int esId, String stateMessage){
         examStaffBiz.addStateMessage(esId, stateMessage);
     }
+
+    @GetMapping("/countSelect/schoolId")
+    @ResponseBody
+    @CrossOrigin
+    int getSelectedStaff(int schoolId){
+        return examStaffBiz.getSelectedStaff(schoolId);
+    }
 }

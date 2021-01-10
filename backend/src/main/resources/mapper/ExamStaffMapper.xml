@@ -95,4 +95,11 @@
         WHERE esId = #{esId}
         AND aduitState = 1
     </update>
+
+    <select id="getSelectedStaff" resultType="int">
+        SELECT COUNT(*) FROM exam_staff
+        WHERE schoolId = #{schoolId}
+        AND (eduExamine = 1
+        OR eduExamine = 2)
+    </select>
 </mapper>

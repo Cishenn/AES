@@ -184,4 +184,13 @@ public class ExamStaffImpl implements ExamStaffBiz {
             throw new ExamStaffException("add stateMessage examStaff error");
         }
     }
+
+    @Override
+    public int getSelectedStaff(int schoolId){
+        int res = examStaffMapper.getSelectedStaff(schoolId);
+        if(res == -1){
+            throw new ExamStaffException("get selected examStaff error");
+        }
+        return res;
+    }
 }

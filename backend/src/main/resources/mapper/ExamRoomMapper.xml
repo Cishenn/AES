@@ -68,4 +68,11 @@
         select COUNT(distinct floorId) from exam_room
         where isArrange= 1 AND schoolId=#{schoolId}
     </select>
+
+    <select id="getSelectedRoom" resultType="int">
+        SELECT COUNT(*) FROM exam_room,school
+        WHERE exam_room.schoolId = #{schoolId} AND school.schoolId = #{schoolId}
+        AND (school.exRoomExamine = 1
+        OR school.exRoomExamine = 2)
+    </select>
 </mapper>

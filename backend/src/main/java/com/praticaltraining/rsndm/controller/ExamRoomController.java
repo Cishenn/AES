@@ -62,4 +62,11 @@ public class ExamRoomController {
     void deleteExRoom(int exRoomId){
         examRoomBiz.deleteExRoom(exRoomId);
     }
+
+    @GetMapping("/countSelect/schoolId")
+    @ResponseBody
+    @CrossOrigin
+    int getSelectedRoom(int schoolId){
+        return examRoomBiz.getSelectedRoom(schoolId);
+    }
 }

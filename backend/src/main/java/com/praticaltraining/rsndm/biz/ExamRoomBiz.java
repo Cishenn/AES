@@ -26,4 +26,6 @@ public interface ExamRoomBiz {
     void clearArrange(int schoolId);
 
     void setArrange(int exRoomId);
+
+    int getSelectedRoom(int schoolId);
 }
