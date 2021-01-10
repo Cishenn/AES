@@ -102,4 +102,12 @@
         AND (eduExamine = 1
         OR eduExamine = 2)
     </select>
+
+    <select id="getExStaffListSE" resultType="com.praticaltraining.rsndm.entity.ExamStaff">
+        select * from exam_staff
+        WHERE schoolId = #{schoolId}
+        AND schoolExamine = 2
+        AND eduExamine = 1
+        AND eduExamine = 2
+    </select>
 </mapper>

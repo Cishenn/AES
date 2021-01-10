@@ -51,4 +51,6 @@ public interface ExamStaffMapper {
     int addStateMessage(int esId, String stateMessage);
 
     int getSelectedStaff(int schoolId);
+
+    List<ExamStaff> getExStaffListSE(int schoolId);
 }
