@@ -53,6 +53,6 @@ deploy:
     - pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
     - pip install coscmd
     - coscmd config -a "${COS_SECRET_ID}" -s "${COS_SECRET_KEY}" -b "${COS_BUCKET}" -r "${COS_REGION}"
-    - coscmd upload -r -s frontend/dist/ /
+    - coscmd upload --ignore frontend/dist/img/back1.*.jpg -r -s frontend/dist/ /  # Workaround: Ignore image in continuous deployment
   only:
     - merge_requests
