@@ -5,4 +5,9 @@
         SELECT eduId FROM enrollment_department
         WHERE higherEduId=#{eduId}
     </select>
+
+    <select id="getOne" resultType="EnrollmentDepartment">
+        SELECT * FROM enrollment_department
+        WHERE eduId=#{eduId}
+    </select>
 </mapper>
