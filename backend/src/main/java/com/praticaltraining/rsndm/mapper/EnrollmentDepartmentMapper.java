@@ -1,5 +1,6 @@
 package com.praticaltraining.rsndm.mapper;
 
+import com.praticaltraining.rsndm.entity.EnrollmentDepartment;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface EnrollmentDepartmentMapper {
     int setArrangeLevel(int eduId,int level);
 
     int getArrangeLevel(int eduId);
+    
+    EnrollmentDepartment getOne(int eduId);
 }

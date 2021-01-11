@@ -16,4 +16,9 @@
         SELECT arrangeLevel FROM enrollment_department
         WHERE eduId = #{eduId}
     </select>
+
+    <select id="getOne" resultType="EnrollmentDepartment">
+        SELECT * FROM enrollment_department
+        WHERE eduId=#{eduId}
+    </select>
 </mapper>
