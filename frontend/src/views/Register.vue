@@ -11,7 +11,8 @@
         </div>
         <div class="line">
           <i class="el-icon-key"></i>
-          <el-input v-model="password" class="item" type="text" placeholder="请输入你的密码"  />
+          <el-input v-model="password" class="item" :type="passwordType" placeholder="请输入你的密码" />
+          <!-- <el-button icon="el-icon-view" circle @click="checkStatus" class="checkBtn" /> -->
         </div>
         <div class="line">
           <i class="el-icon-school"></i>
@@ -68,6 +69,7 @@ export default {
       url: '../assets/classify.jpg',
       phonenum: '',
       password: '',
+      passwordType: 'password',
       schoolId: '',
       identity: '',
       optionsCopy: [],
