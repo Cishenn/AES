@@ -3,49 +3,34 @@
   <div class="box">
     <div class="title-box">历史记录</div>
     <div class="form-box">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName" >
         <el-tab-pane label="历史监考" name="first">
           <div style="font-size:20px;margin-bottom:10px">历史监考信息表单</div>
-          <el-table
-            :data="historytable"
-            border
-            style="width: 100%">
-            <el-table-column
-              fixed
-              prop="date"
-              label="监考日期"
-              width="150">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="姓名"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              prop="school"
-              label="考点"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              fixed="right"
-              label="操作"
-              width="100">
-              <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                <el-button type="text" size="small">编辑</el-button>
-              </template>
-            </el-table-column>
+          <el-table border class="table"
+            :data="historyTable.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+            :stripe="true"
+            :current-page.sync="currentPage">
+            <el-table-column label="监考年份" prop="year" align="center" width="120" />
+            <el-table-column label="监考详细信息" prop="hsMessage" align="center" width="120" />
           </el-table>
-          <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="1000">
-          </el-pagination>
+          <div>
+            <el-pagination
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="currentPage1"
+              :page-sizes="[5,10,15,20]"
+              :page-size="pagesize"
+              class="pagination"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="historyTable.length">
+            </el-pagination>
+          </div>
         </el-tab-pane>
         <el-tab-pane label="历史违规" name="second">
           <div style="font-size:20px;margin-bottom:10px">历史违规信息表单</div>
           <el-table
             :data="Violationtable"
+            :stripe="stripe"
             border
             style="width: 100%">
             <el-table-column
@@ -90,28 +75,11 @@
 export default {
   data () {
     return {
+      esId: '',
       activeName: 'first',
-      historytable: [{
-        date: '2018',
-        name: 'Crilias',
-        school: 'HFUT'
-      },
-      {
-        date: '2019',
-        name: 'Crilias',
-        school: 'ANda'
-      },
-      {
-        date: '2018',
-        name: 'Crilias',
-        school: 'ZKD'
-      }],
-      Violationtable: [{
-        date: '2019',
-        name: 'Crilias',
-        school: 'HFUT',
-        reason: '体罚迟到学生'
-      }]
+      historyTable: [],
+      pagesize: 10,
+      currentPage: 1
     }
   },
   created () {
@@ -119,29 +87,58 @@ export default {
       // alert('不要随便乱进哦!')
       this.$router.push('/login')
     }
+    this.esId = this.$store.getters.getTeacherId
   },
-  components: {},
+  mounted () {
+    this.getHistoryTable()
+  },
 
-  computed: {},
-
-  mounted: {},
-
-  methods: {}
+  methods: {
+    getHistoryTable () {
+      this.$axios
+        .get('history/oneHistory', {
+          params: {
+            esId: 1
+            // esId: this.esId
+          }
+        })
+        .then(resp => {
+          console.log(resp)
+          this.historyTable = resp.data.History
+        })
+    }
+  }
 }
 
 </script>
+
 <style scoped>
 .box{
-
   border-radius: 5px;
   padding: 20px;
 }
+
 .title-box{
   font-size: 20px;
-  /* color: red; */
+  margin-left: 40px;
   margin-bottom: 20px;
 }
+
 .form-box{
   margin-left: 60px;
+  width: 100%;
+}
+
+.table {
+  margin-bottom: 2%;
+}
+
+.pagination {
+  width: 400px;
+  margin: auto;
+}
+
+.el-table__header {
+  margin: 0;
 }
 </style>
