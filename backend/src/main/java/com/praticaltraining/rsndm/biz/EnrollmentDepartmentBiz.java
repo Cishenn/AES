@@ -13,4 +13,5 @@ public interface EnrollmentDepartmentBiz {
     
     EnrollmentDepartment getOne(int eduId);
 
+    void clearArrangeLevel(int eduId);
 }

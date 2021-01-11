@@ -37,10 +37,21 @@ public class AutoDeployController {
     @RequestMapping(value = "/stepOne",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
     List<Integer> autoDeployStepOne(int eduId){
+        enrollmentDepartmentBiz.clearArrangeLevel(eduId);
+        List<Integer> eduList = enrollmentDepartmentBiz.eduIdAllBelong(eduId);
+        for(int i = 0;i < eduList.size();i++){
+            enrollmentDepartmentBiz.clearArrangeLevel(eduList.get(i));
+        }
         int flag = examinationSiteDeploy(eduId);
         if(flag == 0){
             List<Integer> res=invigilatorGroupOfStepOne(eduId);
             inspectionTeamOfStepOne(eduId);
+            if(res.get(0).equals(-1)){
+                enrollmentDepartmentBiz.setArrangeLevel(eduId,1);
+                for(int i = 0;i < eduList.size();i++){
+                    enrollmentDepartmentBiz.setArrangeLevel(eduList.get(i),1);
+                }
+            }
             return res;
         }else{
             List<Integer> res=new Vector<>();

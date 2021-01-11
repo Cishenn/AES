@@ -43,4 +43,12 @@ public class EnrollmentDepartmentImpl implements EnrollmentDepartmentBiz {
         }
         return res;
     }
+
+    @Override
+    public void clearArrangeLevel(int eduId){
+        int res = enrollmentDepartmentMapper.clearArrangeLevel(eduId);
+        if(res == 0){
+            throw new EnrollmentDepartmentException("clear arrangeLevel error");
+        }
+    }
 }

@@ -8,7 +8,7 @@
 
     <update id="setArrangeLevel">
         UPDATE enrollment_department SET
-        arrangeLevel = #{arrangeLevel}
+        arrangeLevel = #{level}
         WHERE eduId = #{eduId}
     </update>
 
@@ -21,4 +21,10 @@
         SELECT * FROM enrollment_department
         WHERE eduId=#{eduId}
     </select>
+
+    <update id="clearArrangeLevel">
+        UPDATE enrollment_department SET
+        arrangeLevel = NULL
+        WHERE eduId = #{eduId}
+    </update>
 </mapper>

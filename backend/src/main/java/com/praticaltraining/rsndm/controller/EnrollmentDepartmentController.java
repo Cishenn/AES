@@ -17,4 +17,11 @@ public class EnrollmentDepartmentController {
     EnrollmentDepartment getOne(int eduId){
         return enrollmentDepartmentBiz.getOne(eduId);
     }
+
+    @GetMapping("/arrangeLevel/eduId")
+    @ResponseBody
+    @CrossOrigin
+    int getArrangeLevel(int eduId){
+        return enrollmentDepartmentBiz.getArrangeLevel(eduId);
+    }
 }
