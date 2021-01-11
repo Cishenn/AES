@@ -8,4 +8,5 @@ public class EnrollmentDepartment{
     String eduName;
     int higherEduId;
     int eduLevel;
+    int arrangeLevel;
 }

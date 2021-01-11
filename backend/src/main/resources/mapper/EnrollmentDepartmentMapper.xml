@@ -5,4 +5,15 @@
         SELECT eduId FROM enrollment_department
         WHERE higherEduId=#{eduId}
     </select>
+
+    <update id="setArrangeLevel">
+        UPDATE enrollment_department SET
+        arrangeLevel = #{arrangeLevel}
+        WHERE eduId = #{eduId}
+    </update>
+
+    <select id="getArrangeLevel" resultType="int">
+        SELECT arrangeLevel FROM enrollment_department
+        WHERE eduId = #{eduId}
+    </select>
 </mapper>
