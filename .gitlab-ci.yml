@@ -1,6 +1,8 @@
 stages:
   - install_dependencies
   - test
+  - build
+  - deploy
 
 default:
   image: node:14
@@ -8,6 +10,7 @@ default:
 cache:
   paths:
     - frontend/node_modules/
+    - frontend/dist/
 
 install_dependencies:
   stage: install_dependencies
@@ -31,5 +34,25 @@ unit_test:
   script:
     - cd frontend
     - npm run test:unit -- --passWithNoTests
+  only:
+    - merge_requests
+
+build:
+  stage: build
+  script:
+    - cd frontend
+    - npm run build
+  only:
+    - merge_requests
+
+deploy:
+  stage: deploy
+  image: 
+    name: python:3.9
+  script:
+    - pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    - pip install coscmd
+    - coscmd config -a "${COS_SECRET_ID}" -s "${COS_SECRET_KEY}" -b "${COS_BUCKET}" -r "${COS_REGION}"
+    - coscmd upload -r -s frontend/dist/ /
   only:
     - merge_requests
