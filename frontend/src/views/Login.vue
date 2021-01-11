@@ -46,8 +46,8 @@ export default {
       teacherId: '1',
       username: '',
       password: '',
-      istrue: false,
-      value: '',
+      istrue: true,
+      value: 1,
       options: [{
         value: 1,
         label: '教师'
