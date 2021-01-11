@@ -1,4 +1,3 @@
-<!--  -->
 <template>
   <div class="box">
     <div class="title-box">历史记录</div>
@@ -10,8 +9,8 @@
             :data="historyTable.slice((currentPage-1)*pagesize,currentPage*pagesize)"
             :stripe="true"
             :current-page.sync="currentPage">
-            <el-table-column label="监考年份" prop="year" align="center" width="120" />
-            <el-table-column label="监考详细信息" prop="hsMessage" align="center" width="120" />
+            <el-table-column label="监考年份" prop="year" align="center" width="220" />
+            <el-table-column label="监考详细信息" prop="hsMessage" align="center" width="249" />
           </el-table>
           <div>
             <el-pagination
@@ -88,6 +87,7 @@ export default {
       this.$router.push('/login')
     }
     this.esId = this.$store.getters.getTeacherId
+    console.log(this.esId)
   },
   mounted () {
     this.getHistoryTable()
@@ -98,8 +98,7 @@ export default {
       this.$axios
         .get('history/oneHistory', {
           params: {
-            esId: 1
-            // esId: this.esId
+            esId: this.esId
           }
         })
         .then(resp => {
@@ -131,6 +130,7 @@ export default {
 
 .table {
   margin-bottom: 2%;
+  width: 470px;
 }
 
 .pagination {
