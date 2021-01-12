@@ -8,42 +8,18 @@
     <div class="Settinginfo">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="上传头像" prop="avatar">
-          <div class="upload-image">
-            <el-upload
-              action="#"
-              list-type="picture-card"
-              :auto-upload="false">
-                <i slot="default" class="el-icon-plus"></i>
-                <div slot="file" slot-scope="{file}">
-                  <img
-                    class="el-upload-list__item-thumbnail"
-                    :src="file.url" alt=""
-                  >
-                  <span class="el-upload-list__item-actions">
-                    <span
-                      class="el-upload-list__item-preview"
-                      @click="handlePictureCardPreview(file)"
-                    >
-                      <i class="el-icon-zoom-in"></i>
-                    </span>
-                    <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleDownload(file)"
-                    >
-                      <i class="el-icon-download"></i>
-                    </span>
-                    <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleRemove(file)"
-                    >
-                      <i class="el-icon-delete"></i>
-                    </span>
-                  </span>
-                </div>
-            </el-upload>
-          </div>
+          <el-upload
+            class="avatar-uploader"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :show-file-list="false"
+            list-type="picture-card"
+            multiple="false"
+            :before-upload="beforeAvatarUpload"
+            :on-success="handleAvatarSuccess"
+            :auto-upload="true">
+            <img v-if="personInfo.imageUrl" :src="personInfo.imageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
           <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
@@ -133,6 +109,7 @@ export default {
       ],
       schools: [],
       personInfo: {
+        imageUrl: '',
         esId: '',
         name: '',
         telephoneNumber: '',
@@ -147,6 +124,7 @@ export default {
       this.$router.push('/login')
     }
     this.personInfo.esId = this.$store.getters.getTeacherId
+    this.personInfo.imageUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.personInfo.esId}.jpg`
     this.getSchools()
     this.getPersonalInfo()
   },
@@ -270,6 +248,17 @@ export default {
           break
       }
       return msg
+    },
+    handleAvatarSuccess (res, file) {
+      this.personInfo.imageUrl = URL.createObjectURL(file.raw)
+      this.$message.success('头像已成功上传！')
+    },
+    beforeAvatarUpload (file) {
+      const isJPG = file.type === 'image/jpeg'
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
+      return isJPG
     }
   }
 }
@@ -314,15 +303,15 @@ export default {
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
+  width: 148px;
+  height: 148px;
+  line-height: 148px;
   text-align: center;
 }
 
 .avatar {
-  width: 178px;
-  height: 178px;
+  width: 146px;
+  height: 146px;
   display: block;
 }
 </style>
