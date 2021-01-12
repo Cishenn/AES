@@ -42,4 +42,9 @@
         SELECT * FROM school
         WHERE eduId=#{eduId} AND typeOfExaminationSite IS NOT NULL
     </select>
+
+    <select id="getEduId" resultType="int">
+        SELECT eduId FROM school
+        WHERE schoolId=#{schoolId}
+    </select>
 </mapper>

@@ -77,4 +77,9 @@ public class SchoolImpl implements SchoolBiz {
         return res;
     }
 
+    @Override
+    public int getEduId(int schoolId) {
+        return schoolMapper.getEduId(schoolId);
+    }
+
 }

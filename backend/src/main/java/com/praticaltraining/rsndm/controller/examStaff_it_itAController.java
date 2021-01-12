@@ -29,31 +29,60 @@ public class examStaff_it_itAController {
     @GetMapping("/inspectionTeamsAndPos")
     @ResponseBody
     @CrossOrigin
-    ResponseEntity<Map<String, List<examStaff_it_itA>>> getInspectionTeamsAndPos(int eduId){
+    ResponseEntity<Map<String, List<examStaff_it_itA>>> getInspectionTeamsAndPos(int schoolId){
         Map<String,List<examStaff_it_itA>> result = new HashMap<>();
-        List<InspectionTeam> allInspectionTeam=inspectionTeamBiz.getAllByEduId(eduId);
+        List<InspectionTeam> allInspectionTeam=inspectionTeamBiz.getAllByEduId(schoolBiz.getEduId(schoolId));
         List<examStaff_it_itA> inspectionTeamsAndPos=new Vector<>();
         for(int i=0;i<allInspectionTeam.size();i++){
             List<InspectionTeamArrangement> allArrange=inspectionTeamArrangementBiz.getAllInspectionTeamArrangementOfOneInspectionTeam(allInspectionTeam.get(i).getInspectionTeamId());
             for(int j=0;j<allArrange.size();j++){
-                examStaff_it_itA examStaff_it_itARes=new examStaff_it_itA();
-                examStaff_it_itARes.setSessions(allArrange.get(j).getSessions());
-                examStaff_it_itARes.setInspectionTeamId(allInspectionTeam.get(i).getInspectionTeamId());
+                if(allArrange.get(j).getSchoolId()==schoolId){
+                    examStaff_it_itA examStaff_it_itARes=new examStaff_it_itA();
+                    examStaff_it_itARes.setSessions(allArrange.get(j).getSessions());
+                    examStaff_it_itARes.setInspectionTeamId(allInspectionTeam.get(i).getInspectionTeamId());
 
-                examStaff_it_itARes.setFirstInspectionPersonName(examStaffBiz.getName(allInspectionTeam.get(i).getFirstInspectionPersonId()));
-                examStaff_it_itARes.setSecondInspectionPersonName(examStaffBiz.getName(allInspectionTeam.get(i).getSecondInspectionPersonId()));
+                    examStaff_it_itARes.setFirstInspectionPersonName(examStaffBiz.getName(allInspectionTeam.get(i).getFirstInspectionPersonId()));
+                    examStaff_it_itARes.setSecondInspectionPersonName(examStaffBiz.getName(allInspectionTeam.get(i).getSecondInspectionPersonId()));
 
-                Floor floor=floorBiz.getOneFloor(allArrange.get(j).getFloorId());
-                examStaff_it_itARes.setFloorStep(floor.getFloorStep());
-                examStaff_it_itARes.setBuilding(floor.getBuilding());
+                    Floor floor=floorBiz.getOneFloor(allArrange.get(j).getFloorId());
+                    examStaff_it_itARes.setFloorStep(floor.getFloorStep());
+                    examStaff_it_itARes.setBuilding(floor.getBuilding());
 
-                examStaff_it_itARes.setSchoolName(schoolBiz.getSchoolName(allArrange.get(j).getSchoolId()));
+                    examStaff_it_itARes.setSchoolName(schoolBiz.getSchoolName(allArrange.get(j).getSchoolId()));
 
-                inspectionTeamsAndPos.add(examStaff_it_itARes);
+                    inspectionTeamsAndPos.add(examStaff_it_itARes);
+                }
             }
 
         }
         result.put("inspectionTeamsAndPos",inspectionTeamsAndPos);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @GetMapping("/inspectionTeams")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<examStaff_it_itA>>> getInspection(int schoolId){
+        Map<String,List<examStaff_it_itA>> result = new HashMap<>();
+        List<InspectionTeam> allInspectionTeam=inspectionTeamBiz.getAllByEduId(schoolBiz.getEduId(schoolId));
+        List<examStaff_it_itA> inspectionTeamsAndPos=new Vector<>();
+        for(int i=0;i<allInspectionTeam.size();i++){
+            List<InspectionTeamArrangement> allArrange=inspectionTeamArrangementBiz.getAllInspectionTeamArrangementOfOneInspectionTeam(allInspectionTeam.get(i).getInspectionTeamId());
+            for(int j=0;j<allArrange.size();j++){
+                if(allArrange.get(j).getSchoolId()==schoolId&&allArrange.get(j).getSessions()==1){
+                    examStaff_it_itA examStaff_it_itARes=new examStaff_it_itA();
+                    examStaff_it_itARes.setInspectionTeamId(allInspectionTeam.get(i).getInspectionTeamId());
+
+                    examStaff_it_itARes.setFirstInspectionPersonName(examStaffBiz.getName(allInspectionTeam.get(i).getFirstInspectionPersonId()));
+                    examStaff_it_itARes.setSecondInspectionPersonName(examStaffBiz.getName(allInspectionTeam.get(i).getSecondInspectionPersonId()));
+
+                    examStaff_it_itARes.setSchoolName(schoolBiz.getSchoolName(allArrange.get(j).getSchoolId()));
+
+                    inspectionTeamsAndPos.add(examStaff_it_itARes);
+                }
+            }
+        }
+        result.put("inspectionTeams",inspectionTeamsAndPos);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

@@ -22,4 +22,6 @@ public interface SchoolMapper {
     int getState(int schoolId);
 
     List<School> getArrangedSchool(int eduId);
+
+    int getEduId(int schoolId);
 }

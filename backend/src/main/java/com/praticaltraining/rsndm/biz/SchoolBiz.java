@@ -20,4 +20,6 @@ public interface SchoolBiz {
     int getState(int schoolId);
 
     List<School> getArrangedSchool(int eduId);
+
+    int getEduId(int schoolId);
 }
