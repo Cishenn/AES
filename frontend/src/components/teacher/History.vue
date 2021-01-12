@@ -44,7 +44,26 @@
             </el-pagination>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="历史反馈" name="third">历史反馈信息表单</el-tab-pane>
+        <el-tab-pane label="历史反馈" name="third">
+          <div style="font-size:20px;margin-bottom:10px">历史违规信息表单</div>
+          <el-table border class="feedbackTable"
+            :data="feedbackTable.slice((fCurrentPage-1)*fPagesize,fCurrentPage*fPagesize)"
+            :stripe="true"
+            :current-page.sync="fCurrentPage">
+            <el-table-column label="反馈详细信息" prop="stateMessage" align="center" width="269" />
+            <el-table-column label="审核状态" prop="auditState" align="center" width="200" />
+          </el-table>
+          <div>
+            <el-pagination
+              :current-page="fCurrentPage"
+              :page-sizes="[5,10,15,20]"
+              :page-size="fPagesize"
+              class="pagination"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="feedbackTable.length">
+            </el-pagination>
+          </div>
+        </el-tab-pane>
       </el-tabs>
     </div>
   </div>
@@ -58,10 +77,13 @@ export default {
       activeName: 'first',
       historyTable: [],
       violationTable: [],
+      feedbackTable: [],
       hPagesize: 10,
       hCurrentPage: 1,
       vPagesize: 10,
-      vCurrentPage: 1
+      vCurrentPage: 1,
+      fPagesize: 10,
+      fCurrentPage: 1
     }
   },
   created () {
@@ -73,6 +95,7 @@ export default {
   mounted () {
     this.getHistoryTable()
     this.getViolationTable()
+    this.getFeedbackTable()
   },
 
   methods: {
@@ -96,6 +119,34 @@ export default {
         })
         .then(resp => {
           this.violationTable = resp.data.violationRecords
+        })
+    },
+    getFeedbackTable () {
+      this.$axios
+        .get('StatusNotes/StatusNotes', {
+          params: {
+            esId: this.esId
+          }
+        })
+        .then(resp => {
+          for (const item of resp.data.StatusNotes) {
+            console.log(item)
+            const tuple = { stateMessage: '', auditState: '' }
+            tuple.stateMessage = item.stateMessage
+            switch (item.auditState) {
+              case '0':
+                tuple.auditState = '未通过'
+                break
+              case '1':
+                tuple.auditState = '未审核'
+                break
+              case '2':
+                tuple.auditState = '已审核'
+                break
+            }
+            console.log(tuple)
+            this.feedbackTable.push(tuple)
+          }
         })
     }
   }
@@ -128,6 +179,11 @@ export default {
 .violationTable {
   margin-bottom: 2%;
   width: 551px;
+}
+
+.feedbackTable {
+  margin-bottom: 2%;
+  width: 470px;
 }
 
 .pagination {
