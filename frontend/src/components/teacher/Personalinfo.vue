@@ -10,10 +10,14 @@
         <el-form-item label="上传头像" prop="avatar">
           <el-upload
             class="avatar-uploader"
-            action="#"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :show-file-list="false"
             list-type="picture-card"
-            :auto-upload="false">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            multiple="false"
+            :before-upload="beforeAvatarUpload"
+            :on-success="handleAvatarSuccess"
+            :auto-upload="true">
+            <img v-if="personInfo.imageUrl" :src="personInfo.imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
@@ -105,14 +109,14 @@ export default {
       ],
       schools: [],
       personInfo: {
+        imageUrl: '',
         esId: '',
         name: '',
         telephoneNumber: '',
         sex: '',
         schoolId: '',
         grade: ''
-      },
-      imageUrl: ''
+      }
     }
   },
   created () {
@@ -120,7 +124,7 @@ export default {
       this.$router.push('/login')
     }
     this.personInfo.esId = this.$store.getters.getTeacherId
-    this.imageUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.personInfo.esId}.jpg`
+    this.personInfo.imageUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.personInfo.esId}.jpg`
     this.getSchools()
     this.getPersonalInfo()
   },
@@ -244,6 +248,17 @@ export default {
           break
       }
       return msg
+    },
+    handleAvatarSuccess (res, file) {
+      this.personInfo.imageUrl = URL.createObjectURL(file.raw)
+      this.$message.success('头像已成功上传！')
+    },
+    beforeAvatarUpload (file) {
+      const isJPG = file.type === 'image/jpeg'
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
+      return isJPG
     }
   }
 }
