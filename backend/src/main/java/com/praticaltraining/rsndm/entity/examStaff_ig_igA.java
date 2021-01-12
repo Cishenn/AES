@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class examStaff_ig_igA {
-    private int InvigilatorGroup;
+    private int InvigilatorGroupId;
     private String schoolName;
     private int sessions;
     private int floorStep;
