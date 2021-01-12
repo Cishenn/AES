@@ -2,7 +2,7 @@ FROM maven:3-adoptopenjdk-8
 WORKDIR /app
 COPY pom.xml pom.xml
 COPY src src
-RUN mvn package
+RUN mvn package assembly:single
 
 FROM openjdk:8-jdk-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
