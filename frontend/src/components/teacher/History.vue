@@ -2,7 +2,7 @@
   <div class="box">
     <div class="title-box">历史记录</div>
     <div class="form-box">
-      <el-tabs v-model="activeName"  @tab-click="handleClick">
+      <el-tabs v-model="activeName" >
         <el-tab-pane label="历史监考" name="first">
           <div style="font-size:20px;margin-bottom:10px">历史监考信息表单</div>
           <el-table border class="historyTable"
@@ -14,8 +14,6 @@
           </el-table>
           <div>
             <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
               :current-page="hCurrentPage"
               :page-sizes="[5,10,15,20]"
               :page-size="hPagesize"
@@ -37,8 +35,6 @@
           </el-table>
           <div>
             <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
               :current-page="vCurrentPage"
               :page-sizes="[5,10,15,20]"
               :page-size="vPagesize"
@@ -73,7 +69,6 @@ export default {
       this.$router.push('/login')
     }
     this.esId = this.$store.getters.getTeacherId
-    console.log(this.esId)
   },
   mounted () {
     this.getHistoryTable()
@@ -89,21 +84,19 @@ export default {
           }
         })
         .then(resp => {
-          console.log(resp)
           this.historyTable = resp.data.History
         })
     },
     getViolationTable () {
-      // this.$axios
-      //   .get('history/oneHistory', {
-      //     params: {
-      //       esId: this.esId
-      //     }
-      //   })
-      //   .then(resp => {
-      //     console.log(resp)
-      //     this.historyTable = resp.data.History
-      //   })
+      this.$axios
+        .get('violationRecord/violationRecords', {
+          params: {
+            esId: this.esId
+          }
+        })
+        .then(resp => {
+          this.violationTable = resp.data.violationRecords
+        })
     }
   }
 }
