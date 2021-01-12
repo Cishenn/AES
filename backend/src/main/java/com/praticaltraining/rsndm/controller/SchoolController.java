@@ -1,5 +1,6 @@
 package com.praticaltraining.rsndm.controller;
 
+import com.praticaltraining.rsndm.biz.EnrollmentDepartmentBiz;
 import com.praticaltraining.rsndm.biz.SchoolBiz;
 import com.praticaltraining.rsndm.entity.School;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 @RestController
 @RequestMapping("/school")
@@ -17,6 +19,8 @@ public class SchoolController {
 
     @Autowired
     private SchoolBiz schoolBiz;
+    @Autowired
+    private EnrollmentDepartmentBiz enrollmentDepartmentBiz;
 
     @GetMapping("/school")
     @ResponseBody
@@ -62,5 +66,29 @@ public class SchoolController {
     @CrossOrigin
     int getState(int schoolId){
         return schoolBiz.getState(schoolId);
+    }
+
+    @GetMapping("/schools/eduId")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<School>>> getAllBelongSchool(int eduId){
+        Map<String,List<School>> result = new HashMap<>();
+        List<School> res=schoolBiz.getByEduId(eduId);
+        int level=enrollmentDepartmentBiz.getOne(eduId).getEduLevel();
+        if(level>1&&enrollmentDepartmentBiz.eduIdAllBelong(eduId)!=null){
+            List<Integer> eduIdList=enrollmentDepartmentBiz.eduIdAllBelong(eduId);
+            for(int i=0;i<eduIdList.size();i++){
+                res.addAll(schoolBiz.getByEduId(eduIdList.get(i)));
+                level=enrollmentDepartmentBiz.getOne(eduIdList.get(i)).getEduLevel();
+                if(level>1&&enrollmentDepartmentBiz.eduIdAllBelong(eduIdList.get(i))!=null){
+                    List<Integer> eduIdListLow=enrollmentDepartmentBiz.eduIdAllBelong(eduIdList.get(i));
+                    for(int j=0;j<eduIdListLow.size();j++){
+                        res.addAll(schoolBiz.getByEduId(eduIdListLow.get(j)));
+                    }
+                }
+            }
+        }
+        result.put("School",res);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }

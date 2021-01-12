@@ -26,9 +26,6 @@ public class SchoolImpl implements SchoolBiz {
     @Override
     public List<School> getByEduId(int eduId){
         List<School> res = schoolMapper.getByEduId(eduId);
-        if(res == null){
-            throw new SchoolException("get school by eduId error");
-        }
         return res;
     }
 
@@ -64,7 +61,7 @@ public class SchoolImpl implements SchoolBiz {
             throw new SchoolException("set type error");
         }
     }
-    
+
     @Override
     public int getState(int schoolId){
         int res = schoolMapper.getState(schoolId);
