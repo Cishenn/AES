@@ -1,135 +1,157 @@
 <template>
   <div class="roomInfo">
-    <el-tabs @tab-click="GOGOGO">
-      <el-tab-pane label="考场录入" class="first">
-        <el-form ref="form" :model="form" label-width="80px">
-          <el-form-item label="所属楼号">
-            <el-select v-model="form.building" placeholder="请选择楼号" style="width: 300px" @change="choosestep">
-              <el-option
-              v-for="item in form.buildingtable"
-              :key="item"
-              :value="item"
-              :lable="item"
-              >
-              </el-option>
-            </el-select>
-            <!-- <el-input v-model="form.building"></el-input> -->
-          </el-form-item>
-          <el-form-item label="所属楼层">
-            <el-select v-model="form.floor" clearable placeholder="请选择楼层" style="width: 300px" @change="getfloorId">
-              <el-option
-              v-for="item in form.floortable"
-              :key="item.floorId"
-              :value="item.floorId"
-              :label="item.floorStep"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="房间号">
-            <el-input v-model="form.room"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="addexamroom">立即创建</el-button>
-            <el-button @click="deleteform">清空</el-button>
-          </el-form-item>
-        </el-form>
-        <el-upload
-          class="upload-demo"
-          drag
-          action="https://jsonplaceholder.typicode.com/posts/">
-          <i class="el-icon-upload"></i>
-          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-          <div class="el-upload__tip" slot="tip">只能上传excel文件</div>
-        </el-upload>
-      </el-tab-pane>
-      <el-tab-pane label="考场信息" class="second" >
-        <el-table border class="table" :data="Examroomtable.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage">
-          <!-- <el-table-column type="selection" width="55"/> -->
-          <el-table-column align="center" label="所属楼"  width="120px">
-            <template slot-scope="scope">
-              {{ scope.row.floor.building }}
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="楼层"  width="120px">
-            <template slot-scope="scope">
-              {{ scope.row.floor.floorStep }}
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="房间号"  width="120px">
-            <template slot-scope="scope">
-              {{ scope.row.examRoom.roomNum }}
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="操作" width="180px">
-            <template slot-scope="scope">
-              <el-button
-                size="mini"
-                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-              <el-button
-                size="mini"
-                type="danger"
-                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="审核状态" width="180px">
-            <el-tag
-              :type="tags.type">
-              {{tags.name}}
-            </el-tag>
-          </el-table-column>
-        </el-table>
-        <div>
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            :page-sizes="[5,10,15,20]"
-            :page-size="pagesize"
-            class="pagination"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="Examroomtable.length">
-          </el-pagination>
-        </div>
-        <div>
-          <el-button class="submitBtn" @click="submitBtn">上传</el-button>
-        </div>
-      </el-tab-pane>
-    </el-tabs>
-    <el-dialog title="修改考场" :visible.sync="dialogTableVisible">
-      <el-form ref="form" :model="form" label-width="80px">
-          <el-form-item label="所属楼号">
-            <el-select v-model="activebuilding" placeholder="请选择楼号" style="width: 300px" @change="chooseactivestep2">
-              <el-option
-              v-for="item in form.buildingtable"
-              :key="item"
-              :value="item"
-              :lable="item"
-              >
-              </el-option>
-            </el-select>
-            <!-- <el-input v-model="form.building"></el-input> -->
-          </el-form-item>
-          <el-form-item label="所属楼层">
-            <el-select v-model="activefloor" clearable placeholder="请选择楼层" style="width: 300px" @change="getfloorId2">
-              <el-option
-              v-for="item in activefloortavle"
-              :key="item.floorId"
-              :value="item.floorId"
-              :label="item.floorStep"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="房间号" >
-            <el-input v-model="activeroom" style="width: 300px"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="modifyexamroom">修改</el-button>
-            <!-- <el-button @click="deleteform">取消</el-button> -->
-          </el-form-item>
-        </el-form>
-    </el-dialog>
+    <div class="mainarea">
+      <div class="app">
+        <el-tabs @tab-click="GOGOGO">
+          <el-tab-pane label="考场录入" class="first">
+                     <span slot="label">
+                         <i class="el-icon-s-grid" style="margin:0 303px 0 80px" align="center">
+                             <span style="padding-left: 153px">考场录入</span>
+                         </i>
+                     </span>
+            <el-form ref="form" :model="form" label-width="80px">
+              <el-form-item label="所属楼号">
+                <el-select v-model="form.building" placeholder="请选择楼号" style="width: 300px" @change="choosestep">
+                  <el-option
+                  v-for="item in form.buildingtable"
+                  :key="item"
+                  :value="item"
+                  :lable="item"
+                  >
+                  </el-option>
+                </el-select>
+                <!-- <el-input v-model="form.building"></el-input> -->
+              </el-form-item>
+              <el-form-item label="所属楼层">
+                <el-select v-model="form.floor" clearable placeholder="请选择楼层" style="width: 300px" @change="getfloorId">
+                  <el-option
+                  v-for="item in form.floortable"
+                  :key="item.floorId"
+                  :value="item.floorId"
+                  :label="item.floorStep"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="房间号">
+                <el-input v-model="form.room" style="width: 300px;"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="addexamroom">立即创建</el-button>
+                <el-button @click="deleteform">清空</el-button>
+              </el-form-item>
+            </el-form>
+            <el-upload
+              class="upload-demo"
+              drag
+              action="https://jsonplaceholder.typicode.com/posts/">
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+              <div class="el-upload__tip" slot="tip">只能上传excel文件</div>
+            </el-upload>
+          </el-tab-pane>
+          <el-tab-pane label="考场信息" class="second" align="center">
+            <span slot="label">
+                <i class="el-icon-s-grid" style="margin:0 304px 0 80px">
+                    <span style="padding-left: 154px">考场信息</span>
+                </i>
+            </span>
+
+                <el-scrollbar
+                    wrapClass="scrollbar-wrap"
+                    :style="{height: scrollHeight}"
+                    ref="scrollbarContainer">
+                    <div>
+                      <el-table border class="table" :data="Examroomtable.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage">
+                        <!-- <el-table-column type="selection" width="55"/> -->
+                        <el-table-column align="center" label="所属楼"  width="120px">
+                          <template slot-scope="scope">
+                            {{ scope.row.floor.building }}
+                          </template>
+                        </el-table-column>
+                        <el-table-column align="center" label="楼层"  width="120px">
+                          <template slot-scope="scope">
+                            {{ scope.row.floor.floorStep }}
+                          </template>
+                        </el-table-column>
+                        <el-table-column align="center" label="房间号"  width="120px">
+                          <template slot-scope="scope">
+                            {{ scope.row.examRoom.roomNum }}
+                          </template>
+                        </el-table-column>
+                        <el-table-column align="center" label="操作" width="180px">
+                          <template slot-scope="scope">
+                            <el-button
+                              size="mini"
+                              @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                            <el-button
+                              size="mini"
+                              type="danger"
+                              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                          </template>
+                        </el-table-column>
+                        <el-table-column align="center" label="审核状态" width="180px">
+                          <el-tag
+                            :type="tags.type">
+                            {{tags.name}}
+                          </el-tag>
+                        </el-table-column>
+                      </el-table>
+                      <div>
+                        <el-pagination
+                          @size-change="handleSizeChange"
+                          @current-change="handleCurrentChange"
+                          :current-page="currentPage"
+                          :page-sizes="[5,10,15,20]"
+                          :page-size="pagesize"
+                          class="pagination"
+                          layout="total, sizes, prev, pager, next, jumper"
+                          :total="Examroomtable.length">
+                        </el-pagination>
+                      </div>
+                      <div>
+                        <el-button class="submitBtn" @click="submitBtn">上传</el-button>
+                      </div>
+                    </div>
+                </el-scrollbar>
+          </el-tab-pane>
+        </el-tabs>
+        <el-dialog title="修改考场" :visible.sync="dialogTableVisible">
+          <el-form ref="form" :model="form" label-width="80px">
+              <el-form-item label="所属楼号">
+                <el-select v-model="activebuilding" placeholder="请选择楼号" style="width: 300px" @change="chooseactivestep2">
+                  <el-option
+                  v-for="item in form.buildingtable"
+                  :key="item"
+                  :value="item"
+                  :lable="item"
+                  >
+                  </el-option>
+                </el-select>
+                <!-- <el-input v-model="form.building"></el-input> -->
+              </el-form-item>
+              <el-form-item label="所属楼层">
+                <el-select v-model="activefloor" clearable placeholder="请选择楼层" style="width: 300px" @change="getfloorId2">
+                  <el-option
+                  v-for="item in activefloortavle"
+                  :key="item.floorId"
+                  :value="item.floorId"
+                  :label="item.floorStep"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="房间号" >
+                <el-input v-model="activeroom" style="width: 300px"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="modifyexamroom">修改</el-button>
+                <!-- <el-button @click="deleteform">取消</el-button> -->
+              </el-form-item>
+            </el-form>
+        </el-dialog>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -137,6 +159,7 @@
 export default {
   data () {
     return {
+      scrollHeight: '580px',
       operate: 0,
       tags: {
         name: '未提交',
@@ -449,19 +472,58 @@ export default {
 </script>
 
 <style scoped>
+  .roomInfo{
+    background-color: #e4eeff;
+    width: 89.7%;
+    height: 91.5%;
+    margin-left: -150px;
+    margin-top: 3%;
+  }
+  .mainarea{
+    background-color: #FFFFFF;
+    width: 95%;
+    height: 96%;
+    margin-top: 1%;
+    margin-left: 2.5%;
+  }
+  .app{
+    margin-left: 1%;
+    position: fixed;
+  }
+.scrollbar-wrap.el-scrollbar__wrap {
+    overflow:hidden;
+}
+.scrollbar-wrap .el-scrollbar{
+  overflow-x: hidden;
+}
+.el-scrollbar__wrap{
+  overflow-x: hidden;
+}
+/* .second{
+    margin-left: 25%;
+  } */
+  .first{
+    margin-left: 35%;
+    margin-top: 5%;
+  }
 .table {
   margin-bottom: 2%;
 }
 
 .pagination {
   width: 400px;
-  margin: auto;
+  margin-top: 3%;
 }
 
 .submitBtn {
   width: 140px;
   display: block;
-  margin: auto;
   margin-top: 1%;
 }
+</style>
+
+<style>
+  .scrollbar-wrap.el-scrollbar__wrap {
+      overflow-x:hidden;
+  }
 </style>
