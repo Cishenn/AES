@@ -13,8 +13,16 @@
         header-cell-class-name="tableStyle"
         >
           <el-table-column label="学校名称" prop="schoolName" width="120px" align="center"/>
-          <el-table-column label="学校考务人员数" prop="exRoomExamine" width="120px" align="center"/>
+          <el-table-column label="学校考务人员数" prop="typeOfExaminationSite" width="120px" align="center"/>
           <el-table-column label="学校考场数" prop="eduId" width="120px" align="center"/>
+          <el-table-column align="center" label="考场审核状态" width="120px">
+            <template slot-scope="scope">
+              <el-tag
+                :type="scope.row.exRoomExamine === 1 ? 'info' : 'success'"
+                >{{scope.row.exRoomExamine ===1 ? '未审核' : '已审核'}}
+              </el-tag>
+            </template>
+            </el-table-column>
           <el-table-column
             fixed="right"
             label="操作"
@@ -71,12 +79,12 @@ export default {
           eduId: this.eduId
         }
       }).then(resp => {
-        // console.log(resp.data)
+        console.log(resp.data)
         this.schoolTable = resp.data.School
-        console.log(this.schoolTable)
+        // console.log(this.schoolTable)
         const length = this.schoolTable.length
         for (let i = 0; i < length; i++) {
-          // 以eduId暂存考场数目，以exroomexamine暂存考务人员数目
+          // 以eduId暂存考场数目，以typeOfExaminationSite暂存考务人员数目
           this.$axios.get('exRoom/countSelect/schoolId', {
             params: {
               schoolId: this.schoolTable[i].schoolId
@@ -91,13 +99,13 @@ export default {
               schoolId: this.schoolTable[i].schoolId
             }
           }).then(resp => {
-            this.schoolTable[i].exRoomExamine = resp.data
+            this.schoolTable[i].typeOfExaminationSite = resp.data
           })
         }
       })
     },
     handleClick (index, row) {
-      console.log(this.schoolTable[index])
+      // console.log(this.schoolTable[index])
       this.$store.commit('setsubordinatesschoolsId', this.schoolTable[index].schoolId)
       this.$router.push('/admissions/schoolDetail')
     },

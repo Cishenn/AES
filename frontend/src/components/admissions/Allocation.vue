@@ -1,38 +1,40 @@
 <template>
   <div class="Allocation">
-    <div style="font-size:20px;color: #FFFFFF;;margin-top: 26px;">自动排考</div>
-    <div class="RoomTable" >
-      <el-table class="roomtable"
-      :data="roomTableData"
-      border
-      header-cell-class-name="tableStyle"
-      >
-        <el-table-column label="所属学校" prop="roomSchool" width="120px"/>
-        <el-table-column label="考场编号" prop="roomId" width="120px"/>
-        <el-table-column label="考场所在楼" prop="roomBuilding" width="120px"/>
-        <el-table-column label="考场所在楼层" prop="roomFloor" width="120px"/>
-        <el-table-column label="考场房间号" prop="roomNo" width="120px"/>
-      </el-table>
-    </div>
-    <div class="InvigilatorTable">
-      <el-table class="invigilatortable"
-      :data="invigilatorTableData" border header-cell-class-name="tableStyle" >
-        <el-table-column class="invigilatortable1" label="姓名" prop="invigilatorName" width="80px"/>
-        <el-table-column label="所属学校" prop="invigilatorSchool" width="121px"/>
-        <el-table-column label="性别" prop="invigilatorSex" width="80px"/>
-        <el-table-column label="年级" prop="invigilatorGrade" width="80px"/>
-        <el-table-column label="科目" prop="invigilatorSubject" width="80px"/>
-        <el-table-column label="监考组" prop="invigilatorGroup" width="80px"/>
-        <el-table-column label="主考" prop="chief" width="80px"/>
-      </el-table>
-    </div>
-    <div class="AllocationTable">
-      <el-table :data="allocationTableData" border header-cell-class-name="tableStyle">
+    <div style="font-size:20px;color: #FFFFFF;;margin-top: 20px;">自动排考</div>
+      <el-tabs style="margin-top: 50px">
+        <el-tab-pane label="当前考点">
+        <el-table class="roomtable"
+        :data="roomTableData"
+        border
+        header-cell-class-name="tableStyle"
+        >
+          <el-table-column label="所属学校" prop="roomSchool" width="120px"/>
+          <el-table-column label="考场编号" prop="roomId" width="120px"/>
+          <el-table-column label="考场所在楼" prop="roomBuilding" width="120px"/>
+          <el-table-column label="考场所在楼层" prop="roomFloor" width="120px"/>
+          <el-table-column label="考场房间号" prop="roomNo" width="120px"/>
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane label="监考组信息">
+        <el-table class="invigilatortable"
+        :data="invigilatorTableData" border header-cell-class-name="tableStyle" >
+          <el-table-column class="invigilatortable1" label="姓名" prop="invigilatorName" width="80px"/>
+          <el-table-column label="所属学校" prop="invigilatorSchool" width="120px"/>
+          <el-table-column label="性别" prop="invigilatorSex" width="80px"/>
+          <el-table-column label="年级" prop="invigilatorGrade" width="80px"/>
+          <el-table-column label="科目" prop="invigilatorSubject" width="80px"/>
+          <el-table-column label="监考组" prop="invigilatorGroup" width="80px"/>
+          <el-table-column label="主考" prop="chief" width="80px"/>
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane label="巡考组">
+        <el-table :data="allocationTableData" border header-cell-class-name="tableStyle">
         <el-table-column label="考点名称" prop="schoolName" width="120px"/>
         <el-table-column label="考场编号" prop="roomId" width="120px"/>
         <el-table-column label="监考组" prop="invigilatorGroup" width="120px"/>
       </el-table>
-    </div>
+      </el-tab-pane>
+      </el-tabs>
     <div class="submit">
       <el-button size="medium">自动分配</el-button>
     </div>
@@ -56,92 +58,8 @@ export default {
         roomBuilding: '01',
         roomFloor: '2',
         roomNo: '201'
-      }, {
-        roomSchool: '合肥第一中学',
-        roomId: '1',
-        roomBuilding: '01',
-        roomFloor: '2',
-        roomNo: '201'
-      }, {
-        roomSchool: '合肥第一中学',
-        roomId: '1',
-        roomBuilding: '01',
-        roomFloor: '2',
-        roomNo: '201'
-      }, {
-        roomSchool: '合肥第一中学',
-        roomId: '1',
-        roomBuilding: '01',
-        roomFloor: '2',
-        roomNo: '201'
-      }, {
-        roomSchool: '合肥第一中学',
-        roomId: '1',
-        roomBuilding: '01',
-        roomFloor: '2',
-        roomNo: '201'
-      }, {
-        roomSchool: '合肥第一中学',
-        roomId: '1',
-        roomBuilding: '01',
-        roomFloor: '2',
-        roomNo: '201'
-      }, {
-        roomSchool: '合肥第一中学',
-        roomId: '1',
-        roomBuilding: '01',
-        roomFloor: '2',
-        roomNo: '201'
       }],
       invigilatorTableData: [{
-        invigilatorName: '张叁',
-        invigilatorSchool: '合肥第一中学',
-        invigilatorSex: '男',
-        invigilatorGrade: '2',
-        invigilatorSubject: '语文',
-        invigilatorGroup: '2',
-        chief: '是'
-      }, {
-        invigilatorName: '张叁',
-        invigilatorSchool: '合肥第一中学',
-        invigilatorSex: '男',
-        invigilatorGrade: '2',
-        invigilatorSubject: '语文',
-        invigilatorGroup: '2',
-        chief: '是'
-      }, {
-        invigilatorName: '张叁',
-        invigilatorSchool: '合肥第一中学',
-        invigilatorSex: '男',
-        invigilatorGrade: '2',
-        invigilatorSubject: '语文',
-        invigilatorGroup: '2',
-        chief: '是'
-      }, {
-        invigilatorName: '张叁',
-        invigilatorSchool: '合肥第一中学',
-        invigilatorSex: '男',
-        invigilatorGrade: '2',
-        invigilatorSubject: '语文',
-        invigilatorGroup: '2',
-        chief: '是'
-      }, {
-        invigilatorName: '张叁',
-        invigilatorSchool: '合肥第一中学',
-        invigilatorSex: '男',
-        invigilatorGrade: '2',
-        invigilatorSubject: '语文',
-        invigilatorGroup: '2',
-        chief: '是'
-      }, {
-        invigilatorName: '张叁',
-        invigilatorSchool: '合肥第一中学',
-        invigilatorSex: '男',
-        invigilatorGrade: '2',
-        invigilatorSubject: '语文',
-        invigilatorGroup: '2',
-        chief: '是'
-      }, {
         invigilatorName: '张叁',
         invigilatorSchool: '合肥第一中学',
         invigilatorSex: '男',
@@ -183,7 +101,7 @@ export default {
 </script>
 
 <style>
-  .tableStyle {
+  /* .tableStyle {
     background-color:#3498db!important;
     color:#fff;
     font-weight:400;
@@ -232,5 +150,5 @@ export default {
       box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
       border-radius: 2px;
       background: rgba(0,0,0,0.4);
-  }
+  } */
 </style>
