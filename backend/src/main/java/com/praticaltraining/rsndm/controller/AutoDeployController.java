@@ -67,6 +67,11 @@ public class AutoDeployController {
     int autoDeployStepTwo(int eduId){
         invigilatorGroupArrangeOfStepTwo(eduId);
         inspectionTeamOfStepTwo(eduId);
+        List<Integer> eduList = enrollmentDepartmentBiz.eduIdAllBelong(eduId);
+        enrollmentDepartmentBiz.setArrangeLevel(eduId,2);
+        for(int i = 0;i < eduList.size();i++){
+            enrollmentDepartmentBiz.setArrangeLevel(eduList.get(i),2);
+        }
         return 0;
     }
 
