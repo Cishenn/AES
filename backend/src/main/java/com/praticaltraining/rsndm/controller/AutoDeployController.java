@@ -342,7 +342,7 @@ public class AutoDeployController {
             for(int j = 0;j<school.size();j++){
                 if(school.get(j).getExRoomExamine()==2) {
                     countExRoom += examRoomBiz.getNumberOfExRoom(school.get(j).getSchoolId()) - 3;
-                    schoolBiz.setType(school.get(j).getSchoolId(), "无");
+                    schoolBiz.setType(school.get(j).getSchoolId(), null);
                     examRoomBiz.clearArrange(school.get(j).getSchoolId());
                 }
             }

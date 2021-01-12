@@ -18,6 +18,8 @@ public interface SchoolMapper {
     String getSchoolName(int schoolId);
 
     int setType(int schoolId,String typeOfExaminationSite);
-    
+
     int getState(int schoolId);
+
+    List<School> getArrangedSchool(int eduId);
 }

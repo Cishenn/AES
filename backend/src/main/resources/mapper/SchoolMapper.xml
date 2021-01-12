@@ -32,9 +32,14 @@
         typeOfExaminationSite = #{typeOfExaminationSite}
         WHERE schoolId = #{schoolId}
     </update>
-    
+
     <select id="getState" resultType="int">
         SELECT exRoomExamine FROM school
         WHERE schoolId=#{schoolId}
+    </select>
+
+    <select id="getArrangedSchool" resultType="School">
+        SELECT * FROM school
+        WHERE eduId=#{eduId} AND typeOfExaminationSite IS NOT NULL
     </select>
 </mapper>

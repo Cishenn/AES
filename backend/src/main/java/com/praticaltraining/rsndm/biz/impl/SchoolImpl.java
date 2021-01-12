@@ -71,4 +71,10 @@ public class SchoolImpl implements SchoolBiz {
         return res;
     }
 
+    @Override
+    public List<School> getArrangedSchool(int eduId) {
+        List<School> res = schoolMapper.getArrangedSchool(eduId);
+        return res;
+    }
+
 }
