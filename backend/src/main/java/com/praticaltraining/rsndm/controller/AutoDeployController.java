@@ -62,6 +62,28 @@ public class AutoDeployController {
 
     }
 
+    @RequestMapping(value = "/clearStepOne",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
+    @CrossOrigin
+    int clearAllStepOne(int eduId){
+        List<Integer> allEduBe = enrollmentDepartmentBiz.eduIdAllBelong(eduId);
+        enrollmentDepartmentBiz.clearArrangeLevel(eduId);
+        for (int i = 0; i < allEduBe.size(); i++){
+            //清除原本数据
+            enrollmentDepartmentBiz.clearArrangeLevel(allEduBe.get(i));
+            examStaffBiz.clearArrange(allEduBe.get(i));
+            invigilatorGroupBiz.clearIG(allEduBe.get(i));
+            invigilatorGroupArrangementBiz.clearIGA(allEduBe.get(i));
+            inspectionTeamBiz.clearIT(allEduBe.get(i));
+            inspectionTeamArrangementBiz.clearITA(allEduBe.get(i));
+            List<School> allSchool=schoolBiz.getByEduId(allEduBe.get(i));
+            for(int j=0;j<allSchool.size();j++){
+                schoolBiz.setType(allSchool.get(j).getSchoolId(),null);
+                examRoomBiz.clearArrange(allSchool.get(j).getSchoolId());
+            }
+        }
+        return 1;
+    }
+
     @RequestMapping(value = "/stepTwo",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
     int autoDeployStepTwo(int eduId){
