@@ -8,6 +8,7 @@
       </div>
       <div style=" margin-left: 120px;margin-top: 70px;background-color: #FFFFFF;">
         <el-table class="schoolTable"
+        v-loading="loading"
         :data="schoolTable.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage"
         border
         header-cell-class-name="tableStyle"
@@ -18,8 +19,8 @@
           <el-table-column align="center" label="考场审核状态" width="120px">
             <template slot-scope="scope">
               <el-tag
-                :type="scope.row.exRoomExamine === 1 ? 'info' : 'success'"
-                >{{scope.row.exRoomExamine ===1 ? '未审核' : '已审核'}}
+                :type="scope.row.exRoomExamine === 1 ? 'info' : (scope.row.exRoomExamine === 2 ?'success':'danger')"
+                >{{scope.row.exRoomExamine === 1 ? '未审核' : (scope.row.exRoomExamine === 2 ? '已审核': '被打回')}}
               </el-tag>
             </template>
             </el-table-column>
@@ -57,10 +58,12 @@ export default {
       eduId: this.$store.state.eduId,
       searchfor: '',
       schoolTable: [],
+      schoolTable2: [],
       stripe: true,
       currentPage: 1,
       pagesize: 5,
-      total: 0
+      total: 0,
+      loading: true
     }
   },
   created () {
@@ -71,36 +74,50 @@ export default {
   },
   mounted () {
     this.getAllschool()
+    this.a()
+  },
+  watch: {
+    $route: 'getAllschool'
   },
   methods: {
+    a () {
+      setTimeout(() => {
+        this.schoolTable = this.schoolTable2
+        this.loading = false
+      }, 1000)
+    },
     getAllschool () {
-      this.$axios.get('school/school/eduId', {
+      this.$axios.get('school/schools/eduId', {
         params: {
           eduId: this.eduId
         }
       }).then(resp => {
         console.log(resp.data)
-        this.schoolTable = resp.data.School
+        this.schoolTable2 = resp.data.School
         // console.log(this.schoolTable)
-        const length = this.schoolTable.length
+        const length = this.schoolTable2.length
         for (let i = 0; i < length; i++) {
           // 以eduId暂存考场数目，以typeOfExaminationSite暂存考务人员数目
           this.$axios.get('exRoom/countSelect/schoolId', {
             params: {
-              schoolId: this.schoolTable[i].schoolId
+              schoolId: this.schoolTable2[i].schoolId
             }
           }).then(resp => {
-            this.schoolTable[i].eduId = resp.data
+            this.schoolTable2[i].eduId = resp.data
           }).catch(resp => {
             this.$message.error('获取考场数目不成功')
           })
           this.$axios.get('exStaff/countSelect/schoolId', {
             params: {
-              schoolId: this.schoolTable[i].schoolId
+              schoolId: this.schoolTable2[i].schoolId
             }
           }).then(resp => {
-            this.schoolTable[i].typeOfExaminationSite = resp.data
+            this.schoolTable2[i].typeOfExaminationSite = resp.data
           })
+          // if (i === length - 1) {
+          //   this.schoolTable = this.schoolTable2
+          //   this.loading = false
+          // }
         }
       })
     },
@@ -120,6 +137,9 @@ export default {
 </script>
 
 <style >
+body {
+    margin: 0;
+  }
   .container{
     width: 100%;
     height: 100%;
