@@ -17,7 +17,7 @@
             :before-upload="beforeAvatarUpload"
             :on-success="handleAvatarSuccess"
             :auto-upload="true">
-            <img v-if="personInfo.imageUrl" :src="personInfo.imageUrl" class="avatar">
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
@@ -53,6 +53,9 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="科目" prop="subject">
+          <el-input v-model="form.subject" placeholder="请输入科目"></el-input>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="save">保存</el-button>
         </el-form-item>
@@ -70,7 +73,8 @@ export default {
         phone: '',
         gender: '',
         school: '',
-        grade: ''
+        grade: '',
+        subject: ''
       },
       rules: {
         // avatar: [
@@ -91,6 +95,9 @@ export default {
         ],
         grade: [
           { required: true, message: '请输入年级', trigger: 'blur' }
+        ],
+        subject: [
+          { required: true, message: '请输入科目', trigger: 'blur' }
         ]
       },
       grades: [
@@ -108,14 +115,15 @@ export default {
         }
       ],
       schools: [],
+      imageUrl: '',
       personInfo: {
-        imageUrl: '',
         esId: '',
         name: '',
         telephoneNumber: '',
         sex: '',
         schoolId: '',
-        grade: ''
+        grade: '',
+        subject: ''
       }
     }
   },
@@ -124,7 +132,7 @@ export default {
       this.$router.push('/login')
     }
     this.personInfo.esId = this.$store.getters.getTeacherId
-    this.personInfo.imageUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.personInfo.esId}.jpg`
+    this.imageUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.personInfo.esId}.jpg`
     this.getSchools()
     this.getPersonalInfo()
   },
@@ -157,6 +165,7 @@ export default {
           this.form.gender = resp.data.sex
           this.form.school = resp.data.schoolId
           this.form.grade = resp.data.grade
+          this.form.subject = resp.data.subject
           this.updatePersonalInfo()
         })
     },
@@ -198,7 +207,8 @@ export default {
         this.personInfo.telephoneNumber !== this.form.phone ||
         this.personInfo.sex !== this.form.gender ||
         this.personInfo.schoolId !== this.form.school ||
-        this.personInfo.grade !== this.form.grade) {
+        this.personInfo.grade !== this.form.grade ||
+        this.personInfo.subject !== this.form.subject) {
         return true
       }
       return false
@@ -209,6 +219,7 @@ export default {
       this.personInfo.sex = this.form.gender
       this.personInfo.schoolId = this.form.school
       this.personInfo.grade = this.form.grade
+      this.personInfo.subject = this.form.subject
     },
     checkStatus () {
       this.$axios
@@ -250,7 +261,7 @@ export default {
       return msg
     },
     handleAvatarSuccess (res, file) {
-      this.personInfo.imageUrl = URL.createObjectURL(file.raw)
+      this.imageUrl = URL.createObjectURL(file.raw)
       this.$message.success('头像已成功上传！')
     },
     beforeAvatarUpload (file) {
