@@ -9,8 +9,8 @@ public interface EnrollmentDepartmentBiz {
 
     void setArrangeLevel(int eduId,int level);
 
-    int getArrangeLevel(int eduId);
-    
+    Integer getArrangeLevel(int eduId);
+
     EnrollmentDepartment getOne(int eduId);
 
     void clearArrangeLevel(int eduId);

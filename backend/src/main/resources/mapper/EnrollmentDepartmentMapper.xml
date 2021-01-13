@@ -24,7 +24,7 @@
 
     <update id="clearArrangeLevel">
         UPDATE enrollment_department SET
-        arrangeLevel = NULL
+        arrangeLevel = 0
         WHERE eduId = #{eduId}
     </update>
 </mapper>

@@ -28,7 +28,7 @@ public class EnrollmentDepartmentImpl implements EnrollmentDepartmentBiz {
     }
 
     @Override
-    public int getArrangeLevel(int eduId){
+    public Integer getArrangeLevel(int eduId){
         int res = enrollmentDepartmentMapper.getArrangeLevel(eduId);
         if(res == -1){
             throw new EnrollmentDepartmentException("get arrangelevel error");
