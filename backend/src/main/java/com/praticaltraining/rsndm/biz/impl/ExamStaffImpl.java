@@ -202,4 +202,10 @@ public class ExamStaffImpl implements ExamStaffBiz {
         }
         return res;
     }
+
+    @Override
+    public List<ExamStaff> getAllByHigerEduId(int eduId) {
+        List<ExamStaff> res = examStaffMapper.getAllByHigerEduId(eduId);
+        return res;
+    }
 }

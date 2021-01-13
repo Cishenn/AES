@@ -8,10 +8,12 @@
            #{telephoneNumber},#{schoolId}
         )
     </insert>
+
     <select id="getName" resultType="String">
        SELECT name FROM exam_staff
        WHERE esId=#{esId};
     </select>
+
     <update id="updateToArrange" parameterType="ExamStaff">
         UPDATE exam_staff SET
         isArrange=1
@@ -38,7 +40,16 @@
         WHERE schoolId = #{schoolId} AND qualified=1
     </select>
 
-
+    <select id="getAllByHigerEduId" resultType="ExamStaff">
+        select * from exam_staff
+        WHERE qualified=0 AND schoolId IN(
+        SELECT schoolId FROM school
+        WHERE eduId IN(
+        SELECT eduId FROM enrollment_department
+        WHERE higherEduId=#{eduId}
+        )
+        )
+    </select>
 
 </mapper>
 
