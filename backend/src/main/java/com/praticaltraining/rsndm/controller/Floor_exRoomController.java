@@ -182,9 +182,10 @@ public class Floor_exRoomController {
     @ResponseBody
     @CrossOrigin
     int allExamRommExcelOutput(int eduId) throws IOException, WriteException {
-        File xlsFile = new File("lowLevelRoom.xls");
+        File xlsFile = new File(enrollmentDepartmentBiz.getOne(eduId).getEduName()+"考场总表.xls");
         WritableWorkbook workbook = Workbook.createWorkbook(xlsFile);
         WritableSheet sheet = workbook.createSheet("sheet1", 0);
+        int indexBegin=1;
 
         //添加表头
         sheet.addCell(new Label(0,0,"考场编号"));
@@ -193,19 +194,20 @@ public class Floor_exRoomController {
         sheet.addCell(new Label(3,0,"所在层"));
         sheet.addCell(new Label(4,0,"房间号"));
 
-        //导入数据
-        List<Integer> allEduBelong=enrollmentDepartmentBiz.eduIdAllBelong(eduId);
-        for(int i=0;i<allEduBelong.size();i++){
-            List<School> allSchool =schoolBiz.getByEduId(allEduBelong.get(i));
-            for(int j=0;j<allSchool.size();j++){
-                if(allSchool.get(j).getExRoomExamine()==2){
-                    List<ExamRoom> allEr=examRoomBiz.getAllExamRoom(allSchool.get(j).getSchoolId());
-                    for(int k=0;k<allEr.size();k++){
-                        sheet.addCell(new Label(0,i*j+k+1,String.valueOf(allEr.get(k).getExRoomId())));
-                        sheet.addCell(new Label(1,i*j+k+1,schoolBiz.getSchoolName(allEr.get(k).getSchoolId())));
-                        sheet.addCell(new Label(2,i*j+k+1,floorBiz.getOneFloor(allEr.get(k).getFloorId()).getBuilding()));
-                        sheet.addCell(new Label(3,i*j+k+1,String.valueOf(floorBiz.getOneFloor(allEr.get(k).getFloorId()).getFloorStep())));
-                        sheet.addCell(new Label(4,i*j+k+1,allEr.get(k).getRoomNum()));
+
+        //导出直属考点信息
+        List<School> allSchool =schoolBiz.getByEduId(eduId);
+        indexBegin=allRoomOut(eduId,sheet,indexBegin);
+
+        //导出下级数据
+        if(enrollmentDepartmentBiz.getOne(eduId).getEduLevel()>1){
+            List<Integer> allEduBelong=enrollmentDepartmentBiz.eduIdAllBelong(eduId);
+            for(int i=0;i<allEduBelong.size();i++){
+                indexBegin=allRoomOut(allEduBelong.get(i),sheet,indexBegin);
+                if(enrollmentDepartmentBiz.getOne(allEduBelong.get(i)).getEduLevel()>1){
+                    List<Integer> allEduBelongLower=enrollmentDepartmentBiz.eduIdAllBelong(allEduBelong.get(i));
+                    for(int j=0;j<allEduBelongLower.size();j++){
+                        indexBegin=allRoomOut(allEduBelongLower.get(j),sheet,indexBegin);
                     }
                 }
             }
@@ -213,5 +215,23 @@ public class Floor_exRoomController {
         workbook.write();
         workbook.close();
         return 1;
+    }
+
+    int allRoomOut(int eduId,WritableSheet sheet,int beginIndex) throws WriteException {
+        List<School> allSchool =schoolBiz.getByEduId(eduId);
+        for(int i=0;i<allSchool.size();i++){
+            if(allSchool.get(i).getExRoomExamine()==2){
+                List<ExamRoom> allEr=examRoomBiz.getAllExamRoom(allSchool.get(i).getSchoolId());
+                for(int j=0;j<allEr.size();j++){
+                    sheet.addCell(new Label(0,beginIndex,String.valueOf(allEr.get(j).getExRoomId())));
+                    sheet.addCell(new Label(1,beginIndex,schoolBiz.getSchoolName(allEr.get(j).getSchoolId())));
+                    sheet.addCell(new Label(2,beginIndex,floorBiz.getOneFloor(allEr.get(j).getFloorId()).getBuilding()));
+                    sheet.addCell(new Label(3,beginIndex,String.valueOf(floorBiz.getOneFloor(allEr.get(j).getFloorId()).getFloorStep())));
+                    sheet.addCell(new Label(4,beginIndex,allEr.get(j).getRoomNum()));
+                    beginIndex++;
+                }
+            }
+        }
+        return beginIndex;
     }
 }
