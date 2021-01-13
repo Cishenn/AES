@@ -3,10 +3,7 @@ package com.praticaltraining.rsndm.controller;
 import com.praticaltraining.rsndm.biz.*;
 import com.praticaltraining.rsndm.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.List;
@@ -32,6 +29,8 @@ public class AutoDeployController {
     private InspectionTeamBiz inspectionTeamBiz;
     @Autowired
     private InspectionTeamArrangementBiz inspectionTeamArrangementBiz;
+    @Autowired
+    private HistoryBiz historyBiz;
 
 
     @RequestMapping(value = "/stepOne",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
@@ -669,4 +668,56 @@ public class AutoDeployController {
         }
     }
 
+    @RequestMapping(value = "/end",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
+    @CrossOrigin
+    int endExam(int eduId,int year){
+        //监考组历史记录载入
+        List<InvigilatorGroup> allIG=invigilatorGroupBiz.getAllByHighEduId(eduId);
+        for(int i=0;i<allIG.size();i++){
+            History temp=new History();
+            temp.setEsId(allIG.get(i).getExaminerId());
+            temp.setYear(year);
+            temp.setHsMessage("参与"+String.valueOf(year)+"高考监考");
+            historyBiz.createHistory(temp);
+
+            temp=new History();
+            temp.setEsId(allIG.get(i).getFirstInvigilatorId());
+            temp.setYear(year);
+            temp.setHsMessage("参与"+String.valueOf(year)+"高考监考");
+            historyBiz.createHistory(temp);
+
+            temp=new History();
+            temp.setEsId(allIG.get(i).getSecondInvigilatorId());
+            temp.setYear(year);
+            temp.setHsMessage("参与"+String.valueOf(year)+"高考监考");
+            historyBiz.createHistory(temp);
+        }
+
+        //巡考组历史记录载入
+        List<Integer> allEduBelong = enrollmentDepartmentBiz.eduIdAllBelong(eduId);
+        for (int i = 0; i < allEduBelong.size(); i++){
+            List<InspectionTeam> allIT=inspectionTeamBiz.getAllByEduId(allEduBelong.get(i));
+            for(int j=0;j<allIT.size();j++){
+                History temp=new History();
+                temp.setEsId(allIT.get(j).getFirstInspectionPersonId());
+                temp.setYear(year);
+                temp.setHsMessage("参与"+String.valueOf(year)+"高考巡考");
+                historyBiz.createHistory(temp);
+                temp=new History();
+                temp.setEsId(allIT.get(j).getSecondInspectionPersonId());
+                temp.setYear(year);
+                temp.setHsMessage("参与"+String.valueOf(year)+"高考巡考");
+                historyBiz.createHistory(temp);
+            }
+        }
+
+        //更新考务人员表状态
+        List<ExamStaff> allEs=examStaffBiz.getAllByHigerEduId(eduId);
+        for(int i=0;i<allEs.size();i++){
+            if(historyBiz.getNumByEsId(allEs.get(i).getEsId())>1){
+                examStaffBiz.verifyPass(allEs.get(i).getEsId());
+            }
+        }
+        return 1;
+    }
 }

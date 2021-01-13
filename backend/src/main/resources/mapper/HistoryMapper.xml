@@ -5,4 +5,15 @@
         select * from history
         WHERE esId = #{esId}
     </select>
+    <insert id="createHistory" parameterType="History">
+        INSERT INTO history (
+           esId,year,hsMessage
+        ) VALUES (
+           #{esId},#{year},#{hsMessage}
+        )
+    </insert>
+    <select id="getNumByEsId" resultType="int">
+        select COUNT(*) from history
+        WHERE esId = #{esId}
+    </select>
 </mapper>

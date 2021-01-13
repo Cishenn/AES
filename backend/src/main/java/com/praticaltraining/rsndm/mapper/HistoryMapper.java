@@ -8,4 +8,8 @@ import java.util.List;
 @Mapper
 public interface HistoryMapper {
     List<History> getEsHistory(int esId);
+
+    int createHistory(History history);
+
+    int getNumByEsId(int esId);
 }

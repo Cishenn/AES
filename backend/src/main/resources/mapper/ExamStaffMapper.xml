@@ -8,13 +8,13 @@
 
     <update id="verifyPass">
         UPDATE exam_staff SET
-        qualified = true
+        qualified = 1
         WHERE esId = #{esId}
     </update>
 
     <update id="verifyNotPass">
         UPDATE exam_staff SET
-        qualified = false
+        qualified = 0
         WHERE esId = #{esId}
     </update>
 

@@ -53,4 +53,6 @@ public interface ExamStaffMapper {
     int getSelectedStaff(int schoolId);
 
     List<ExamStaff> getExStaffListSE(int schoolId);
+
+    List<ExamStaff> getAllByHigerEduId(int eduId);
 }
