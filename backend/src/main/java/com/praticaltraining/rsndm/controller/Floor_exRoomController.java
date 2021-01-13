@@ -3,6 +3,7 @@ package com.praticaltraining.rsndm.controller;
 import com.praticaltraining.rsndm.biz.ExamRoomBiz;
 import com.praticaltraining.rsndm.biz.FloorBiz;
 import com.praticaltraining.rsndm.entity.ExamRoom;
+import com.praticaltraining.rsndm.entity.FileUploadUtil;
 import com.praticaltraining.rsndm.entity.Floor;
 import com.praticaltraining.rsndm.entity.floor_exRoom;
 import com.praticaltraining.rsndm.exception.FloorException;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +23,8 @@ import java.util.*;
 @RestController
 @RequestMapping("/floor_exRoom")
 public class Floor_exRoomController {
+
+    String name;
 
     @Autowired
     private FloorBiz floorBiz;
@@ -112,11 +116,11 @@ public class Floor_exRoomController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PostMapping("/floor_exRoom/crbe")
+    @GetMapping("/floor_exRoom/crbe")
     @ResponseBody
     @CrossOrigin
-    int createRoomByExcel(String path,int schoolId) throws BiffException, IOException {
-        File xlsFile=new File(path);
+    int createRoomByExcel(int schoolId) throws BiffException, IOException {
+        File xlsFile=new File(name);
         Workbook workbook = Workbook.getWorkbook(xlsFile);
         Sheet[] sheets=workbook.getSheets();
         if(sheets!=null){
@@ -138,17 +142,20 @@ public class Floor_exRoomController {
                     }
                     if(index==location.length()){
                         //格式错误返回发生错误的行位置
-                        return i;
+                        xlsFile.delete();
+                        return i+1;
                     }
                     if(!Character.isDigit(location.charAt(index))){
-                        return i;
+                        xlsFile.delete();
+                        return i+1;
                     }
                     int step=Integer.parseInt(String.valueOf(location.charAt(index)));
                     int floorId;
                     try{
                         floorId=floorBiz.getFloorId(schoolId,building,step);
                     }catch (FloorException e){
-                        return i;
+                        xlsFile.delete();
+                        return i+1;
                     }
                     if(examRoomBiz.getIdByAll(floorId,schoolId,sheet.getCell(1,i).getContents())==null){
                         ExamRoom eroom=new ExamRoom();
@@ -160,9 +167,20 @@ public class Floor_exRoomController {
                     }
                 }
             }
+            xlsFile.delete();
             return -999;//成功！
         }else{
+            xlsFile.delete();
             return -1;//表格为空
         }
+    }
+
+    @PostMapping(value = "/upload")
+    @CrossOrigin
+    // 此处的@RequestParam中的file名应与前端upload组件中的name的值保持一致
+    public String upload(@RequestParam("file") MultipartFile multipartFile) {
+        // replaceAll 用来替换windows中的\\ 为 /
+        name = "../"+multipartFile.getOriginalFilename();
+        return FileUploadUtil.upload(multipartFile).replaceAll("\\\\", "/");
     }
 }
