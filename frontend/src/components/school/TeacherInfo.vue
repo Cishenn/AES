@@ -15,7 +15,11 @@
                     ref="scrollbarContainer">
                     <div>
                       <div class="inspectorTableTitle" style="font-size:20px">本校已注册考务人员信息</div>
-                      <el-table border class="table" :data="teachertablenoneapprove.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage">
+                      <div style="width:200px;margin-bottom:10px">
+                        <el-input v-model="search1" placeholder="请输入信息以检索"
+                        suffix-icon="el-icon-search"></el-input>
+                      </div>
+                      <el-table border  class="table" :data="teachertablenoneapprove1.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage">
                         <el-table-column label="姓名" align="center" width="120px">
                           <template slot-scope="scope">
                             {{ scope.row.name }}
@@ -62,7 +66,7 @@
                           :page-size="pagesize"
                           class="pagination"
                           layout="total, sizes, prev, pager, next, jumper"
-                          :total="teachertablenoneapprove.length">
+                          :total="teachertablenoneapprove1.length">
                         </el-pagination>
                       </div>
                     </div>
@@ -79,8 +83,13 @@
                     :style="{height: scrollHeight}"
                     ref="scrollbarContainer">
                     <div>
+                      <div class="inspectorTableTitle" style="font-size:20px">本校已审核考务人员信息</div>
+                      <div style="width:200px;margin-bottom:10px">
+                        <el-input v-model="search2" placeholder="请输入信息以检索"
+                        suffix-icon="el-icon-search"></el-input>
+                      </div>
                       <el-table border class="table"
-                        :data="teacherTableapprove.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                        :data="teacherTableapprove2.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                         :stripe="stripe"
                         :current-page.sync="currentPage"
                         ref="multipleTable">
@@ -121,7 +130,7 @@
                           :page-size="pagesize1"
                           class="pagination"
                           layout="total, sizes, prev, pager, next, jumper"
-                          :total="teacherTableapprove.length">
+                          :total="teacherTableapprove2.length">
                         </el-pagination>
                       </div>
                       <div>
@@ -151,7 +160,33 @@ export default {
       schoolId: this.$store.state.schoolId,
       teachertablenoneapprove: [],
       teacherTableapprove: [],
-      tags: []
+      tags: [],
+      search1: '',
+      search2: ''
+    }
+  },
+  computed: {
+    teachertablenoneapprove1: function () {
+      var search = this.search1
+      if (search) {
+        return this.teachertablenoneapprove.filter(function (dataNews) {
+          return Object.keys(dataNews).some(function (key) {
+            return String(dataNews[key]).toLowerCase().indexOf(search) > -1
+          })
+        })
+      }
+      return this.teachertablenoneapprove
+    },
+    teacherTableapprove2: function () {
+      var search = this.search2
+      if (search) {
+        return this.teacherTableapprove.filter(function (dataNews) {
+          return Object.keys(dataNews).some(function (key) {
+            return String(dataNews[key]).toLowerCase().indexOf(search) > -1
+          })
+        })
+      }
+      return this.teacherTableapprove
     }
   },
   mounted () {

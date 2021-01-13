@@ -1,50 +1,52 @@
 <template>
   <div class="schoolInfo">
-    <div class="container">
-      <div style="font-size:20px;color: #FFFFFF;;margin-top: 12px;">下属学校</div>
-      <div class="search">
-          <el-input v-model="searchfor" placeholder="请输入"
-          suffix-icon="el-icon-search"></el-input>
-      </div>
-      <div style=" margin-left: 120px;margin-top: 70px;background-color: #FFFFFF;">
-        <el-table class="schoolTable"
-        v-loading="loading"
-        :data="schoolTable.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage"
-        border
-        header-cell-class-name="tableStyle"
-        >
-          <el-table-column label="学校名称" prop="schoolName" width="120px" align="center"/>
-          <el-table-column label="学校考务人员数" prop="typeOfExaminationSite" width="120px" align="center"/>
-          <el-table-column label="学校考场数" prop="eduId" width="120px" align="center"/>
-          <el-table-column align="center" label="考场审核状态" width="120px">
-            <template slot-scope="scope">
-              <el-tag
-                :type="scope.row.exRoomExamine === 1 ? 'info' : (scope.row.exRoomExamine === 2 ?'success':'danger')"
-                >{{scope.row.exRoomExamine === 1 ? '未审核' : (scope.row.exRoomExamine === 2 ? '已审核': '被打回')}}
-              </el-tag>
-            </template>
+    <div class="mainarea">
+      <div class="app">
+        <div class="search">
+            <el-input v-model="search" placeholder="请输入"
+            suffix-icon="el-icon-search"></el-input>
+        </div>
+        <div style=" margin-left: 120px;margin-top: 70px;background-color: #FFFFFF;">
+          <el-table class="schoolTable"
+          v-loading="loading"
+          :data="tables.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage"
+          border
+          header-cell-class-name="tableStyle"
+          >
+            <el-table-column label="学校名称" prop="schoolName" width="120px" align="center"/>
+            <el-table-column label="学校考务人员数" prop="typeOfExaminationSite" width="120px" align="center"/>
+            <el-table-column label="学校考场数" prop="eduId" width="120px" align="center"/>
+            <el-table-column align="center" label="考场审核状态" width="120px">
+              <template slot-scope="scope">
+                <el-tag
+                  :type="scope.row.exRoomExamine === 1 ? 'info' : (scope.row.exRoomExamine === 2 ?'success':'danger')"
+                  >{{scope.row.exRoomExamine === 1 ? '未审核' : (scope.row.exRoomExamine === 2 ? '已审核': '被打回')}}
+                </el-tag>
+              </template>
+              </el-table-column>
+            <el-table-column
+              fixed="right"
+              label="操作"
+              width="100">
+              <template slot-scope="scope">
+                <el-button @click="handleClick(scope.$index, scope.row)" type="text" size="small" >查看</el-button>
+                <!-- <el-button type="text" size="small">编辑</el-button> -->
+              </template>
             </el-table-column>
-          <el-table-column
-            fixed="right"
-            label="操作"
-            width="100">
-            <template slot-scope="scope">
-              <el-button @click="handleClick(scope.$index, scope.row)" type="text" size="small" >查看</el-button>
-              <!-- <el-button type="text" size="small">编辑</el-button> -->
-            </template>
-          </el-table-column>
-        </el-table>
-        <div>
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            :page-sizes="[5,10,15,20]"
-            :page-size="pagesize"
-            class="pagination"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="schoolTable.length">
-          </el-pagination>
+          </el-table>
+          <div>
+            <el-pagination
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="currentPage"
+              :page-sizes="[5,10,15,20]"
+              :page-size="pagesize"
+              class="pagination"
+              layout="total, sizes, prev, pager, next, jumper"
+              style="margin-left: 12%;"
+              :total="tables.length">
+            </el-pagination>
+          </div>
         </div>
       </div>
     </div>
@@ -56,7 +58,7 @@ export default {
   data () {
     return {
       eduId: this.$store.state.eduId,
-      searchfor: '',
+      search: '',
       schoolTable: [],
       schoolTable2: [],
       stripe: true,
@@ -64,6 +66,19 @@ export default {
       pagesize: 5,
       total: 0,
       loading: true
+    }
+  },
+  computed: {
+    tables: function () {
+      var search = this.search
+      if (search) {
+        return this.schoolTable.filter(function (dataNews) {
+          return Object.keys(dataNews).some(function (key) {
+            return String(dataNews[key]).toLowerCase().indexOf(search) > -1
+          })
+        })
+      }
+      return this.schoolTable
     }
   },
   created () {
@@ -136,13 +151,24 @@ export default {
 }
 </script>
 
-<style >
-body {
-    margin: 0;
+<style scoped>
+  .schoolInfo{
+    background-color: #e4eeff;
+    width: 89.7%;
+    height: 91.5%;
+    margin-left: -150px;
+    margin-top: 3%;
   }
-  .container{
-    width: 100%;
-    height: 100%;
+  .mainarea{
+    background-color: #FFFFFF;
+    width: 95%;
+    height: 96%;
+    margin-top: 1%;
+    margin-left: 2.5%;
+  }
+  .app{
+    margin-left: 18%;
+    position: fixed;
   }
   .tableStyle {
     background-color:#3498db!important;

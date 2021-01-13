@@ -1,21 +1,22 @@
 <template>
   <div class="InputStudents">
-    <div style="font-size:20px;color: #FFFFFF;margin-top: 26px;">考生信息录入</div>
     <div class="mainarea">
-      <div class="inputLi">
-        理科考生人数：
-        <el-input v-model="liNum" placeholder="请输入今年理科生数目" ></el-input>
-      </div>
-      <div class="inputWen">
-        文科考生人数：
-        <el-input v-model="wenNum" placeholder="请输入今年文科生数目"></el-input>
-      </div>
-      <div class="inputTe">
-        理特长考生人数：
-        <el-input v-model="teNum" placeholder="请输入今年特长生数目"></el-input>
-      </div>
-      <div class="save">
-        <el-button size="medium" @click="savenum">保存</el-button>
+      <div class="app">
+        <div class="inputLi" style="color: #606266;">
+          理科考生人数：
+          <el-input v-model="liNum" placeholder="请输入今年理科生数目" ></el-input>
+        </div>
+        <div class="inputWen" style="color: #606266;">
+          文科考生人数：
+          <el-input v-model="wenNum" placeholder="请输入今年文科生数目"></el-input>
+        </div>
+        <div class="inputTe" style="color: #606266;">
+          特长考生人数：
+          <el-input v-model="teNum" placeholder="请输入今年特长生数目"></el-input>
+        </div>
+        <div class="save">
+          <el-button size="medium" @click="savenum">保存</el-button>
+        </div>
       </div>
     </div>
   </div>
@@ -86,9 +87,25 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .InputStudents{
+    background-color: #e4eeff;
+    width: 89.7%;
+    height: 91.5%;
+    margin-left: -150px;
+    margin-top: 3%;
+  }
   .mainarea{
-    margin-left: 60px;
+    background-color: #FFFFFF;
+    width: 95%;
+    height: 96%;
+    margin-top: 1%;
+    margin-left: 2.5%;
+  }
+  .app{
+    margin-top: 5%;
+    margin-left: 32%;
+    position: fixed;
   }
   .inputLi{
     margin-top: 50px;

@@ -1,97 +1,99 @@
 <template>
   <div style="display: flex;">
-    <div class="Allocation"
-    >
-      <div style="font-size:20px;color: #FFFFFF;;margin-top: 20px;">自动排考</div>
-        <el-tabs style="margin-top: 50px">
-          <el-table class="roomtable" v-loading="loading"
-          :data="schoolTabledata.slice((currentPage - 1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage"
-          border
-          header-cell-class-name="tableStyle"
-          >
-            <el-table-column label="考点名称" align="center" prop="schoolName" width="120px"/>
-            <el-table-column label="考点类型" align="center" prop="typeOfExaminationSite" width="120px"/>
-            <el-table-column
+    <div class="Allocation">
+      <div class="mainarea">
+        <div class="app">
+          <el-tabs style="margin-top: 50px; align-items: center;">
+              <el-table class="roomtable" v-loading="loading"
+              :data="schoolTabledata.slice((currentPage - 1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage"
+              border
+              header-cell-class-name="tableStyle"
+              >
+                <el-table-column label="考点名称" align="center" prop="schoolName" width="120px"/>
+                <el-table-column label="考点类型" align="center" prop="typeOfExaminationSite" width="120px"/>
+                <el-table-column
+                    align="center"
+                    prop="tag"
+                    label="排考状态"
+                    width="120px"
+                    filter-placement="bottom-end">
+                    <template>
+                      <el-tag
+                        :type="tags !== '未排考'? 'success' : 'danger'"
+                        disable-transitions>{{tags}}</el-tag>
+                    </template>
+                  </el-table-column>
+                <el-table-column
                 align="center"
-                prop="tag"
-                label="排考状态"
-                width="120px"
-                filter-placement="bottom-end">
-                <template>
-                  <el-tag
-                    :type="tags !== '未排考'? 'success' : 'danger'"
-                    disable-transitions>{{tags}}</el-tag>
+                fixed="right"
+                label="操作"
+                width="100">
+                <template slot-scope="scope">
+                  <el-button @click="handleClick(scope.$index, scope.row)" type="text" size="small" >查看</el-button>
+                  <!-- <el-button type="text" size="small">编辑</el-button> -->
                 </template>
-              </el-table-column>
-            <el-table-column
-            align="center"
-            fixed="right"
-            label="操作"
-            width="100">
-            <template slot-scope="scope">
-              <el-button @click="handleClick(scope.$index, scope.row)" type="text" size="small" >查看</el-button>
-              <!-- <el-button type="text" size="small">编辑</el-button> -->
-            </template>
-            </el-table-column>
-          </el-table>
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            :page-sizes="[5,10,15,20]"
-            :page-size="pagesize"
-            class="pagination"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="schoolTabledata.length">
-          </el-pagination>
-        <el-dialog title="第一次排考" :visible.sync="firstarrange">
-          <el-tabs>
-            <el-tab-pane>
-              <span slot="label"><i class="el-icon-price-tag"></i> 考场安排</span>
-              <el-table
-                :data="roomTable.slice((currentPage2 - 1)*currentPage*pagesize2)" :stripe="stripe" :current-page.sync="pagesize2"
-                style="width: 100%">
-                <el-table-column
-                  prop="floor.building"
-                  label="教学楼"
-                  width="180">
-                </el-table-column>
-                <el-table-column
-                  prop="floor.floorStep"
-                  label="楼层"
-                  width="180">
-                </el-table-column>
-                <el-table-column
-                  prop="examRoom.roomNum"
-                  label="房间号"
-                  width="180">
                 </el-table-column>
               </el-table>
               <el-pagination
-                @size-change="handleSizeChange2"
-                @current-change="handleCurrentChange2"
-                :current-page="currentPage2"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
                 :page-sizes="[5,10,15,20]"
-                :page-size="pagesize2"
+                :page-size="pagesize"
                 class="pagination"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="roomTable.length">
+                :total="schoolTabledata.length">
               </el-pagination>
-            </el-tab-pane>
-            <el-tab-pane>
-              <span slot="label"><i class="el-icon-user"></i> 监考组安排</span>
-              监考组安排
-            </el-tab-pane>
-            <el-tab-pane>
-              <span slot="label"><i class="el-icon-s-custom"></i> 巡考组安排</span>
-              巡考组安排
-            </el-tab-pane>
-          </el-tabs>
-        </el-dialog>
-        </el-tabs>
-      <div class="submit" style="display: flex;justify-content: center;">
-        <el-button size="medium" @click="Autoallocation" type="success">自动分配</el-button>
-        <el-button size="medium" @click="Cancelarrange" type="danger">重置排考</el-button>
+            <el-dialog class="firstarrange" title="第一次排考" :visible.sync="firstarrange">
+              <el-tabs>
+                <el-tab-pane>
+                  <span slot="label"><i class="el-icon-price-tag"></i> 考场安排</span>
+                  <el-table
+                    :data="roomTable.slice((currentPage2 - 1)*currentPage*pagesize2)" :stripe="stripe" :current-page.sync="pagesize2"
+                    style="width: 100%">
+                    <el-table-column
+                      prop="floor.building"
+                      label="教学楼"
+                      width="180">
+                    </el-table-column>
+                    <el-table-column
+                      prop="floor.floorStep"
+                      label="楼层"
+                      width="180">
+                    </el-table-column>
+                    <el-table-column
+                      prop="examRoom.roomNum"
+                      label="房间号"
+                      width="180">
+                    </el-table-column>
+                  </el-table>
+                  <el-pagination
+                    @size-change="handleSizeChange2"
+                    @current-change="handleCurrentChange2"
+                    :current-page="currentPage2"
+                    :page-sizes="[5,10,15,20]"
+                    :page-size="pagesize2"
+                    class="pagination"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="roomTable.length">
+                  </el-pagination>
+                </el-tab-pane>
+                <el-tab-pane>
+                  <span slot="label"><i class="el-icon-user"></i> 监考组安排</span>
+                  监考组安排
+                </el-tab-pane>
+                <el-tab-pane>
+                  <span slot="label"><i class="el-icon-s-custom"></i> 巡考组安排</span>
+                  巡考组安排
+                </el-tab-pane>
+              </el-tabs>
+            </el-dialog>
+            </el-tabs>
+          <div class="submit" style="display: flex;justify-content: center;">
+            <el-button size="medium" @click="Autoallocation" type="success">自动分配</el-button>
+            <el-button size="medium" @click="Cancelarrange" type="danger">重置排考</el-button>
+          </div>
+        </div>
       </div>
     </div>
     <div>
@@ -370,8 +372,29 @@ export default {
 }
 </script>
 
-<style>
-  /* .tableStyle {
+<style scoped>
+  .Allocation{
+    background-color: #e4eeff;
+    width: 1375px;
+    height: 660px;
+    margin-left: -148px;
+    margin-top: 46px;
+  }
+  .mainarea{
+    background-color: #FFFFFF;
+    width: 95%;
+    height: 96%;
+    margin-top: 1%;
+    margin-left: 2.5%;
+  }
+  .app{
+    margin-left: 30%;
+    position: fixed;
+  }
+  .firstarrange{
+    margin-left: 10%;
+  }
+    /* .tableStyle {
     background-color:#3498db!important;
     color:#fff;
     font-weight:400;

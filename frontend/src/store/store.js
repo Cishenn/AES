@@ -32,6 +32,9 @@ export default new Vuex.Store({
     },
     seterrorMessage (state, content) {
       state.errorMessage = content
+    },
+    clearerror (state) {
+      state.errorMessage = null
     }
   },
   // Action用于处理异步任务

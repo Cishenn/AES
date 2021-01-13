@@ -44,11 +44,22 @@
             <el-upload
               class="upload-demo"
               drag
-              action="https://jsonplaceholder.typicode.com/posts/">
+              action="http://localhost:8080/floor_exRoom/upload"
+              ref="upload"
+              name="file"
+              :limit="1"
+              :auto-upload="true"
+              :accept="acceptFileType"
+              :on-exceed="handleExceed"
+              :file-list="fileList"
+              :before-upload="beforeUpload"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove">
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__tip" slot="tip">只能上传excel文件</div>
             </el-upload>
+            <el-button type="primary" @click="readFile">数据录入</el-button>
           </el-tab-pane>
           <el-tab-pane label="考场信息" class="second" align="center">
             <span slot="label">
@@ -187,7 +198,11 @@ export default {
           floorStep: '请先选择楼号'
         }]
       },
-      Examroomtable: []
+      Examroomtable: [],
+      acceptFileType: '.xls',
+      fileList: [],
+      uploadLoading: false,
+      downLoadLoading: ''
     }
   },
   mounted () {
@@ -466,6 +481,64 @@ export default {
       this.form.building = ''
       this.form.floor = ''
       this.form.room = ''
+    },
+    beforeUpload (file) {
+      var that = this
+      // 文件类型
+      var fileName = file.name.substring(file.name.lastIndexOf('.') + 1)
+      if (fileName !== 'xls') {
+        that.uploadLoading = false
+        that.$message({
+          type: 'error',
+          showClose: true,
+          duration: 3000,
+          message: '文件类型不是excel文件!'
+        })
+        return false
+      }
+      // 读取文件大小
+      var fileSize = file.size
+      if (fileSize > 1048576) {
+        that.uploadLoading = false
+        that.$message({
+          type: 'error',
+          showClose: true,
+          duration: 3000,
+          message: '文件大于1M!'
+        })
+        return false
+      }
+      return true
+    },
+    handleExceed (files, fileList) {
+      this.$message.warning('只能选择1个文件!')
+    },
+    handleRemove (file, fileList) {
+      // console.log(file,fileList);
+    },
+    handlePreview (file) {
+      // console.log(file);
+    },
+    readFile () {
+      this.$axios.get('/floor_exRoom/floor_exRoom/crbe', {
+        params: {
+          schoolId: this.schoolId
+        }
+      }).then(resp => {
+        if (resp.data === -999) {
+          this.$message({
+            message: '数据读取成功',
+            type: 'success'
+          })
+          this.$refs.upload.clearFiles()
+        } else if (resp.data === -1) {
+          this.$message.warning('表格为空!')
+          this.$refs.upload.clearFiles()
+        } else {
+          this.$message.error('第' + resp.data + '行数据出错')
+          this.$refs.upload.clearFiles()
+        }
+      })
     }
   }
 }
