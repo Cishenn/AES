@@ -1,14 +1,21 @@
 package com.praticaltraining.rsndm.controller;
 
+import com.praticaltraining.rsndm.biz.EnrollmentDepartmentBiz;
 import com.praticaltraining.rsndm.biz.ExamRoomBiz;
 import com.praticaltraining.rsndm.biz.FloorBiz;
+import com.praticaltraining.rsndm.biz.SchoolBiz;
 import com.praticaltraining.rsndm.entity.ExamRoom;
 import com.praticaltraining.rsndm.entity.Floor;
+import com.praticaltraining.rsndm.entity.School;
 import com.praticaltraining.rsndm.entity.floor_exRoom;
 import com.praticaltraining.rsndm.exception.FloorException;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +34,11 @@ public class Floor_exRoomController {
 
     @Autowired
     private ExamRoomBiz examRoomBiz;
+
+    @Autowired
+    private EnrollmentDepartmentBiz enrollmentDepartmentBiz;
+    @Autowired
+    private SchoolBiz schoolBiz;
 
     @GetMapping("/floor_exRoom/schoolId")
     @ResponseBody
@@ -164,5 +176,42 @@ public class Floor_exRoomController {
         }else{
             return -1;//表格为空
         }
+    }
+
+    @GetMapping("/floor_exRoom/outputAll/higherId")
+    @ResponseBody
+    @CrossOrigin
+    int allExamRommExcelOutput(int eduId) throws IOException, WriteException {
+        File xlsFile = new File("lowLevelRoom.xls");
+        WritableWorkbook workbook = Workbook.createWorkbook(xlsFile);
+        WritableSheet sheet = workbook.createSheet("sheet1", 0);
+
+        //添加表头
+        sheet.addCell(new Label(0,0,"考场编号"));
+        sheet.addCell(new Label(1,0,"学校"));
+        sheet.addCell(new Label(2,0,"所在楼"));
+        sheet.addCell(new Label(3,0,"所在层"));
+        sheet.addCell(new Label(4,0,"房间号"));
+
+        //导入数据
+        List<Integer> allEduBelong=enrollmentDepartmentBiz.eduIdAllBelong(eduId);
+        for(int i=0;i<allEduBelong.size();i++){
+            List<School> allSchool =schoolBiz.getByEduId(allEduBelong.get(i));
+            for(int j=0;j<allSchool.size();j++){
+                if(allSchool.get(j).getExRoomExamine()==2){
+                    List<ExamRoom> allEr=examRoomBiz.getAllExamRoom(allSchool.get(j).getSchoolId());
+                    for(int k=0;k<allEr.size();k++){
+                        sheet.addCell(new Label(0,i*j+k+1,String.valueOf(allEr.get(k).getExRoomId())));
+                        sheet.addCell(new Label(1,i*j+k+1,schoolBiz.getSchoolName(allEr.get(k).getSchoolId())));
+                        sheet.addCell(new Label(2,i*j+k+1,floorBiz.getOneFloor(allEr.get(k).getFloorId()).getBuilding()));
+                        sheet.addCell(new Label(3,i*j+k+1,String.valueOf(floorBiz.getOneFloor(allEr.get(k).getFloorId()).getFloorStep())));
+                        sheet.addCell(new Label(4,i*j+k+1,allEr.get(k).getRoomNum()));
+                    }
+                }
+            }
+        }
+        workbook.write();
+        workbook.close();
+        return 1;
     }
 }
