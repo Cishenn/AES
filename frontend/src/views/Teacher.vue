@@ -1,5 +1,6 @@
 <template>
   <div class="teacher">
+    <top-nav></top-nav>
     <sidemenu></sidemenu>
     <router-view class="routerv"/>
   </div>
@@ -7,10 +8,12 @@
 
 <script>
 import Sidemenu from '../components/teacher/Sidemenu.vue'
+import TopNav from '../components/teacher/TeacherTopNav.vue'
 
 export default {
   components: {
-    Sidemenu
+    Sidemenu,
+    TopNav
   },
   data () {
     return {

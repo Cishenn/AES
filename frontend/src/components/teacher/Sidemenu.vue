@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="myAvatar">
-      <el-avatar :src="avatarUrl" :size="60" style="margin-top: 15px;"></el-avatar>
+      <el-avatar v-if="imageUrl" :src="imageUrl" :size="60" style="margin-top: 15px;">
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+      </el-avatar>
     </div>
     <el-menu :default-active="$route.path" class="sideNav" :router="true" text-color="gray" active-text-color="#000" border>
       <el-menu-item index="/teacher/personalinfo">
@@ -24,7 +26,15 @@
 export default {
   data () {
     return {
-      avatarUrl: 'https://cube.elemecdn.com/0/c7/731d222b16d4537c0dcb5dfdc0402svg.svg'
+      personInfo: {
+        esId: '',
+        name: '',
+        telephoneNumber: '',
+        sex: '',
+        schoolId: '',
+        grade: '',
+        subject: ''
+      }
     }
   },
   mounted () {
@@ -35,10 +45,27 @@ export default {
       // alert('不要随便乱进哦!')
       this.$router.push('/login')
     }
+    this.personInfo.esId = this.$store.getters.getTeacherId
+    this.imageUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.personInfo.esId}.jpg`
+    this.getPersonalInfo()
   },
   methods: {
-    getTitle () {
-      //
+    getPersonalInfo () {
+      this.$axios
+        .get('exStaff/exStaff/exStaffId', {
+          params: {
+            esId: this.personInfo.esId
+          }
+        })
+        .then(resp => {
+          this.form.name = resp.data.name
+          this.form.phone = resp.data.telephoneNumber
+          this.form.gender = resp.data.sex
+          this.form.school = resp.data.schoolId
+          this.form.grade = resp.data.grade
+          this.form.subject = resp.data.subject
+          this.updatePersonalInfo()
+        })
     }
   }
 }
@@ -59,7 +86,7 @@ export default {
   }
 
   .sideNav {
-    width: 15%;
+    width: 10%;
     height: 80%;
     border: #000000;
     margin-left: -8px;
