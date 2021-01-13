@@ -26,48 +26,19 @@
 export default {
   data () {
     return {
-      personInfo: {
-        esId: '',
-        name: '',
-        telephoneNumber: '',
-        sex: '',
-        schoolId: '',
-        grade: '',
-        subject: ''
-      }
+      esId: '',
+      avatarUrl: ''
     }
-  },
-  mounted () {
-    this.getTitle()
   },
   created () {
     if (this.$store.state.teacherId === '') {
       // alert('不要随便乱进哦!')
       this.$router.push('/login')
     }
-    this.personInfo.esId = this.$store.getters.getTeacherId
-    this.imageUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.personInfo.esId}.jpg`
-    this.getPersonalInfo()
-  },
-  methods: {
-    getPersonalInfo () {
-      this.$axios
-        .get('exStaff/exStaff/exStaffId', {
-          params: {
-            esId: this.personInfo.esId
-          }
-        })
-        .then(resp => {
-          this.form.name = resp.data.name
-          this.form.phone = resp.data.telephoneNumber
-          this.form.gender = resp.data.sex
-          this.form.school = resp.data.schoolId
-          this.form.grade = resp.data.grade
-          this.form.subject = resp.data.subject
-          this.updatePersonalInfo()
-        })
-    }
+    this.esId = this.$store.getters.getTeacherId
+    this.avatarUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.esId}.jpg`
   }
+
 }
 </script>
 
