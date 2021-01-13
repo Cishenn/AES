@@ -5,11 +5,17 @@ import com.praticaltraining.rsndm.biz.FloorBiz;
 import com.praticaltraining.rsndm.entity.ExamRoom;
 import com.praticaltraining.rsndm.entity.Floor;
 import com.praticaltraining.rsndm.entity.floor_exRoom;
+import com.praticaltraining.rsndm.exception.FloorException;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @RestController
@@ -104,5 +110,59 @@ public class Floor_exRoomController {
         }
         result.put("floor_exRoom",fr);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/floor_exRoom/crbe")
+    @ResponseBody
+    @CrossOrigin
+    int createRoomByExcel(String path,int schoolId) throws BiffException, IOException {
+        File xlsFile=new File(path);
+        Workbook workbook = Workbook.getWorkbook(xlsFile);
+        Sheet[] sheets=workbook.getSheets();
+        if(sheets!=null){
+            for(Sheet sheet : sheets){
+                //获得行数
+                int rows = sheet.getRows();
+                for(int i=0;i<rows;i++){
+                    StringBuffer location=new StringBuffer(sheet.getCell(0,i).getContents());
+                    int index=0;
+                    String building="";
+                    while(index<location.length()){
+                        if(location.charAt(index)=='第'){
+                            index++;//直接指向表示层数的位置然后结束
+                            break;
+                        }else{
+                            building+=location.charAt(index);
+                            index++;
+                        }
+                    }
+                    if(index==location.length()){
+                        //格式错误返回发生错误的行位置
+                        return i;
+                    }
+                    if(!Character.isDigit(location.charAt(index))){
+                        return i;
+                    }
+                    int step=Integer.parseInt(String.valueOf(location.charAt(index)));
+                    int floorId;
+                    try{
+                        floorId=floorBiz.getFloorId(schoolId,building,step);
+                    }catch (FloorException e){
+                        return i;
+                    }
+                    if(examRoomBiz.getIdByAll(floorId,schoolId,sheet.getCell(1,i).getContents())==null){
+                        ExamRoom eroom=new ExamRoom();
+                        eroom.setFloorId(floorId);
+                        eroom.setRoomNum(sheet.getCell(1,i).getContents());
+                        eroom.setSchoolId(schoolId);
+                        eroom.setIsArrange(0);
+                        examRoomBiz.createExRoom(eroom);
+                    }
+                }
+            }
+            return -999;//成功！
+        }else{
+            return -1;//表格为空
+        }
     }
 }

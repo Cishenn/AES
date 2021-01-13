@@ -86,4 +86,10 @@
         WHERE schoolId = #{schoolId}
         AND isArrange = 1
     </select>
+
+    <select id="getIdByAll" resultType="int">
+        SELECT exRoomId FROM exam_room
+        WHERE schoolId = #{schoolId} AND floorId=#{floorId}
+        AND roomNum=#{roomNum}
+    </select>
 </mapper>

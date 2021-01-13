@@ -25,11 +25,9 @@ public class ExamRoomImpl implements ExamRoomBiz {
     }
 
     @Override
-    public void createExRoom(ExamRoom examRoom){
+    public int createExRoom(ExamRoom examRoom){
         int res = examRoomMapper.createExRoom(examRoom);
-        if(res == 0){
-            throw new ExamRoomException("create examRoom error");
-        }
+        return res;
     }
 
     @Override
@@ -119,5 +117,10 @@ public class ExamRoomImpl implements ExamRoomBiz {
     public List<Integer> isArrangeFloorId(int schoolId){
         List<Integer> res = examRoomMapper.isArrangeFloorId(schoolId);
         return res;
+    }
+
+    @Override
+    public Integer getIdByAll(int floorId, int schoolId, String roomNum) {
+        return examRoomMapper.getIdByAll(floorId,schoolId,roomNum);
     }
 }

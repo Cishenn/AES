@@ -43,8 +43,8 @@ public class FloorImpl implements FloorBiz {
 
     @Override
     public int getFloorId(int schoolId,String building,int floorStep){
-        int res = floorMapper.getFloorId(schoolId,building,floorStep);
-        if(res==0){
+        Integer res = floorMapper.getFloorId(schoolId,building,floorStep);
+        if(res==null){
             throw new FloorException("get floorId error");
         }
         return res;
