@@ -7,7 +7,7 @@ import java.util.List;
 public interface ExamRoomBiz {
     List<ExamRoom> getAllExamRoom(int schoolId);
 
-    void createExRoom(ExamRoom examRoom);
+    int createExRoom(ExamRoom examRoom);
 
     int getNumberOfExRoom(int schoolId);
 
@@ -32,4 +32,6 @@ public interface ExamRoomBiz {
     int getSelectedRoom(int schoolId);
 
     List<Integer> isArrangeFloorId(int schoolId);
+
+    Integer getIdByAll(int floorId,int schoolId,String roomNum);
 }

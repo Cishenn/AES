@@ -13,7 +13,7 @@ public interface FloorMapper {
 
     List<String> getBuilding(int schoolId);
 
-    int getFloorId(int schoolId,String building,int floorStep);
+    Integer getFloorId(int schoolId,String building,int floorStep);
 
     Floor getOneFloor(int floorId);
 }
