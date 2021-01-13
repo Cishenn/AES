@@ -192,7 +192,8 @@ public class Floor_exRoomController {
     // 此处的@RequestParam中的file名应与前端upload组件中的name的值保持一致
     public String upload(@RequestParam("file") MultipartFile multipartFile) {
         // replaceAll 用来替换windows中的\\ 为 /
-        name = "../"+multipartFile.getOriginalFilename();
+        name = "/"+multipartFile.getOriginalFilename();
+        System.out.println(name);
         return FileUploadUtil.upload(multipartFile).replaceAll("\\\\", "/");
     }
     @GetMapping("/floor_exRoom/outputAll/higherId")

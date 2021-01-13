@@ -55,7 +55,7 @@ public class InspectionTeamArrangementImpl implements InspectionTeamArrangementB
     @Override
     public void clearITAmsg(int eduId){
         int res = inspectionTeamArrangementMapper.clearITAmsg(eduId);
-        if(res == 0){
+        if(res == -1){
             throw new InspectionTeamArrangementException("clear floorid error");
         }
     }
