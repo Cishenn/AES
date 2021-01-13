@@ -10,7 +10,8 @@ export default new Vuex.Store({
     schoolId: '',
     addmissionsId: '',
     eduId: '',
-    SubordinateschoolsId: ''
+    SubordinateschoolsId: '',
+    errorMessage: []
   },
   // Mutation用于变更Store中的数据
   mutations: {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     setsubordinatesschoolsId (state, ID) {
       state.SubordinateschoolsId = ID
+    },
+    seterrorMessage (state, content) {
+      state.errorMessage = content
     }
   },
   // Action用于处理异步任务

@@ -1,17 +1,18 @@
 <template>
-  <div class="box">
-    <div class="title-box">提交您的反馈信息</div>
-    <div class="form-box">
-      <el-form label-width="80px">
-        <el-form-item label="反馈内容">
-          <el-input type="textarea" :rows="5" v-model="reason" style="width:300px"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">提交</el-button>
-          <el-button @click="clear">清空</el-button>
-        </el-form-item>
-      </el-form>
-
+  <div class="feedback">
+    <div class="mainarea">
+      <div class="form-box">
+        <title-box>请输入反馈信息</title-box>
+        <el-form label-width="80px" style="margin-top: 5%;">
+          <el-form-item label="反馈内容">
+            <el-input type="textarea" :rows="5" v-model="reason" style="width:300px"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <el-button @click="clear">清空</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
@@ -54,16 +55,28 @@ export default {
 
 </script>
 <style scoped>
-.box{
-
-  border-radius: 5px;
-  padding: 20px;
+.feedback{
+    background-color: #e4eeff;
+    width: 89.7%;
+    height: 91.5%;
+    margin-left: -150px;
+    margin-top: 3%;
 }
 .title-box{
   font-size: 20px;
-  margin-bottom: 20px;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+.mainarea{
+  background-color: #FFFFFF;
+  width: 95%;
+  height: 96%;
+  margin-top: 1%;
+  margin-left: 2.5%;
 }
 .form-box{
-  margin-left: 60px;
+  margin-top: 2%;
+  margin-left: 30%;
+  position: fixed;
 }
 </style>

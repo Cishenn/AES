@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="myAvatar">
-      <el-avatar :src="avatarUrl" :size="60" style="margin-top: 15px;"></el-avatar>
+      <el-avatar v-if="imageUrl" :src="imageUrl" :size="60" style="margin-top: 15px;">
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+      </el-avatar>
     </div>
     <el-menu :default-active="$route.path" class="sideNav" :router="true" text-color="gray" active-text-color="#000" border>
       <el-menu-item index="/teacher/personalinfo">
@@ -24,23 +26,19 @@
 export default {
   data () {
     return {
-      avatarUrl: 'https://cube.elemecdn.com/0/c7/731d222b16d4537c0dcb5dfdc0402svg.svg'
+      esId: '',
+      avatarUrl: ''
     }
-  },
-  mounted () {
-    this.getTitle()
   },
   created () {
     if (this.$store.state.teacherId === '') {
       // alert('不要随便乱进哦!')
       this.$router.push('/login')
     }
-  },
-  methods: {
-    getTitle () {
-      //
-    }
+    this.esId = this.$store.getters.getTeacherId
+    this.avatarUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.esId}.jpg`
   }
+
 }
 </script>
 
@@ -53,13 +51,13 @@ export default {
     font-family: "microsoft yahei";
     border-bottom-right-radius: 5px;
     width: 15%;
-    margin-top: -10px;
-    margin-left: 20px;
+    margin-top: 0px;
+    margin-left: 25px;
     height: 80px;
   }
 
   .sideNav {
-    width: 15%;
+    width: 10%;
     height: 80%;
     border: #000000;
     margin-left: -8px;

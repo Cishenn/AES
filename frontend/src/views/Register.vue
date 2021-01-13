@@ -93,6 +93,12 @@ export default {
         this.options = resp.data.School
         this.optionsCopy = resp.data.School
       })
+    const that = this
+    document.onkeydown = function (event) {
+      if (event.keyCode === 13) {
+        that.regist()
+      }
+    }
   },
   methods: {
     dataFilter (val) {

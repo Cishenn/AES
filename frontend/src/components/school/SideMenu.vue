@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="myAvatar">
+    <div class="myAvatar" border>
       <div class="avatarImg">
         <el-avatar :src="avatarUrl" :size="60" style="margin-top: 15px;"></el-avatar>
       </div>
@@ -47,8 +47,8 @@ export default {
     border-bottom-right-radius: 5px;
     width: 15%;
     margin-top: -10px;
-    margin-left: -8px;
-    height: 80px;
+    margin-left: -50px;
+    height: 32px;
   }
 
   .avatarImg {
@@ -57,11 +57,11 @@ export default {
   }
 
   .sideNav {
-    width: 15%;
+    width: 10%;
     height: 80%;
     border: #000000;
     margin-left: -8px;
-    margin-top: 1%;
+    margin-top: 3%;
     opacity: 1;
     border-top: 1px solid lightgrey;
     border-left: 1px solid lightgrey;
@@ -74,5 +74,8 @@ export default {
   .el-menu-item.is-active {
     color: #3498db;
     border-left: 4px solid #3498db;
+  }
+  .el-menu-item{
+    height: 50px;
   }
 </style>

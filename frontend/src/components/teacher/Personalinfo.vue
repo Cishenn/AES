@@ -1,73 +1,76 @@
 <template>
-  <div class="box">
-    <div class="title-box">个人信息
-      <el-tooltip effect="light" content="查看当前审核进度">
-        <el-button icon="el-icon-view" circle @click="checkStatus" class="checkBtn" />
-      </el-tooltip>
-    </div>
-    <div class="Settinginfo">
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="上传头像" prop="avatar">
-          <el-upload
-            class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="false"
-            list-type="picture-card"
-            multiple="false"
-            :before-upload="beforeAvatarUpload"
-            :on-success="handleAvatarSuccess"
-            :auto-upload="true">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-        </el-form-item>
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
-        </el-form-item>
-        <el-form-item label="电话" prop="phone">
-          <el-input v-model="form.phone" placeholder="请输入号码"></el-input>
-        </el-form-item>
-        <el-form-item label="性别" prop="gender">
-          <el-select v-model="form.gender" placeholder="请选择SEX" style="width:310px">
-            <el-option label="男" value="男"></el-option>
-            <el-option label="女" value="女"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="学校" prop="school">
-          <el-select v-model="form.school" placeholder="请选择学校" style="width:310px">
-            <el-option
-              v-for="item in schools"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="年级" prop="grade">
-          <el-select v-model="form.grade" placeholder="请选择年级" style="width:310px">
-            <el-option
-              v-for="item in grades"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="科目" prop="subject">
-          <el-input v-model="form.subject" placeholder="请输入科目"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="save">保存</el-button>
-        </el-form-item>
-      </el-form>
+  <div class="personalinfo">
+    <div class="mainarea">
+      <div class="Settinginfo" align="center">
+        <el-tooltip effect="light" content="查看当前审核进度" >
+          <el-button icon="el-icon-view" circle @click="checkStatus" class="checkBtn" />
+        </el-tooltip>
+        <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+          <el-form-item label="上传头像" prop="avatar">
+            <el-upload
+              class="avatar-uploader"
+              action="#"
+              :http-request="uploadBehavior"
+              :show-file-list="false"
+              list-type="picture-card"
+              :multiple="false"
+              :before-upload="beforeAvatarUpload"
+              :auto-upload="true">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item label="姓名" prop="name">
+            <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
+          </el-form-item>
+          <el-form-item label="电话" prop="phone">
+            <el-input v-model="form.phone" placeholder="请输入号码"></el-input>
+          </el-form-item>
+          <el-form-item label="性别" prop="gender">
+            <el-select v-model="form.gender" placeholder="请选择SEX" style="width:310px">
+              <el-option label="男" value="男"></el-option>
+              <el-option label="女" value="女"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="学校" prop="school">
+            <el-select v-model="form.school" placeholder="请选择学校" style="width:310px">
+              <el-option
+                v-for="item in schools"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="年级" prop="grade">
+            <el-select v-model="form.grade" placeholder="请选择年级" style="width:310px">
+              <el-option
+                v-for="item in grades"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="科目" prop="subject">
+            <el-input v-model="form.subject" placeholder="请输入科目"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="save">保存</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import COS from 'cos-js-sdk-v5'
+
 export default {
   data () {
     return {
+      avatarFile: '',
       form: {
         name: '',
         phone: '',
@@ -124,7 +127,8 @@ export default {
         schoolId: '',
         grade: '',
         subject: ''
-      }
+      },
+      changeAvatar: false
     }
   },
   created () {
@@ -172,24 +176,17 @@ export default {
     save () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          if (this.hasSomeChanges()) {
+          if (this.hasSomeChanges() || this.changeAvatar) {
             this.updatePersonalInfo()
             this.saveChanges()
-            this.$message({
-              type: 'success',
-              message: '修改信息成功'
-            })
+            this.uploadAvatar()
+            this.changeAvatar = false
+            this.$message.success('修改信息成功')
           } else {
-            this.$message({
-              type: 'info',
-              message: '您没有修改任何信息'
-            })
+            this.$message.info('您没有修改任何信息')
           }
         } else {
-          this.$message({
-            type: 'error',
-            message: '您的表单尚未完成'
-          })
+          this.$message.error('您的表单尚未完成')
           return false
         }
       })
@@ -260,29 +257,61 @@ export default {
       }
       return msg
     },
-    handleAvatarSuccess (res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.$message.success('头像已成功上传！')
-    },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'
       if (!isJPG) {
         this.$message.error('上传头像图片只能是 JPG 格式!')
       }
       return isJPG
+    },
+    uploadBehavior (data) {
+      this.avatarFile = data.file
+      this.imageUrl = URL.createObjectURL(this.avatarFile)
+      this.changeAvatar = true
+    },
+    uploadAvatar () {
+      const cos = new COS({
+        SecretId: 'AKIDjFcm9tmYE8RXO0znJ22qOjpBLM8g58ZF',
+        SecretKey: 'weB5HlqNhkZXWOdfdOvDH0WbS6nJm9GR'
+      })
+      cos.putObject({
+        Bucket: 'avatar-1301419632',
+        Region: 'ap-nanjing',
+        Key: `avatar/${this.personInfo.esId}.jpg`,
+        StorageClass: 'STANDARD',
+        Body: this.avatarFile,
+        onProgress: function (progressData) {
+          console.log(JSON.stringify(progressData))
+        }
+      },
+      function (err, data) {
+        console.log(err || data)
+        console.log(data.Location)
+      })
     }
   }
 }
 
 </script>
 <style scoped>
-.box {
-  border-radius: 5px;
-  padding: 20px;
+.personalinfo {
+    background-color: #e4eeff;
+    width: 89.7%;
+    height: 91.5%;
+    margin-left: -150px;
+    margin-top: 3%;
 }
-
+.mainarea{
+  background-color: #FFFFFF;
+  width: 95%;
+  height: 96%;
+  margin-top: 1%;
+  margin-left: 2.5%;
+}
 .checkBtn {
   float: right;
+  margin-right: -80px;
+  z-index: 999;
 }
 
 .title-box {
@@ -291,7 +320,9 @@ export default {
 }
 
 .Settinginfo {
-  margin-left: 60px;
+  margin-top: 2%;
+  margin-left: 30%;
+  position: fixed;
 }
 
 .upload-image {
