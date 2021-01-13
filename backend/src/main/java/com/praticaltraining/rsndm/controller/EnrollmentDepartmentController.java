@@ -21,7 +21,7 @@ public class EnrollmentDepartmentController {
     @GetMapping("/arrangeLevel/eduId")
     @ResponseBody
     @CrossOrigin
-    int getArrangeLevel(int eduId){
+    Integer getArrangeLevel(int eduId){
         return enrollmentDepartmentBiz.getArrangeLevel(eduId);
     }
 }

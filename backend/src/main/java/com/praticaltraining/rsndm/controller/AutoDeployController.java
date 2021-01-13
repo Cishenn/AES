@@ -36,7 +36,7 @@ public class AutoDeployController {
 
     @RequestMapping(value = "/stepOne",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @CrossOrigin
-    List<Integer> autoDeployStepOne(int eduId){
+    List<Object> autoDeployStepOne(int eduId){
         enrollmentDepartmentBiz.clearArrangeLevel(eduId);
         List<Integer> eduList = enrollmentDepartmentBiz.eduIdAllBelong(eduId);
         for(int i = 0;i < eduList.size();i++){
@@ -44,7 +44,7 @@ public class AutoDeployController {
         }
         int flag = examinationSiteDeploy(eduId);
         if(flag == 0){
-            List<Integer> res=invigilatorGroupOfStepOne(eduId);
+            List<Object> res=invigilatorGroupOfStepOne(eduId);
             inspectionTeamOfStepOne(eduId);
             if(res.get(0).equals(-1)){
                 enrollmentDepartmentBiz.setArrangeLevel(eduId,1);
@@ -54,9 +54,9 @@ public class AutoDeployController {
             }
             return res;
         }else{
-            List<Integer> res=new Vector<>();
+            List<Object> res=new Vector<>();
             res.add(8);
-            res.add(-1);
+            res.add(flag);
             return res;
         }
 
@@ -97,7 +97,7 @@ public class AutoDeployController {
         return 0;
     }
 
-    List<Integer> invigilatorGroupOfStepOne(int eduId){
+    List<Object> invigilatorGroupOfStepOne(int eduId){
         List<Integer> allEduBe = enrollmentDepartmentBiz.eduIdAllBelong(eduId);
         for (int i = 0; i < allEduBe.size(); i++){
             //清除原本数据
@@ -109,15 +109,15 @@ public class AutoDeployController {
         }
 
         //判断性别比例是否满足排考要求
-        if(isNiceSexNum(eduId).get(0)==5){
+        if(isNiceSexNum(eduId).get(0).equals(5)){
             return isNiceSexNum(eduId);
         }
         //判断总考务人员数目是否充足
-        if(isNiceExamStaffNum(eduId).get(0)==6){
+        if(isNiceExamStaffNum(eduId).get(0).equals(6)){
             return isNiceExamStaffNum(eduId);
         }
         //判断总主考人数是否充足
-        if(isNiceExaminerNum(eduId).get(0)==7){
+        if(isNiceExaminerNum(eduId).get(0).equals(7)){
             return isNiceExaminerNum(eduId);
         }
 
@@ -146,8 +146,9 @@ public class AutoDeployController {
                     int count = examRoomBiz.roomsIsArangeOfOneSchool(allSchoolBelongEdu.get(j).getSchoolId());
                     //当主考人数不足时终止并返回
                     if (allEsInSch.size() < count) {
-                        List<Integer> res=new Vector<>();
+                        List<Object> res=new Vector<>();
                         res.add(9);
+                        res.add(allSchoolBelongEdu.get(j).getSchoolName());
                         res.add(allEsInSch.size());
                         res.add(count);
                         res.add(-1);
@@ -215,7 +216,7 @@ public class AutoDeployController {
             }
         }
 
-        List<Integer> res=new Vector<>();
+        List<Object> res=new Vector<>();
         if(cycleNum==10){
             res.add(4);
         }
@@ -223,7 +224,7 @@ public class AutoDeployController {
         return res;
     }
 
-    List<Integer> isNiceSexNum(int eduId) {
+    List<Object> isNiceSexNum(int eduId) {
         int manCount = 0;
         int womanCount = 0;
         List<ExamStaff> allStaff = examStaffBiz.allNoArrangeGetByEduId(eduId);
@@ -234,7 +235,7 @@ public class AutoDeployController {
                 womanCount++;
             }
         }
-        List<Integer> res=new Vector<>();
+        List<Object> res=new Vector<>();
         if ((double)manCount / (double)womanCount > 2 || (double)womanCount / (double)manCount > 2) {
             res.add(5);
             res.add(manCount);
@@ -244,7 +245,7 @@ public class AutoDeployController {
         return res;
     }
 
-    List<Integer> isNiceExamStaffNum(int eduId){
+    List<Object> isNiceExamStaffNum(int eduId){
         List<ExamStaff> allStaff = examStaffBiz.allNoArrangeGetByEduId(eduId);
         List<Integer> allEduBelong =enrollmentDepartmentBiz.eduIdAllBelong(eduId);
         int roomSum=0;
@@ -255,7 +256,7 @@ public class AutoDeployController {
                 roomSum+=count;
             }
         }
-        List<Integer> res=new Vector<>();
+        List<Object> res=new Vector<>();
         if(roomSum*3+examRoomBiz.floorsIsArange(eduId)*2>allStaff.size()){
             res.add(6);
             res.add(roomSum*3+examRoomBiz.floorsIsArange(eduId)*2);
@@ -265,7 +266,7 @@ public class AutoDeployController {
         return res;
     }
 
-    List<Integer> isNiceExaminerNum(int eduId){
+    List<Object> isNiceExaminerNum(int eduId){
         List<Integer> allEduBelong =enrollmentDepartmentBiz.eduIdAllBelong(eduId);
         int examinerSum=0;
         int roomSum=0;
@@ -277,7 +278,7 @@ public class AutoDeployController {
                 roomSum+=examRoomBiz.roomsIsArangeOfOneSchool(allSchoolBelongEdu.get(j).getSchoolId());
             }
         }
-        List<Integer> res=new Vector<>();
+        List<Object> res=new Vector<>();
 
         if(examinerSum<roomSum){
             res.add(7);
@@ -363,7 +364,7 @@ public class AutoDeployController {
             NumberOfExcellent = numOfExcellent/30;
         }
         if(countExRoom < (NumberOfScience + NumberOfArt + NumberOfExcellent)){
-            return -1;
+            return (NumberOfScience + NumberOfArt + NumberOfExcellent)-countExRoom;
         }
         big:for(int i = 0;i < eduList.size();i++){
             List<School> school = schoolBiz.getByEduId(eduList.get(i));

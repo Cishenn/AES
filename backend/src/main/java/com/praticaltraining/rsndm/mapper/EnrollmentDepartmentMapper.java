@@ -11,8 +11,8 @@ public interface EnrollmentDepartmentMapper {
 
     int setArrangeLevel(int eduId,int level);
 
-    int getArrangeLevel(int eduId);
-    
+    Integer getArrangeLevel(int eduId);
+
     EnrollmentDepartment getOne(int eduId);
 
     int clearArrangeLevel(int eduId);
