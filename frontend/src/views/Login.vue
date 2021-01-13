@@ -167,6 +167,14 @@ export default {
         })
       }
     }
+  },
+  mounted () {
+    const that = this
+    document.onkeydown = function (event) {
+      if (event.keyCode === 13) {
+        that.login()
+      }
+    }
   }
 }
 </script>
