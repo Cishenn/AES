@@ -127,7 +127,8 @@ export default {
         schoolId: '',
         grade: '',
         subject: ''
-      }
+      },
+      changeAvatar: false
     }
   },
   created () {
@@ -173,13 +174,13 @@ export default {
         })
     },
     save () {
-      this.uploadAvatar()
-      this.$message.success('头像已成功上传！')
       this.$refs.form.validate((valid) => {
         if (valid) {
-          if (this.hasSomeChanges()) {
+          if (this.hasSomeChanges() || this.changeAvatar) {
             this.updatePersonalInfo()
             this.saveChanges()
+            this.uploadAvatar()
+            this.changeAvatar = false
             this.$message.success('修改信息成功')
           } else {
             this.$message.info('您没有修改任何信息')
@@ -266,6 +267,7 @@ export default {
     uploadBehavior (data) {
       this.avatarFile = data.file
       this.imageUrl = URL.createObjectURL(this.avatarFile)
+      this.changeAvatar = true
     },
     uploadAvatar () {
       const cos = new COS({
