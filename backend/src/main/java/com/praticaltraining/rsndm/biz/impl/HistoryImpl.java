@@ -22,4 +22,18 @@ public class HistoryImpl implements HistoryBiz {
         }
         return res;
     }
+
+    @Override
+    public int createHistory(History history) {
+        int res = historyMapper.createHistory(history);
+        if(res==0){
+            throw new HistoryException("create History error");
+        }
+        return res;
+    }
+
+    @Override
+    public int getNumByEsId(int esId) {
+        return historyMapper.getNumByEsId(esId);
+    }
 }

@@ -50,4 +50,6 @@ public interface ExamStaffBiz {
 
     List<ExamStaff> getExStaffListSE(int schoolId);
 
+    List<ExamStaff> getAllByHigerEduId(int eduId);
+
 }
