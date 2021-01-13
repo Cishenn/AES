@@ -51,8 +51,8 @@ export default {
     font-family: "microsoft yahei";
     border-bottom-right-radius: 5px;
     width: 15%;
-    margin-top: -10px;
-    margin-left: 20px;
+    margin-top: 0px;
+    margin-left: 25px;
     height: 80px;
   }
 
