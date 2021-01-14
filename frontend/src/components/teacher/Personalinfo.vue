@@ -64,6 +64,27 @@
           </el-form-item>
         </el-form>
       </div>
+      <el-dialog title="收货地址" :visible.sync="dialogFormVisible" width="40%">
+        <el-form :model="inspectCard" :disabled="true" class="dialogForm">
+          <img :src="imageUrl" class="dialogAvatar">
+          <el-form-item label="姓名" :label-width="formLabelWidth" fon>
+            <el-input v-model="inspectCard.name"></el-input>
+          </el-form-item>
+          <el-form-item label="考点" :label-width="formLabelWidth">
+            <el-input v-model="inspectCard.school"></el-input>
+          </el-form-item>
+          <el-form-item label="类型" :label-width="formLabelWidth">
+            <el-input v-model="inspectCard.type"></el-input>
+          </el-form-item>
+          <el-form-item label="组别" :label-width="formLabelWidth">
+            <el-input v-model="inspectCard.groupId"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -137,7 +158,15 @@ export default {
         grade: '',
         subject: ''
       },
-      changeAvatar: false
+      changeAvatar: false,
+      inspectCard: {
+        name: '',
+        school: '',
+        type: '',
+        groupId: ''
+      },
+      dialogFormVisible: false,
+      formLabelWidth: '70px'
     }
   },
   created () {
@@ -309,10 +338,17 @@ export default {
           }
         })
         .then(resp => {
+          console.log(this.personInfo.esId)
           console.log(resp)
           if (resp.data.type === 0) {
             this.$message.warning('你的审核信息暂未通过哦！')
           } else {
+            this.inspectCard.name = resp.data.name
+            this.inspectCard.school = resp.data.school
+            this.inspectCard.type = resp.data.type === 1 ? '巡考组' : '监考组'
+            this.inspectCard.groupId = resp.data.groupId
+            console.log(this.inspectCard)
+            this.dialogFormVisible = true
           }
         })
     }
@@ -382,5 +418,18 @@ export default {
   width: 146px;
   height: 146px;
   display: block;
+}
+
+.dialogForm {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.dialogAvatar {
+  width: 146px;
+  height: 146px;
+  display: block;
+  margin: auto;
+  margin-bottom: 5%;
 }
 </style>
