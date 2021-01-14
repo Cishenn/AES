@@ -1,4 +1,4 @@
-This is README.md
+RSNDM - AES
 ===================
 
 ## Project Structure
@@ -71,4 +71,6 @@ environment variables: ***`DATABASE_URL=localhost:localhost:3306;USER=root;PASSW
 5. ### Configure mysql with **navigator**
 
 ![navigator](./docs/assets/navigator.png)
+
+[sql导入文件](./docs/autoexam.sql)
 
