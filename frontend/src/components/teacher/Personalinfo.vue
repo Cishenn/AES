@@ -64,8 +64,8 @@
           </el-form-item>
         </el-form>
       </div>
-      <el-dialog title="收货地址" :visible.sync="dialogFormVisible" width="40%">
-        <el-form :model="inspectCard" :disabled="true" class="dialogForm">
+      <el-dialog title="监考信息" :visible.sync="dialogFormVisible" width="40%">
+        <el-form :model="inspectCard" :disabled="true" class="dialogForm" id="dialogInfo">
           <img :src="imageUrl" class="dialogAvatar">
           <el-form-item label="姓名" :label-width="formLabelWidth" fon>
             <el-input v-model="inspectCard.name"></el-input>
@@ -82,7 +82,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+          <el-button type="primary" @click="exportPdf">导 出</el-button>
         </div>
       </el-dialog>
     </div>
@@ -91,6 +91,7 @@
 
 <script>
 import COS from 'cos-js-sdk-v5'
+import htmlToPdf from '../../../public/htmlToPdf'
 
 export default {
   data () {
@@ -351,6 +352,10 @@ export default {
             this.dialogFormVisible = true
           }
         })
+    },
+    exportPdf () {
+      this.dialogFormVisible = false
+      htmlToPdf.downloadPDF(document.querySelector('#dialogInfo'), `${this.personInfo.name}的准考证`)
     }
   }
 }
