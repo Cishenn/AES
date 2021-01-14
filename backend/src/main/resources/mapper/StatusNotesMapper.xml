@@ -13,4 +13,11 @@
         WHERE schoolId=#{schoolId}
         )
     </select>
+
+    <update id="updateAuditState">
+        UPDATE status_notes
+        SET auditState = #{auditState}
+        WHERE stateId = #{stateId}
+    </update>
+
 </mapper>
