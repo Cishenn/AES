@@ -89,18 +89,11 @@ export default {
   },
   mounted () {
     this.getAllschool()
-    this.a()
   },
   watch: {
     $route: 'getAllschool'
   },
   methods: {
-    a () {
-      setTimeout(() => {
-        this.schoolTable = this.schoolTable2
-        this.loading = false
-      }, 1000)
-    },
     getAllschool () {
       this.$axios.get('school/schools/eduId', {
         params: {
@@ -129,10 +122,10 @@ export default {
           }).then(resp => {
             this.schoolTable2[i].typeOfExaminationSite = resp.data
           })
-          // if (i === length - 1) {
-          //   this.schoolTable = this.schoolTable2
-          //   this.loading = false
-          // }
+          if (i === length - 1) {
+            this.schoolTable = this.schoolTable2
+            this.loading = false
+          }
         }
       })
     },

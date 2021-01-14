@@ -396,8 +396,12 @@ export default {
       alert('请不要乱输入网址哦')
       this.$router.push('/login')
     }
-    if (this.errorMessage === null && this.tags !== '未排考') {
+    if (this.tags !== '未排考') {
       this.cardvisable = false
+    } else {
+      if (this.errorMessage === null) {
+        this.cardvisable = false
+      }
     }
     this.getArrangeexamstate()
     this.getedulevel()
