@@ -66,7 +66,7 @@
       </div>
       <el-dialog title="监考信息" :visible.sync="dialogFormVisible" width="40%">
         <el-form :model="inspectCard" :disabled="true" class="dialogForm" id="dialogInfo">
-          <img :src="imageUrl" class="dialogAvatar">
+          <img :src="testUrl" crossorigin="anonymous" class="dialogAvatar">
           <el-form-item label="姓名" :label-width="formLabelWidth" fon>
             <el-input v-model="inspectCard.name"></el-input>
           </el-form-item>
@@ -149,6 +149,7 @@ export default {
       ],
       schools: [],
       imageUrl: '',
+      testUrl: 'https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/3.jpg',
       personInfo: {
         esId: '',
         name: '',
@@ -166,7 +167,7 @@ export default {
         type: '',
         groupId: ''
       },
-      dialogFormVisible: false,
+      dialogFormVisible: true,
       formLabelWidth: '70px'
     }
   },

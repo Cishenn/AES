@@ -38,7 +38,6 @@ function downloadPDF (ele, pdfName) {
   // html2canvas(element[0]).then( (canvas)=>{
   html2canvas(ele, {
     dpi: 300,
-    // allowTaint: true,  //允许 canvas 污染， allowTaint参数要去掉，否则是无法通过toDataURL导出canvas数据的
     useCORS: true
   }).then((canvas) => {
     const contentWidth = canvas.width
