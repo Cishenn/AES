@@ -172,7 +172,7 @@ export default {
         groupId: ''
       },
       cardTitle: '',
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       formLabelWidth: '70px'
     }
   },
