@@ -8,4 +8,5 @@ public class StatusNotes {
     int esId;
     String stateMessage;
     String auditState;
+    String fromName;
 }

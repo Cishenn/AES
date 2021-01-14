@@ -35,7 +35,11 @@ public class StatusNotesController {
     @CrossOrigin
     ResponseEntity<Map<String, List<StatusNotes>>> queryAllBySchoolId(int schoolId){
         Map<String,List<StatusNotes>> result = new HashMap<>();
-        result.put("StatusNotes",statusNotesBiz.getAllBySchool(schoolId));
+        List<StatusNotes> res=statusNotesBiz.getAllBySchool(schoolId);
+        for(int i=0;i<res.size();i++){
+            res.get(i).setFromName(examStaffBiz.getName(res.get(i).getEsId()));
+        }
+        result.put("StatusNotes",res);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
