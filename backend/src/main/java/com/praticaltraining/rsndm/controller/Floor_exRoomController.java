@@ -198,8 +198,8 @@ public class Floor_exRoomController {
     @GetMapping("/floor_exRoom/outputAll/higherId")
     @ResponseBody
     @CrossOrigin
-    int allExamRommExcelOutput(int eduId) throws IOException, WriteException {
-        File xlsFile = new File(enrollmentDepartmentBiz.getOne(eduId).getEduName()+"考场总表.xls");
+    String allExamRommExcelOutput(int eduId) throws IOException, WriteException {
+        File xlsFile = new File("C://uploadFile//"+enrollmentDepartmentBiz.getOne(eduId).getEduName()+"考场总表.xls");
         WritableWorkbook workbook = Workbook.createWorkbook(xlsFile);
         WritableSheet sheet = workbook.createSheet("sheet1", 0);
         int indexBegin=1;
@@ -231,7 +231,16 @@ public class Floor_exRoomController {
         }
         workbook.write();
         workbook.close();
-        return 1;
+        return enrollmentDepartmentBiz.getOne(eduId).getEduName()+"考场总表.xls";
+    }
+
+    @GetMapping("/floor_exRoom/delete")
+    @ResponseBody
+    @CrossOrigin
+    int deleteExcel(String path){
+        File xlsFile = new File(path);
+        xlsFile.delete();
+        return 0;
     }
 
     int allRoomOut(int eduId,WritableSheet sheet,int beginIndex) throws WriteException {

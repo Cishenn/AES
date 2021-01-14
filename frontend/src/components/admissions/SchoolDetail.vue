@@ -1,34 +1,46 @@
 <!--  -->
 <template>
   <div class="box">
-    <div class="title-box" style="color: #FFFFFF;">学校详细信息</div>
+    <div class="title-box" style="color: #ffffff">学校详细信息</div>
     <div class="form-box">
       <el-tabs v-model="activeName">
         <el-tab-pane label="考场信息" name="first">
-          <div style="font-size:20px;margin-bottom:10px">学校考场信息表单</div>
+          <div style="font-size: 20px; margin-bottom: 10px">
+            学校考场信息表单
+          </div>
           <el-table
-            :data="roomTableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage"
+            :data="
+              roomTableData.slice(
+                (currentPage - 1) * pagesize,
+                currentPage * pagesize
+              )
+            "
+            :stripe="stripe"
+            :current-page.sync="currentPage"
             border
-            style="width: 100%">
+            style="width: 100%"
+          >
             <el-table-column
               prop="floor.building"
               label="考场所在楼"
-              width="120">
+              width="120"
+            >
             </el-table-column>
             <el-table-column
               prop="floor.floorStep"
               label="考场所在楼层"
-              width="120">
+              width="120"
+            >
             </el-table-column>
             <el-table-column
               prop="examRoom.roomNum"
               label="考场房间号"
-              width="120">
+              width="120"
+            >
             </el-table-column>
             <el-table-column align="center" label="审核状态" width="180px">
-              <el-tag
-                :type="tags.type">
-                {{tags.name}}
+              <el-tag :type="tags.type">
+                {{ tags.name }}
               </el-tag>
             </el-table-column>
             <!-- <el-table-column label="审核" width="120px">
@@ -42,75 +54,95 @@
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :current-page="currentPage"
-              :page-sizes="[5,10,15,20]"
+              :page-sizes="[5, 10, 15, 20]"
               :page-size="pagesize"
               class="pagination"
               layout="total, sizes, prev, pager, next, jumper"
-              :total="roomTableData.length">
+              :total="roomTableData.length"
+            >
             </el-pagination>
-        </div>
+          </div>
           <div class="buttondiv">
             <el-button type="primary" @click="passroom">审核通过</el-button>
             <el-button type="danger" @click="unpassroom">打回重填</el-button>
+            <a
+              style="color: black"
+              class="download"
+              download="合肥市教育局考场总表.xls"
+              :href="data111"
+              title="excel模板下载"
+            >
+              Excel模板下载
+            </a>
           </div>
         </el-tab-pane>
         <el-tab-pane label="考务人员信息" name="second">
-          <div style="font-size:20px;margin-bottom:10px">考务人员信息表单</div>
+          <div style="font-size: 20px; margin-bottom: 10px">
+            考务人员信息表单
+          </div>
           <el-table
-            :data="teacherTable.slice((currentPage2 - 1)*pagesize2,currentPage2*pagesize2)" :stripe="stripe" :current-page.sync="currentPage2"
+            :data="
+              teacherTable.slice(
+                (currentPage2 - 1) * pagesize2,
+                currentPage2 * pagesize2
+              )
+            "
+            :stripe="stripe"
+            :current-page.sync="currentPage2"
             ref="multipleTable"
             border
-            style="width: 100%">
-            <el-table-column type="selection" width="55" align="center"/>
+            style="width: 100%"
+          >
+            <el-table-column type="selection" width="55" align="center" />
             <el-table-column
               fixed
               prop="name"
               label="姓名"
               width="120"
-              align="center">
+              align="center"
+            >
             </el-table-column>
-            <el-table-column
-              prop="age"
-              label="年龄"
-              width="120"
-              align="center">
+            <el-table-column prop="age" label="年龄" width="120" align="center">
             </el-table-column>
-            <el-table-column
-              prop="sex"
-              label="性别"
-              width="120"
-              align="center">
+            <el-table-column prop="sex" label="性别" width="120" align="center">
             </el-table-column>
             <el-table-column
               prop="telephoneNumber"
               label="电话号码"
               width="120"
-              align="center">
+              align="center"
+            >
             </el-table-column>
             <el-table-column
               prop="grade"
               label="年级"
               width="120"
-              align="center">
+              align="center"
+            >
             </el-table-column>
             <el-table-column
               prop="subject"
               label="科目"
               width="120"
-              align="center">
+              align="center"
+            >
             </el-table-column>
             <el-table-column
               align="center"
               prop="tag"
               label="是否具有主考资格"
               width="120px"
-              :filters="[{ text: '是', value: '是' }, { text: '否', value: '否' }]"
+              :filters="[
+                { text: '是', value: '是' },
+                { text: '否', value: '否' },
+              ]"
               :filter-method="filterTag"
-              filter-placement="bottom-end">
+              filter-placement="bottom-end"
+            >
               <template slot-scope="scope">
-                <el-tag
-                  :type="scope.row.finalRejection"
-                  disable-transitions>{{scope.row.qualified}}</el-tag>
+                <el-tag :type="scope.row.finalRejection" disable-transitions>{{
+                  scope.row.qualified
+                }}</el-tag>
               </template>
             </el-table-column>
             <el-table-column
@@ -118,25 +150,30 @@
               prop="tag"
               label="审核状态"
               width="120px"
-              :filters="[{ text: '未审核', value: '未审核' }, { text: '已审核', value: '已审核' }]"
+              :filters="[
+                { text: '未审核', value: '未审核' },
+                { text: '已审核', value: '已审核' },
+              ]"
               :filter-method="filterTag2"
-              filter-placement="bottom-end">
+              filter-placement="bottom-end"
+            >
               <template slot-scope="scope">
-                <el-tag
-                  :type="scope.row.photograph"
-                  disable-transitions>{{scope.row.eduExamine}}</el-tag>
+                <el-tag :type="scope.row.photograph" disable-transitions>{{
+                  scope.row.eduExamine
+                }}</el-tag>
               </template>
             </el-table-column>
           </el-table>
           <el-pagination
-            @size-change ="handlesizechange2"
+            @size-change="handlesizechange2"
             @current-change="handleCurrentChange2"
             :current-page="currentPage2"
-            :page-sizes="[5,10,15,20]"
+            :page-sizes="[5, 10, 15, 20]"
             :page-size="pagesize2"
             class="pagination"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="teacherTable.length">
+            :total="teacherTable.length"
+          >
           </el-pagination>
           <div class="buttondiv">
             <el-button type="primary" @click="passteacher">审核通过</el-button>
@@ -151,6 +188,7 @@
 export default {
   data () {
     return {
+      data111: 'http://localhost:8080/file/合肥市教育局考场总表.xls ',
       roomstate: '',
       schoolId: this.$store.state.SubordinateschoolsId,
       activeName: 'first',
@@ -351,20 +389,19 @@ export default {
 
 </script>
 <style scoped>
-.box{
-
+.box {
   border-radius: 5px;
   padding: 20px;
 }
-.title-box{
+.title-box {
   font-size: 20px;
   /* color: red; */
   margin-bottom: 20px;
 }
-.form-box{
+.form-box {
   margin-left: 60px;
 }
-.buttondiv{
+.buttondiv {
   display: flex;
   justify-content: center;
 }
