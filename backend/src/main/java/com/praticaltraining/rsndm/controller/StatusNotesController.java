@@ -26,4 +26,13 @@ public class StatusNotesController {
         result.put("StatusNotes",statusNotesBiz.getAllByEsId(esId));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/StatusNotesToSchool")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<StatusNotes>>> queryAllBySchoolId(int schoolId){
+        Map<String,List<StatusNotes>> result = new HashMap<>();
+        result.put("StatusNotes",statusNotesBiz.getAllBySchool(schoolId));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

@@ -5,4 +5,12 @@
         SELECT * FROM status_notes
         WHERE esId=#{esId}
     </select>
+
+    <select id="getAllBySchool" resultType="StatusNotes">
+        SELECT * FROM status_notes
+        WHERE auditState=1 AND esId IN(
+        SELECT esId FROM exam_staff
+        WHERE schoolId=#{schoolId}
+        )
+    </select>
 </mapper>

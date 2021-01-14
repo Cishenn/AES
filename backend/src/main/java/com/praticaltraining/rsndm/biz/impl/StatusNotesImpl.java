@@ -23,4 +23,13 @@ public class StatusNotesImpl implements StatusNotesBiz {
         }
         return res;
     }
+
+    @Override
+    public List<StatusNotes> getAllBySchool(int schoolId) {
+        List<StatusNotes> res=statusNotesMapper.getAllBySchool(schoolId);
+        if(res==null){
+            throw new StatusNotesException("getAll by schoolId error");
+        }
+        return res;
+    }
 }
