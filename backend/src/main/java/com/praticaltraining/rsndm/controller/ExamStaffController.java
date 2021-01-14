@@ -1,8 +1,6 @@
 package com.praticaltraining.rsndm.controller;
 
-import com.praticaltraining.rsndm.biz.ExamRoomBiz;
 import com.praticaltraining.rsndm.biz.ExamStaffBiz;
-import com.praticaltraining.rsndm.entity.ExamRoom;
 import com.praticaltraining.rsndm.entity.ExamStaff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
