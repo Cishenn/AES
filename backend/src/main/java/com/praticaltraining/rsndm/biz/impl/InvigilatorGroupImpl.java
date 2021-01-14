@@ -60,4 +60,9 @@ public class InvigilatorGroupImpl implements InvigilatorGroupBiz {
             throw new InvigilatorGroupException("set IG second error");
         }
     }
+
+    @Override
+    public InvigilatorGroup getOneByEsId(int esId) {
+        return invigilatorGroupMapper.getOneByEsId(esId);
+    }
 }

@@ -18,4 +18,6 @@ public interface InvigilatorGroupMapper {
     int setFirst(int firstInvigilatorId,int invigilatorGroupId);
 
     int setSecond(int secondInvigilatorId,int invigilatorGroupId);
+
+    InvigilatorGroup getOneByEsId(int esId);
 }
