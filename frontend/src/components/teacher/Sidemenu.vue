@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <div class="myAvatar">
-      <el-avatar v-if="imageUrl" :src="imageUrl" :size="60" style="margin-top: 15px;">
-        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-      </el-avatar>
-    </div>
+    <img v-if="imageUrl" :src="imageUrl" class="avatar">
     <el-menu :default-active="$route.path" class="sideNav" :router="true" text-color="gray" active-text-color="#000" border>
       <el-menu-item index="/teacher/personalinfo">
         <i class="el-icon-menu"></i>
@@ -27,7 +23,8 @@ export default {
   data () {
     return {
       esId: '',
-      avatarUrl: ''
+      avatarUrl: '',
+      imageUrl: ''
     }
   },
   created () {
@@ -36,43 +33,43 @@ export default {
       this.$router.push('/login')
     }
     this.esId = this.$store.getters.getTeacherId
-    this.avatarUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.esId}.jpg`
+    this.imageUrl = `https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/${this.esId}.jpg`
   }
 
 }
 </script>
 
 <style scoped>
-  .container {
-    background-color: #FFFFFF;
-  }
+.container {
+  width: 10%;
+  background-color: #FFFFFF;
+}
 
-  .myAvatar {
-    font-family: "microsoft yahei";
-    border-bottom-right-radius: 5px;
-    width: 15%;
-    margin-top: 0px;
-    margin-left: 25px;
-    height: 80px;
-  }
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-left: 20%;
+}
 
-  .sideNav {
-    width: 10%;
-    height: 80%;
-    border: #000000;
-    margin-left: -8px;
-    margin-top: 1%;
-    opacity: 1;
-    border-top: 1px solid lightgrey;
-    border-left: 1px solid lightgrey;
-  }
+.sideNav {
+  width: 10%;
+  height: 80%;
+  border: #000000;
+  margin-left: -8px;
+  margin-top: 1%;
+  opacity: 1;
+  border-top: 1px solid lightgrey;
+  border-left: 1px solid lightgrey;
+}
 
-  .menuText {
-    font-size: 14px;
-  }
+.menuText {
+  font-size: 14px;
+}
 
-  .el-menu-item.is-active {
-    color: #3498db;
-    border-left: 4px solid #3498db;
-  }
+.el-menu-item.is-active {
+  color: #3498db;
+  border-left: 4px solid #3498db;
+}
+
 </style>

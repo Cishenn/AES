@@ -15,6 +15,11 @@
           <!-- <el-button icon="el-icon-view" circle @click="checkStatus" class="checkBtn" /> -->
         </div>
         <div class="line">
+          <i class="el-icon-key"></i>
+          <el-input v-model="password1" class="item" :type="passwordType" placeholder="请确认你的密码" />
+          <!-- <el-button icon="el-icon-view" circle @click="checkStatus" class="checkBtn" /> -->
+        </div>
+        <div class="line">
           <i class="el-icon-school"></i>
           <el-select class="select-box" v-model="schoolId" filterable :filter-method="dataFilter" placeholder="请选择你的学校">
             <el-option
@@ -69,6 +74,7 @@ export default {
       url: '../assets/classify.jpg',
       phonenum: '',
       password: '',
+      password1: '',
       passwordType: 'password',
       schoolId: '',
       identity: '',
@@ -123,21 +129,25 @@ export default {
       }
     },
     regist () {
-      if (this.phonenum !== '' && this.password !== '' && this.schoolId !== '' && this.identity !== '') {
+      if (this.phonenum !== '' && this.password !== '' && this.schoolId !== '' && this.identity !== '' && this.password1 !== '') {
         if (this.standardphonenum()) {
           if (this.identity === this.identifyCode) {
           // console.log('success')
-            this.$axios.post(`testPersonnelLogin/register?telephoneNumber=${this.phonenum}&password=${this.password}&schoolId=${this.schoolId}`)
-              .then(resp => {
-                console.log(resp)
-                this.$message({
-                  message: '注册成功!',
-                  type: 'success'
+            if (this.password1 === this.password) {
+              this.$axios.post(`testPersonnelLogin/register?telephoneNumber=${this.phonenum}&password=${this.password}&schoolId=${this.schoolId}`)
+                .then(resp => {
+                  console.log(resp)
+                  this.$message({
+                    message: '注册成功!',
+                    type: 'success'
+                  })
+                  this.$router.push('/login')
+                }).catch(resp => {
+                  this.$message.error('注册失败，已存在该手机号的账号')
                 })
-                this.$router.push('/login')
-              }).catch(resp => {
-                this.$message.error('注册失败，已存在该手机号的账号')
-              })
+            } else {
+              this.$message.error('两次输入密码不一致')
+            }
           } else {
             this.$message({
               message: '验证码有误，请重新填写!',
