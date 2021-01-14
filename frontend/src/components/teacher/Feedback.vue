@@ -2,7 +2,7 @@
   <div class="feedback">
     <div class="mainarea">
       <div class="form-box">
-        <title-box>请输入反馈信息</title-box>
+        <div class="title-box">请输入反馈信息</div>
         <el-form label-width="80px" style="margin-top: 5%;">
           <el-form-item label="反馈内容">
             <el-input type="textarea" :rows="5" v-model="reason" style="width:300px"></el-input>

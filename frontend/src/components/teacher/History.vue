@@ -209,11 +209,6 @@ export default {
     margin-top: 3%;
 }
 
-.title-box{
-  font-size: 20px;
-  margin-left: 40px;
-  margin-bottom: 20px;
-}
 .mainarea{
   background-color: #FFFFFF;
   width: 95%;
