@@ -71,3 +71,4 @@ environment variables: ***`DATABASE_URL=localhost:localhost:3306;USER=root;PASSW
 5. ### Configure mysql with **navigator**
 
 ![navigator](./docs/assets/navigator.png)
+
