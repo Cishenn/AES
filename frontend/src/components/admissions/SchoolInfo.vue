@@ -195,6 +195,7 @@ export default {
     },
     handleClick (index, row) {
       // console.log(this.schoolTable[index])
+      this.$store.commit('setschoolname', this.schoolTable[index].schoolName)
       this.$store.commit('setsubordinatesschoolsId', this.schoolTable[index].schoolId)
       this.$router.push('/admissions/schoolDetail')
     },

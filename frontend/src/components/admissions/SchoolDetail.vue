@@ -3,6 +3,7 @@
   <div class="schooldetail">
     <div class="mainarea">
       <div class="app">
+        <h1>{{schoolname}}信息</h1>
         <el-tabs v-model="activeName">
           <el-tab-pane label="考场信息" name="first">
             <div style="font-size: 20px; margin-bottom: 10px">
@@ -247,7 +248,8 @@ export default {
       pagesize: 5,
       currentPage2: 1,
       pagesize2: 5,
-      loading: true
+      loading: true,
+      schoolname: this.$store.state.schoolName
     }
   },
   computed: {

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+    <div>    <img v-if="imageUrl" :src="imageUrl" class="avatar"></div>
     <el-menu :default-active="$route.path" class="sideNav" :router="true" text-color="gray" active-text-color="#000" border>
       <el-menu-item index="/teacher/personalinfo">
         <i class="el-icon-menu"></i>
@@ -51,7 +51,9 @@ export default {
   border-radius: 50%;
   margin-left: 20%;
 }
-
+.el-menu-item{
+  width: 200px;
+}
 .sideNav {
   width: 10%;
   height: 80%;

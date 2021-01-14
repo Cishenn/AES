@@ -229,28 +229,26 @@ export default {
         .then(resp => {
           const checkCode = resp.data.schoolExamine
           if (checkCode === 2) {
-            this.canChangeInfo = false
             this.$message.error('当前审核已通过，无法修改信息！')
-          }
-        })
-      if (this.canChangeInfo) {
-        this.$refs.form.validate((valid) => {
-          if (valid) {
-            if (this.hasSomeChanges() || this.changeAvatar) {
-              this.updatePersonalInfo()
-              this.saveChanges()
-              this.uploadAvatar()
-              this.changeAvatar = false
-              this.$message.success('修改信息成功')
-            } else {
-              this.$message.info('您没有修改任何信息')
-            }
           } else {
-            this.$message.error('您的表单尚未完成')
-            return false
+            this.$refs.form.validate((valid) => {
+              if (valid) {
+                if (this.hasSomeChanges() || this.changeAvatar) {
+                  this.updatePersonalInfo()
+                  this.saveChanges()
+                  this.uploadAvatar()
+                  this.changeAvatar = false
+                  this.$message.success('修改信息成功')
+                } else {
+                  this.$message.info('您没有修改任何信息')
+                }
+              } else {
+                this.$message.error('您的表单尚未完成')
+                return false
+              }
+            })
           }
         })
-      }
     },
     saveChanges () {
       this.$axios

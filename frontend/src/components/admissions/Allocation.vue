@@ -805,6 +805,7 @@ export default {
       // console.log(row)
       if (this.tags === '第一步排考') {
         this.firstarrange = true
+        this.schoolname = row.schoolName
         this.getfirstexamRoom(row.schoolId)
         this.getfirstInvigilator(row.schoolId)
         this.getfirstinspection(row.schoolId)

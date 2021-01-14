@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="myAvatar">
-      <el-avatar v-if="imageUrl" :src="imageUrl" :size="60" style="margin-top: 15px;">
+      <!-- <el-avatar v-if="imageUrl" :src="imageUrl" :size="60" style="margin-top: 15px;">
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
-      </el-avatar>
+      </el-avatar> -->
     </div>
     <el-menu :default-active="$route.path" class="sideNav" :router="true" text-color="gray" active-text-color="#000" border>
             <el-submenu index="1">

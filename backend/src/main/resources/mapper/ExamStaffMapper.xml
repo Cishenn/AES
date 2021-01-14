@@ -89,12 +89,12 @@
         WHERE esId = #{esId}
     </update>
 
-    <update id="addStateMessage">
-        UPDATE status_notes SET
-        stateMseeage = #{stateMessage}
-        WHERE esId = #{esId}
-        AND aduitState = 1
-    </update>
+    <insert id="addStateMessage">
+        INSERT INTO status_notes(esId,stateMessage,auditState)
+        VALUES(
+            #{esId},#{stateMessage},1
+        )
+    </insert>
 
     <select id="getSelectedStaff" resultType="int">
         SELECT COUNT(*) FROM exam_staff
