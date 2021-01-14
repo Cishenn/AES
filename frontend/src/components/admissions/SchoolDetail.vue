@@ -63,17 +63,22 @@
               </div>
           </el-tab-pane>
           <el-tab-pane label="考务人员信息" name="second">
+            <div class="search">
+                <el-input v-model="search" placeholder="请输入"
+                suffix-icon="el-icon-search"
+                style="height: 10px; margin-top: 10px;"></el-input>
+            </div>
             <div style="font-size:20px;margin-bottom:10px">考务人员信息表单</div>
             <el-scrollbar
                 wrapClass="scrollbar-wrap"
                 style="height: 450px;"
                 ref="scrollbarContainer">
                 <div>
-                  <el-table
-                    :data="teacherTable.slice((currentPage2 - 1)*pagesize2,currentPage2*pagesize2)" :stripe="stripe" :current-page.sync="currentPage2"
+                  <el-table class="teacherTable"
+                    :data="tables.slice((currentPage2 - 1)*pagesize2,currentPage2*pagesize2)" :stripe="stripe" :current-page.sync="currentPage2"
                     ref="multipleTable"
                     border
-                    style="width: 100%">
+                    style="width: 100%; margin-top: 1%;">
                     <el-table-column type="selection" width="55" align="center"/>
                     <el-table-column
                       fixed
@@ -150,7 +155,7 @@
               :page-sizes="[5,10,15,20]"
               :page-size="pagesize2"
               class="pagination"
-              style="margin-top: 1%;"
+              style="margin-top: 1%; margin-left: 28%;"
               layout="total, sizes, prev, pager, next, jumper"
               :total="teacherTable.length"
               >
@@ -171,6 +176,7 @@ export default {
   data () {
     return {
       roomstate: '',
+      search: '',
       eduId: this.$store.state.eduId,
       edulevel: '',
       schoolId: this.$store.state.SubordinateschoolsId,
@@ -185,7 +191,21 @@ export default {
       currentPage: 1,
       pagesize: 5,
       currentPage2: 1,
-      pagesize2: 5
+      pagesize2: 5,
+      loading: true
+    }
+  },
+  computed: {
+    tables: function () {
+      var search = this.search
+      if (search) {
+        return this.teacherTable.filter(function (dataNews) {
+          return Object.keys(dataNews).some(function (key) {
+            return String(dataNews[key]).toLowerCase().indexOf(search) > -1
+          })
+        })
+      }
+      return this.teacherTable
     }
   },
   created () {
@@ -196,8 +216,6 @@ export default {
   },
 
   components: {},
-
-  computed: {},
 
   mounted () {
     this.getroomtable()
@@ -464,4 +482,9 @@ export default {
   display: flex;
   justify-content: center;
 }
+  .search{
+    width: 200px;
+    margin-top: -1%;
+    float: right;
+    }
 </style>
