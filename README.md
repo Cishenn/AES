@@ -13,6 +13,19 @@ Project has added commit-message in ./.git/hooks to inspect commit message
 
 Commit message should refer like "Added function feature. Ref #999"
 
+## References link(参考文档连接)
+
+https://www.yuque.com/softwarejunior/vv6w86
+
+Contains:
+
+- 概要设计说明书
+- 部署文档([快速部署](#deploy-rapidly))
+- 需求分析报告
+- 使用说明书
+- 系统测试计划报告
+- 详细设计说明书
+
 ## Deploy Rapidly
 
 1. clone repository
@@ -55,20 +68,3 @@ environment variables: ***`DATABASE_URL=tc-mysql-0.services.infra.tree-diagram.s
 Configure is done
 
 ![image-20210114173645264](./docs/assets/image-20210114173645264.png)
-
-
-
-## References link(参考文档连接)
-
-https://www.yuque.com/softwarejunior/vv6w86
-
-Contains:
-
-
-
-- 概要设计说明书
-- 部署文档([快速部署](#deploy-rapidly))
-- 需求分析报告
-- 使用说明书
-- 系统测试计划报告
-- 详细设计说明书
