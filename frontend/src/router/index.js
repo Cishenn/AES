@@ -16,6 +16,7 @@ import history from '../components/teacher/History.vue'
 import feedback from '../components/teacher/Feedback.vue'
 import SchoolDetail from '../components/admissions/SchoolDetail.vue'
 import Error404 from '../views/404Error.vue'
+import Handlefeedback from '../components/school/handlefeedback.vue'
 
 Vue.use(VueRouter)
 
@@ -49,6 +50,11 @@ const routes = [
         path: 'roomInfo',
         component: RoomInfo,
         meta: { title: '考场设置' }
+      },
+      {
+        path: 'handlefeedback',
+        component: Handlefeedback,
+        meta: { title: '审批反馈' }
       }
     ]
   },
