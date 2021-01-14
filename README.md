@@ -28,20 +28,20 @@ Contains:
 
 ## Deploy Rapidly
 
-1. clone repository
+1. ### clone repository
 
 ```shell
 git clone https://se.jisuanke.com/exam-schedular/ranshaonidemeng/arrange_examination_system.git
 ```
 
-2. cd ./frontend
+2. ### cd ./frontend
 
 ```shell
 npm install
 npm run serve
 ```
 
-3. open backend with intellij IDEA
+3. ### open backend with intellij IDEA
 
 **Maven reload project**
 
@@ -53,18 +53,21 @@ npm run serve
 
 ![image-20210114173126406](./docs/assets/image-20210114173126406.png)
 
-4. config environment variables in Intellij IDEA
+4. ### config environment variables in Intellij IDEA
 
 ![image-20210114173343654](./docs/assets/image-20210114173343654.png)
 
 
-
-environment variables: ***`DATABASE_URL=localhost:localhost:8080;USER=root;PASSWORD=123`***
+environment variables: ***`DATABASE_URL=localhost:localhost:3306;USER=root;PASSWORD=123`***
 
 ![image-20210114173404309](./docs/assets/image-20210114173404309.png)
 
 
 
-Configure is done
+**Backend configure is done**
 
 ![image-20210114173645264](./docs/assets/image-20210114173645264.png)
+
+5. ### Configure mysql with **navigator**
+
+![navigator](./docs/assets/navigator.png)
