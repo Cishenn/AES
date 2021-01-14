@@ -7,6 +7,8 @@ import com.praticaltraining.rsndm.mapper.NumberOfCandidatesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NumberOfCandidatesImpl implements NumberOfCandidatesBiz {
     @Autowired
@@ -26,5 +28,15 @@ public class NumberOfCandidatesImpl implements NumberOfCandidatesBiz {
         if(res==0){
             throw new NumberOfCandidatesException("NumberOfCandidates update error");
         }
+    }
+
+    @Override
+    public NumberOfCandidates edu2GetNum(int eduId){
+        return numberOfCandidatesMapper.edu2GetNum(eduId);
+    }
+
+    @Override
+    public NumberOfCandidates edu3GetNum(int eduId){
+        return numberOfCandidatesMapper.edu3GetNum(eduId);
     }
 }

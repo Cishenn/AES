@@ -5,6 +5,7 @@
         SELECT * FROM number_of_candidates
         WHERE eduId=#{eduId};
     </select>
+
     <update id="NumberOfCandidatesUpdate" parameterType="NumberOfCandidates">
         UPDATE number_of_candidates SET
             eduId=#{eduId},
@@ -13,4 +14,23 @@
             numOfExcellent=#{numOfExcellent}
         WHERE numOfCanId=#{numOfCanId};
     </update>
+
+    <select id="edu2GetNum" resultType="NumberOfCandidates">
+        SELECT SUM(numOfScience) AS numOfScience,SUM(numOfArt) AS numOfArt,SUM(numOfExcellent) AS numOfExcellent FROM `number_of_candidates`
+        WHERE eduId IN(
+            SELECT eduId FROM enrollment_department
+            WHERE higherEduId = #{eduId}
+        )
+    </select>
+
+    <select id="edu3GetNum" resultType="NumberOfCandidates">
+        SELECT SUM(numOfScience) AS numOfScience,SUM(numOfArt) AS numOfArt,SUM(numOfExcellent) AS numOfExcellent FROM `number_of_candidates`
+        WHERE eduId IN(
+            SELECT eduId FROM enrollment_department
+            WHERE higherEduId IN(
+                SELECT eduId FROM enrollment_department
+                WHERE higherEduId = #{eduId}
+            )
+        )
+    </select>
 </mapper>

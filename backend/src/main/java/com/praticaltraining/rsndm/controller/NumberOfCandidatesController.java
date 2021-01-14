@@ -5,6 +5,8 @@ import com.praticaltraining.rsndm.entity.NumberOfCandidates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/numberOfCandidates")
 public class NumberOfCandidatesController {
@@ -24,5 +26,18 @@ public class NumberOfCandidatesController {
         numberOfCandidatesBiz.NumberOfCandidatesUpdate(numberOfCandidates);
     }
 
+    @GetMapping("/num2/eduId")
+    @ResponseBody
+    @CrossOrigin
+    NumberOfCandidates edu2GetNum(int eduId){
+        return numberOfCandidatesBiz.edu2GetNum(eduId);
+    }
+
+    @GetMapping("/num3/eduId")
+    @ResponseBody
+    @CrossOrigin
+    NumberOfCandidates edu3GetNum(int eduId){
+        return numberOfCandidatesBiz.edu3GetNum(eduId);
+    }
 
 }
