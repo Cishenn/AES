@@ -65,21 +65,26 @@
         </el-form>
       </div>
       <el-dialog title="监考信息" :visible.sync="dialogFormVisible" width="40%">
-        <el-form :model="inspectCard" :disabled="true" class="dialogForm" id="dialogInfo">
-          <img :src="testUrl" crossorigin="anonymous" class="dialogAvatar">
-          <el-form-item label="姓名" :label-width="formLabelWidth" fon>
-            <el-input v-model="inspectCard.name"></el-input>
-          </el-form-item>
-          <el-form-item label="考点" :label-width="formLabelWidth">
-            <el-input v-model="inspectCard.school"></el-input>
-          </el-form-item>
-          <el-form-item label="类型" :label-width="formLabelWidth">
-            <el-input v-model="inspectCard.type"></el-input>
-          </el-form-item>
-          <el-form-item label="组别" :label-width="formLabelWidth">
-            <el-input v-model="inspectCard.groupId"></el-input>
-          </el-form-item>
-        </el-form>
+        <div class="dialogForm" id="dialogInfo">
+          <div class="cardTitle">{{cardTitle}}</div>
+          <img :src="imageUrl" crossorigin="anonymous" class="dialogAvatar">
+          <div class="cardLine">
+            <span class="cardLabel">姓名</span>
+            <span class="cardValue"> {{inspectCard.name}}</span>
+          </div>
+          <div class="cardLine">
+            <span class="cardLabel">考点</span>
+            <span class="cardValue"> {{inspectCard.school}}</span>
+          </div>
+          <div class="cardLine">
+            <span class="cardLabel">类型</span>
+            <span class="cardValue"> {{inspectCard.type}}</span>
+          </div>
+          <div class="cardLine">
+            <span class="cardLabel">组别</span>
+            <span class="cardValue"> {{inspectCard.groupId}}</span>
+          </div>
+        </div>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
           <el-button type="primary" @click="exportPdf">导 出</el-button>
@@ -149,7 +154,6 @@ export default {
       ],
       schools: [],
       imageUrl: '',
-      testUrl: 'https://avatar-1301419632.cos.ap-nanjing.myqcloud.com/avatar/3.jpg',
       personInfo: {
         esId: '',
         name: '',
@@ -167,6 +171,7 @@ export default {
         type: '',
         groupId: ''
       },
+      cardTitle: '',
       dialogFormVisible: true,
       formLabelWidth: '70px'
     }
@@ -343,11 +348,12 @@ export default {
           console.log(this.personInfo.esId)
           console.log(resp)
           if (resp.data.type === 0) {
-            this.$message.warning('你的审核信息暂未通过哦！')
+            this.$message.warning('当前未被审核或未排考！')
           } else {
             this.inspectCard.name = resp.data.name
             this.inspectCard.school = resp.data.school
             this.inspectCard.type = resp.data.type === 1 ? '巡考组' : '监考组'
+            this.cardTitle = resp.data.type === 1 ? '巡考证' : '监考证'
             this.inspectCard.groupId = resp.data.groupId
             console.log(this.inspectCard)
             this.dialogFormVisible = true
@@ -356,7 +362,7 @@ export default {
     },
     exportPdf () {
       this.dialogFormVisible = false
-      htmlToPdf.downloadPDF(document.querySelector('#dialogInfo'), `${this.personInfo.name}的准考证`)
+      htmlToPdf.downloadPDF(document.querySelector('#dialogInfo'), `${this.personInfo.name}的${this.cardTitle}`)
     }
   }
 }
@@ -437,5 +443,26 @@ export default {
   display: block;
   margin: auto;
   margin-bottom: 5%;
+}
+
+.cardTitle {
+  font-size: 35px;
+  text-align: center;
+  padding-top: 10%;
+  padding-bottom: 3%;
+}
+
+.cardLine {
+  margin-top: 8%;
+  margin-bottom: 8%;
+  margin-left: 20%;
+}
+
+.cardLabel {
+  font-size: 24px;
+}
+
+.cardValue {
+  font-size: 26px;
 }
 </style>
