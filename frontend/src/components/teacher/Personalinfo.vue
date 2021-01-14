@@ -60,6 +60,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="save">保存</el-button>
+            <el-button type="primary" @click="checkCard">查看监考证</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -299,6 +300,21 @@ export default {
         console.log(err || data)
         console.log(data.Location)
       })
+    },
+    checkCard () {
+      this.$axios
+        .get('qualification/qualification', {
+          params: {
+            esId: this.personInfo.esId
+          }
+        })
+        .then(resp => {
+          console.log(resp)
+          if (resp.data.type === 0) {
+            this.$message.warning('你的审核信息暂未通过哦！')
+          } else {
+          }
+        })
     }
   }
 }
