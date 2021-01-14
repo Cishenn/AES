@@ -43,36 +43,37 @@ export default {
 </script>
 
 <style scoped>
-  .container {
-    background-color: #FFFFFF;
-  }
+.container {
+  width: 10%;
+  background-color: #FFFFFF;
+}
 
-  .myAvatar {
-    font-family: "microsoft yahei";
-    border-bottom-right-radius: 5px;
-    width: 15%;
-    margin-top: 0px;
-    margin-left: 25px;
-    height: 80px;
-  }
+.myAvatar {
+  font-family: "microsoft yahei";
+  border-bottom-right-radius: 5px;
+  width: 15%;
+  margin-top: 0px;
+  margin-left: 25px;
+  height: 80px;
+}
 
-  .sideNav {
-    width: 10%;
-    height: 80%;
-    border: #000000;
-    margin-left: -8px;
-    margin-top: 1%;
-    opacity: 1;
-    border-top: 1px solid lightgrey;
-    border-left: 1px solid lightgrey;
-  }
+.sideNav {
+  width: 10%;
+  height: 80%;
+  border: #000000;
+  margin-left: -8px;
+  margin-top: 1%;
+  opacity: 1;
+  border-top: 1px solid lightgrey;
+  border-left: 1px solid lightgrey;
+}
 
-  .menuText {
-    font-size: 14px;
-  }
+.menuText {
+  font-size: 14px;
+}
 
-  .el-menu-item.is-active {
-    color: #3498db;
-    border-left: 4px solid #3498db;
-  }
+.el-menu-item.is-active {
+  color: #3498db;
+  border-left: 4px solid #3498db;
+}
 </style>
