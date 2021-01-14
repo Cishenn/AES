@@ -7,5 +7,8 @@ import java.util.List;
 @Mapper
 public interface StatusNotesMapper {
     List<StatusNotes> getAllByEsId(int esId);
+
     List<StatusNotes> getAllBySchool(int schoolId);
+
+    int updateAuditState(int stateId,int auditState);
 }
