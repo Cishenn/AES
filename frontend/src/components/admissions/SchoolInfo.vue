@@ -77,17 +77,6 @@
               </template>
             </el-table-column>
           </el-table>
-          <a
-            v-if="data111 !== ''"
-            @click="downloadxls()"
-            style="color: black"
-            class="download"
-            :download="data222"
-            :href="data111"
-            title="下载"
-          >
-            下载
-          </a>
           <div>
             <el-pagination
               @size-change="handleSizeChange"
@@ -102,6 +91,23 @@
             >
             </el-pagination>
           </div>
+          <a
+            v-if="data111 !== ''"
+            @click="downloadxls()"
+            style="color: blue"
+            class="download"
+            :download="data222"
+            :href="data111"
+            title="下载"
+          >
+            已审核考场信息导出
+          </a>
+          <a
+            v-if="data111 === ''"
+            style="color: red"
+          >
+            请稍等···excel考场导出文件正在准备中
+          </a>
         </div>
       </div>
     </div>

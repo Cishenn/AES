@@ -54,6 +54,44 @@
                 :total="schoolTabledata.length">
               </el-pagination>
             <el-dialog title="第一次排考" :visible.sync="firstarrange" width="60%" style="margin-left: 15%;">
+              <div>
+                <a
+                  v-if="Fjiankaolianjie !== ''"
+                  @click="downloadfirstjiankao"
+                  style="color: blue"
+                  class="download"
+                  :download="Fjiankaolianjie1"
+                  :href="Fjiankaolianjie"
+                  title="下载"
+                >
+                导出{{schoolname}}第一次排考监考组excel表格
+                </a>
+                <a
+                  v-if="Fjiankaolianjie === ''"
+                  style="color: red"
+                >
+                请稍等···监考组导出文件正在准备中
+                </a>
+              </div>
+              <div style="margin-top: 0">
+                <a
+                  v-if="Fxunkaolianjie !== ''"
+                  @click="downloadfirstxunkao"
+                  style="color: blue"
+                  class="download"
+                  :download="Fxunkaolianjie1"
+                  :href="Fxunkaolianjie"
+                  title="下载"
+                >
+                导出{{schoolname}}第一次排考巡考组excel表格
+                </a>
+                <a
+                  v-if="Fxunkaolianjie === ''"
+                  style="color: red"
+                >
+                请稍等···巡考组导出文件正在准备中
+                </a>
+              </div>
               <el-tabs>
                 <el-tab-pane>
                   <span slot="label"><i class="el-icon-price-tag"></i> 考场安排</span>
@@ -193,6 +231,44 @@
               </el-tabs>
             </el-dialog>
             <el-dialog title="第二次排考" :visible.sync="secondarrange" width="60%" style="margin-left: 20%;">
+              <div>
+                <a
+                  v-if="jiankaolianjie !== ''"
+                  @click="downloadsecondjiankao"
+                  style="color: blue"
+                  class="download"
+                  :download="jiankaolianjie1"
+                  :href="jiankaolianjie"
+                  title="下载"
+                >
+                导出{{schoolname}}第二次排考监考组excel表格
+                </a>
+                <a
+                  v-if="jiankaolianjie === ''"
+                  style="color: red"
+                >
+                请稍等···监考组导出文件正在准备中
+                </a>
+              </div>
+              <div style="margin-top: 0">
+                <a
+                  v-if="xunkaolianjie !== ''"
+                  @click="downloadsecondxunkao"
+                  style="color: blue"
+                  class="download"
+                  :download="xunkaolianjie1"
+                  :href="xunkaolianjie"
+                  title="下载"
+                >
+                导出{{schoolname}}第二次排考巡考组excel表格
+                </a>
+                <a
+                  v-if="xunkaolianjie === ''"
+                  style="color: red"
+                >
+                请稍等···巡考组导出文件正在准备中
+                </a>
+              </div>
               <el-tabs>
                 <el-tab-pane>
                   <span slot="label"><i class="el-icon-price-tag"></i> 考场安排</span>
@@ -373,6 +449,7 @@
           <div class="submit" style="display: flex;justify-content: center; margin-top: 1.5%;">
             <el-button size="medium" @click="Autoallocation" type="success">自动分配</el-button>
             <el-button size="medium" @click="Cancelarrange" type="danger">重置排考</el-button>
+            <el-button size="medium" @click="Closeexam" type="primary">考试结束</el-button>
           </div>
         </div>
       </div>
@@ -422,6 +499,15 @@
 export default {
   data () {
     return {
+      schoolname: '',
+      Fjiankaolianjie: '',
+      Fjiankaolianjie1: '',
+      Fxunkaolianjie: '',
+      Fxunkaolianjei1: '',
+      jiankaolianjie: '',
+      jiankaolianjie1: '',
+      xunkaolianjie: '',
+      xunkaolianjie1: '',
       cardvisable: true,
       firstarrange: false,
       secondarrange: false,
@@ -509,6 +595,57 @@ export default {
     this.getschooltable()
   },
   methods: {
+    clearlianjie () {
+      this.Fxunkaolianjie1 = ''
+      this.Fxunkaolianjie = ''
+      this.Fjiankaolianjie1 = ''
+      this.Fjiankaolianjie = ''
+      this.jiankaolianjie1 = ''
+      this.jiankaolianjie = ''
+      this.xunkaolianjie1 = ''
+      this.xunkaolianjie = ''
+    },
+    downloadfirstjiankao (schoolId) {
+      this.$axios.get('/examStaff_ig_igA/InvigilatorGroupExcel', {
+        params: {
+          schoolId: schoolId
+        }
+      }).then(resp => {
+        this.Fjiankaolianjie = 'http://localhost:8080/file/' + resp.data
+        this.Fjiankaolianjie1 = resp.data
+      })
+    },
+    downloadfirstxunkao (schoolId) {
+      this.$axios.get('/examStaff_it_itA/inspectionTeamsExcel', {
+        params: {
+          schoolId: schoolId
+        }
+      }).then(resp => {
+        this.Fxunkaolianjie = 'http://localhost:8080/file/' + resp.data
+        this.Fxunkaolianjie1 = resp.data
+      })
+    },
+    downloadsecondjiankao (schoolId) {
+      // console.log(schoolId)
+      this.$axios.get('/examStaff_ig_igA/InvigilatorGroupAndPosExcel', {
+        params: {
+          schoolId: schoolId
+        }
+      }).then(resp => {
+        this.jiankaolianjie = 'http://localhost:8080/file/' + resp.data
+        this.jiankaolianjie1 = resp.data
+      })
+    },
+    downloadsecondxunkao (schoolId) {
+      this.$axios.get('/examStaff_it_itA/inspectionTeamsAndPosExcel', {
+        params: {
+          schoolId: schoolId
+        }
+      }).then(resp => {
+        this.xunkaolianjie = 'http://localhost:8080/file/' + resp.data
+        this.xunkaolianjie1 = resp.data
+      })
+    },
     handleerrormessage () {
       // 处理第一次自动化分配出错信息
       this.$message.error('排考失败，请查看错误信息!')
@@ -520,6 +657,9 @@ export default {
           eduId: this.eduId
         }
       }).then(resp => {
+        this.loading = false
+        this.clearlianjie()
+        this.getschooltable()
       }).catch(resp => {
       })
     },
@@ -532,6 +672,7 @@ export default {
       }).then(resp => {
         this.loading = false
         this.$message.success('重置成功!')
+        this.clearlianjie()
         this.getschooltable()
       }).catch(resp => {
         this.$message.error('重置排考服务器出错!')
@@ -660,17 +801,23 @@ export default {
       })
     },
     handleClick (index, row) {
+      this.clearlianjie()
       // console.log(row)
       if (this.tags === '第一步排考') {
         this.firstarrange = true
         this.getfirstexamRoom(row.schoolId)
         this.getfirstInvigilator(row.schoolId)
         this.getfirstinspection(row.schoolId)
+        this.downloadfirstjiankao(row.schoolId)
+        this.downloadfirstxunkao(row.schoolId)
       } else if (this.tags === '第二步排考') {
         this.secondarrange = true
+        this.schoolname = row.schoolName
         this.getsecondexamRoom(row.schoolId)
         this.getsecondInvigilator(row.schoolId)
         this.getsecondinspection(row.schoolId)
+        this.downloadsecondjiankao(row.schoolId)
+        this.downloadsecondxunkao(row.schoolId)
       }
     },
     Autoallocation1 () {
@@ -751,8 +898,117 @@ export default {
           this.Autoallocation1()
         } else if (this.tags === '第一步排考') {
           this.Autoallocation2()
+        } else if (this.tags === '第二步排考') {
+          this.$confirm('此步操作将清楚第二次排考并且重新第二次排考, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.loading = true
+            this.$axios.get('AutoDeploy/stepTwo', {
+              params: {
+                eduId: this.eduId
+              }
+            }).then(resp => {
+              this.loading = false
+              this.getArrangeexamstate()
+              if (resp.data === 0) {
+                this.$message.success('第二次排考成功（已经把监考组分配到考场）!')
+              }
+            }).catch(resp => {
+              this.loading = false
+              this.$message.error('第二次排考不成功，请尝试重置排考或者联系管理员')
+            })
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消分配'
+            })
+          })
         }
       }
+    },
+    examjieshula () {
+      this.$prompt('请输入此此考试年份(只能输入数字，例如:2018)', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /^(?:19|20)[0-9][0-9]$/,
+        inputErrorMessage: '年份格式不正确'
+      }).then(({ value }) => {
+        this.loading = true
+        if (typeof (parseInt(value)) === 'number') {
+          // 结束考试
+          this.$axios.get('AutoDeploy/end', {
+            params: {
+              eduId: this.eduId,
+              year: value
+            }
+          }).then(resp => {
+            if (resp.data === 1) {
+              this.$message.success('考试结束！')
+              this.autotocancle()
+            }
+          }).catch(resp => {
+            this.loading = false
+            this.$message.error('结束失败,请尝试重新结束或联系管理员')
+          })
+        } else {
+          this.$message.error('请输入数字！')
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消结束考试'
+        })
+      })
+    },
+    Closeexam () {
+      this.$confirm('本次考试已结束，进行此操作将结束本次操作（添加考试信息进入历史记录）, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if (this.edulevel === 1 || this.edulevel === 3) {
+          this.$message('您没有权限取消考试！')
+        } else {
+          if (this.tags !== '第二步排考') {
+            this.$message('当前并未排考，并进入第二次排考！')
+          } else {
+            this.$confirm('确定结束考试?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$prompt('请输入招办ID', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+              }).then(({ value }) => {
+                if (parseInt(value) === this.eduId) {
+                  // 结束考试
+                  this.examjieshula()
+                } else {
+                  this.$message.error('招办ID错误！')
+                }
+              }).catch(() => {
+                this.$message({
+                  type: 'info',
+                  message: '取消结束考试'
+                })
+              })
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '取消结束考试'
+              })
+            })
+          }
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消分配'
+        })
+      })
     },
     getArrangeexamstate () {
       // 获得自动排考状态

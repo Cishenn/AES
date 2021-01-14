@@ -97,8 +97,8 @@ public class examStaff_it_itAController {
     @GetMapping("/inspectionTeamsExcel")
     @ResponseBody
     @CrossOrigin
-    int getAllInSchoolOfStepOneExcel(int schoolId) throws IOException, WriteException {
-        File xlsFile = new File(schoolBiz.getSchoolName(schoolId)+"巡考组(初步排考数据).xls");
+    String getAllInSchoolOfStepOneExcel(int schoolId) throws IOException, WriteException {
+        File xlsFile = new File("D://"+schoolBiz.getSchoolName(schoolId)+"巡考组(初步排考数据).xls");
         WritableWorkbook workbook = Workbook.createWorkbook(xlsFile);
         WritableSheet sheet = workbook.createSheet("sheet1", 0);
 
@@ -125,14 +125,14 @@ public class examStaff_it_itAController {
         }
         workbook.write();
         workbook.close();
-        return 1;
+        return schoolBiz.getSchoolName(schoolId)+"巡考组(初步排考数据).xls";
     }
 
     @GetMapping("/inspectionTeamsAndPosExcel")
     @ResponseBody
     @CrossOrigin
-    int getAllInSchoolOfStepTwoExcel(int schoolId) throws IOException, WriteException {
-        File xlsFile = new File(schoolBiz.getSchoolName(schoolId)+"巡考组(完成排考数据).xls");
+    String getAllInSchoolOfStepTwoExcel(int schoolId) throws IOException, WriteException {
+        File xlsFile = new File("D://"+schoolBiz.getSchoolName(schoolId)+"巡考组(完成排考数据).xls");
         WritableWorkbook workbook = Workbook.createWorkbook(xlsFile);
         WritableSheet sheet = workbook.createSheet("sheet1", 0);
 
@@ -157,8 +157,8 @@ public class examStaff_it_itAController {
 
                     sheet.addCell(new Label(0,beginIndex,String.valueOf(allInspectionTeam.get(i).getInspectionTeamId())));
                     sheet.addCell(new Label(1,beginIndex,schoolBiz.getSchoolName(allArrange.get(j).getSchoolId())));
-                    sheet.addCell(new Label(2,0,floor.getBuilding()));
-                    sheet.addCell(new Label(3,0,String.valueOf(floor.getFloorStep())));
+                    sheet.addCell(new Label(2,beginIndex,floor.getBuilding()));
+                    sheet.addCell(new Label(3,beginIndex,String.valueOf(floor.getFloorStep())));
                     sheet.addCell(new Label(4,beginIndex,examStaffBiz.getName(allInspectionTeam.get(i).getFirstInspectionPersonId())));
                     sheet.addCell(new Label(5,beginIndex,examStaffBiz.getName(allInspectionTeam.get(i).getSecondInspectionPersonId())));
                     if(allArrange.get(j).getSessions()==1){
@@ -176,6 +176,6 @@ public class examStaff_it_itAController {
         }
         workbook.write();
         workbook.close();
-        return 1;
+        return schoolBiz.getSchoolName(schoolId)+"巡考组(完成排考数据).xls";
     }
 }

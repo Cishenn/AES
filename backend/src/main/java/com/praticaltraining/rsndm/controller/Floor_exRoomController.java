@@ -199,7 +199,7 @@ public class Floor_exRoomController {
     @ResponseBody
     @CrossOrigin
     String allExamRommExcelOutput(int eduId) throws IOException, WriteException {
-        File xlsFile = new File("C://uploadFile//"+enrollmentDepartmentBiz.getOne(eduId).getEduName()+"考场总表.xls");
+        File xlsFile = new File("D://"+enrollmentDepartmentBiz.getOne(eduId).getEduName()+"考场总表.xls");
         WritableWorkbook workbook = Workbook.createWorkbook(xlsFile);
         WritableSheet sheet = workbook.createSheet("sheet1", 0);
         int indexBegin=1;

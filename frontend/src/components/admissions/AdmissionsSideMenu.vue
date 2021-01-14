@@ -13,7 +13,7 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/admissions/SchoolInfo">学校列表</el-menu-item>
-                <el-menu-item index="/admissions/SchoolDetail" disabled>学校信息</el-menu-item>
+                <el-menu-item index="/admissions/schoolDetail" disabled>学校信息</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
       <el-menu-item index="/admissions/inputStudents">

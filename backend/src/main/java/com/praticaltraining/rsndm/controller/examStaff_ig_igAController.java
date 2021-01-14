@@ -105,8 +105,8 @@ public class examStaff_ig_igAController {
     @GetMapping("/InvigilatorGroupExcel")
     @ResponseBody
     @CrossOrigin
-    int getAllInSchoolOfStepOneExcel(int schoolId) throws IOException, WriteException {
-        File xlsFile = new File(schoolBiz.getSchoolName(schoolId)+"监考组(初步排考数据).xls");
+    String getAllInSchoolOfStepOneExcel(int schoolId) throws IOException, WriteException {
+        File xlsFile = new File("D://"+schoolBiz.getSchoolName(schoolId)+"监考组(初步排考数据).xls");
         WritableWorkbook workbook = Workbook.createWorkbook(xlsFile);
         WritableSheet sheet = workbook.createSheet("sheet1", 0);
 
@@ -135,15 +135,15 @@ public class examStaff_ig_igAController {
         }
         workbook.write();
         workbook.close();
-        return 1;
+        return schoolBiz.getSchoolName(schoolId)+"监考组(初步排考数据).xls";
     }
 
     @GetMapping("/InvigilatorGroupAndPosExcel")
     @ResponseBody
     @CrossOrigin
-    int getAllInSchoolOfStepTwoExcel(int schoolId) throws IOException, WriteException {
+    String getAllInSchoolOfStepTwoExcel(int schoolId) throws IOException, WriteException {
 
-        File xlsFile = new File(schoolBiz.getSchoolName(schoolId)+"监考组(完成排考数据).xls");
+        File xlsFile = new File("D://"+schoolBiz.getSchoolName(schoolId)+"监考组(完成排考数据).xls");
         WritableWorkbook workbook = Workbook.createWorkbook(xlsFile);
         WritableSheet sheet = workbook.createSheet("sheet1", 0);
 
@@ -194,7 +194,7 @@ public class examStaff_ig_igAController {
         }
         workbook.write();
         workbook.close();
-        return 1;
+        return schoolBiz.getSchoolName(schoolId)+"监考组(完成排考数据).xls";
     }
 
 
