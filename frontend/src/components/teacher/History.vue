@@ -19,6 +19,8 @@
                   </el-table>
                   <div>
                     <el-pagination
+                      @size-change="hHandleSizeChange"
+                      @current-change="hHandleCurrentChange"
                       :current-page="hCurrentPage"
                       :page-sizes="[5,10,15,20]"
                       :page-size="hPagesize"
@@ -47,6 +49,8 @@
                   </el-table>
                   <div>
                     <el-pagination
+                      @size-change="vHandleSizeChange"
+                      @current-change="vHandleCurrentChange"
                       :current-page="vCurrentPage"
                       :page-sizes="[5,10,15,20]"
                       :page-size="vPagesize"
@@ -74,6 +78,8 @@
                   </el-table>
                   <div>
                     <el-pagination
+                      @size-change="fHandleSizeChange"
+                      @current-change="fHandleCurrentChange"
                       :current-page="fCurrentPage"
                       :page-sizes="[5,10,15,20]"
                       :page-size="fPagesize"
@@ -170,6 +176,24 @@ export default {
             this.feedbackTable.push(tuple)
           }
         })
+    },
+    hHandleSizeChange (val) {
+      this.hPagesize = val
+    },
+    hHandleCurrentChange (val) {
+      this.hCurrentPage = val
+    },
+    vHandleSizeChange (val) {
+      this.vPagesize = val
+    },
+    vHandleCurrentChange (val) {
+      this.vCurrentPage = val
+    },
+    fHandleSizeChange (val) {
+      this.fPagesize = val
+    },
+    fHandleCurrentChange (val) {
+      this.fCurrentPage = val
     }
   }
 }
