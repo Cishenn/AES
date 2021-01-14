@@ -16,4 +16,6 @@ public interface InvigilatorGroupBiz {
     void setFirst(int firstInvigilatorId,int invigilatorGroupId);
 
     void setSecond(int secondInvigilatorId,int invigilatorGroupId);
+
+    InvigilatorGroup getOneByEsId(int esId);
 }

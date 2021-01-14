@@ -23,6 +23,9 @@
           <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
+          <el-form-item label="年龄" prop="age">
+            <el-input v-model="form.age" placeholder="请输入年龄"></el-input>
+          </el-form-item>
           <el-form-item label="电话" prop="phone">
             <el-input v-model="form.phone" placeholder="请输入号码"></el-input>
           </el-form-item>
@@ -73,6 +76,7 @@ export default {
       avatarFile: '',
       form: {
         name: '',
+        age: '',
         phone: '',
         gender: '',
         school: '',
@@ -85,6 +89,9 @@ export default {
         // ],
         name: [
           { required: true, message: '请输入姓名', trigger: 'blur' }
+        ],
+        age: [
+          { required: true, message: '请输入年龄', trigger: 'blur' }
         ],
         phone: [
           { required: true, message: '请输入号码', trigger: 'blur' },
@@ -122,6 +129,7 @@ export default {
       personInfo: {
         esId: '',
         name: '',
+        age: '',
         telephoneNumber: '',
         sex: '',
         schoolId: '',
@@ -165,6 +173,7 @@ export default {
         })
         .then(resp => {
           this.form.name = resp.data.name
+          this.form.age = resp.data.age
           this.form.phone = resp.data.telephoneNumber
           this.form.gender = resp.data.sex
           this.form.school = resp.data.schoolId
@@ -201,6 +210,7 @@ export default {
     },
     hasSomeChanges () {
       if (this.personInfo.name !== this.form.name ||
+      this.personInfo.age !== this.form.age ||
         this.personInfo.telephoneNumber !== this.form.phone ||
         this.personInfo.sex !== this.form.gender ||
         this.personInfo.schoolId !== this.form.school ||
@@ -212,6 +222,7 @@ export default {
     },
     updatePersonalInfo () {
       this.personInfo.name = this.form.name
+      this.personInfo.age = this.form.age
       this.personInfo.telephoneNumber = this.form.phone
       this.personInfo.sex = this.form.gender
       this.personInfo.schoolId = this.form.school

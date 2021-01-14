@@ -6,6 +6,11 @@
        WHERE eduId=#{eduId};
     </select>
 
+    <select id="getOneByEsId" resultType="InvigilatorGroup">
+       SELECT * FROM invigilator_group
+       WHERE examinerId=#{esId} OR firstInvigilatorId=#{esId} OR secondInvigilatorId=#{esId};
+    </select>
+
     <select id="getAllByHighEduId" resultType="InvigilatorGroup" parameterType="int">
        SELECT * FROM invigilator_group
        WHERE eduId IN(
