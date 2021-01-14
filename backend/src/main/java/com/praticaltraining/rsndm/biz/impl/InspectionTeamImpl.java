@@ -19,9 +19,6 @@ public class InspectionTeamImpl implements InspectionTeamBiz {
     @Override
     public InspectionTeam getOneByEsId(int esId) {
         InspectionTeam res=inspectionTeamMapper.getOneByEsId(esId);
-        if(res==null){
-            throw new InspectionTeamArrangementException("InspectionTeam getOne error");
-        }
         return res;
     }
 
