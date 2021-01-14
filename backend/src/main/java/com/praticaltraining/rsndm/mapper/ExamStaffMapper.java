@@ -55,4 +55,6 @@ public interface ExamStaffMapper {
     List<ExamStaff> getExStaffListSE(int schoolId);
 
     List<ExamStaff> getAllByHigerEduId(int eduId);
+
+    int updateToFeedBackSolved(int esId);
 }

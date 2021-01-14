@@ -2,6 +2,7 @@
   <div class="InputStudents">
     <div class="mainarea">
       <div class="app">
+        <h1>本地区考生数目</h1>
         <div class="inputLi" style="color: #606266;">
           理科考生人数：
           <el-input v-model="liNum" placeholder="请输入今年理科生数目" ></el-input>
@@ -32,7 +33,8 @@ export default {
       liNum: '',
       wenNum: '',
       teNum: '',
-      numofcanid: ''
+      numofcanid: '',
+      edulevel: ''
     }
   },
   created () {
@@ -40,33 +42,80 @@ export default {
       alert('请不要乱输入网址哦')
       this.$router.push('/login')
     }
-    this.getstudentnum()
+    this.getedulevel()
   },
   methods: {
-    savenum () {
-      this.$confirm('此操作将修改今年的文理科考生数目, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$axios.post('numberOfCandidates/Candidates', {
-          numOfCanId: this.numofcanid,
-          eduId: this.eduId,
-          numOfScience: this.liNum,
-          numOfArt: this.wenNum,
-          numOfExcellent: this.teNum
-        }).then(resp => {
-          // console.log(resp)
-          this.$message.success('保存成功!')
-        }).catch(resp => {
-          this.$message.error('保存失败!')
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消审核'
-        })
+    getnum () {
+      if (this.edulevel === 1) {
+        this.getstudentnum()
+      } else if (this.edulevel === 2) {
+        this.getstudentsnum2()
+      } else if (this.edulevel === 3) {
+        this.getstudentsnum3()
+      }
+    },
+    getedulevel () {
+      // 获得招办等级
+      this.$axios.get('enrollmentDepartment/getOne', {
+        params: {
+          eduId: this.eduId
+        }
+      }).then(resp => {
+        this.edulevel = resp.data.eduLevel
+        this.getnum()
+        // alert(this.edulevel)
       })
+    },
+    getstudentsnum2 () {
+      this.$axios.get('numberOfCandidates/num2/eduId', {
+        params: {
+          eduId: this.eduId
+        }
+      }).then(resp => {
+        this.liNum = resp.data.numOfScience
+        this.wenNum = resp.data.numOfArt
+        this.teNum = resp.data.numOfExcellent
+      })
+    },
+    getstudentsnum3 () {
+      this.$axios.get('numberOfCandidates/num3/eduId', {
+        params: {
+          eduId: this.eduId
+        }
+      }).then(resp => {
+        this.liNum = resp.data.numOfScience
+        this.wenNum = resp.data.numOfArt
+        this.teNum = resp.data.numOfExcellent
+      })
+    },
+    savenum () {
+      if (this.edulevel !== 1) {
+        this.$message.error('只有地区级招办有权修改考生数目！')
+      } else {
+        this.$confirm('此操作将修改今年的文理科考生数目, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$axios.post('numberOfCandidates/Candidates', {
+            numOfCanId: this.numofcanid,
+            eduId: this.eduId,
+            numOfScience: this.liNum,
+            numOfArt: this.wenNum,
+            numOfExcellent: this.teNum
+          }).then(resp => {
+            // console.log(resp)
+            this.$message.success('保存成功!')
+          }).catch(resp => {
+            this.$message.error('保存失败!')
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消审核'
+          })
+        })
+      }
     },
     getstudentnum () {
       this.$axios.get('numberOfCandidates/Candidates', {

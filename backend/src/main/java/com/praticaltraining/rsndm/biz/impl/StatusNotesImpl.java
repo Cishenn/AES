@@ -23,4 +23,21 @@ public class StatusNotesImpl implements StatusNotesBiz {
         }
         return res;
     }
+
+    @Override
+    public List<StatusNotes> getAllBySchool(int schoolId) {
+        List<StatusNotes> res=statusNotesMapper.getAllBySchool(schoolId);
+        if(res==null){
+            throw new StatusNotesException("getAll by schoolId error");
+        }
+        return res;
+    }
+
+    @Override
+    public void updateAuditState(int stateId, int auditState) {
+        int res=statusNotesMapper.updateAuditState(stateId,auditState);
+        if(res==0){
+            throw new StatusNotesException("feed back sloved failed error");
+        }
+    }
 }

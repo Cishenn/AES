@@ -6,10 +6,16 @@
       </el-avatar>
     </div>
     <el-menu :default-active="$route.path" class="sideNav" :router="true" text-color="gray" active-text-color="#000" border>
-      <el-menu-item index="/admissions/SchoolInfo">
-        <i class="el-icon-menu"></i>
-        <span class="menuText">下属学校</span>
-      </el-menu-item>
+            <el-submenu index="1">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span>下属学校</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="/admissions/SchoolInfo">学校列表</el-menu-item>
+                <el-menu-item index="/admissions/SchoolDetail" disabled>学校信息</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
       <el-menu-item index="/admissions/inputStudents">
         <i class="el-icon-menu"></i>
         <span class="menuText">考生信息录入</span>

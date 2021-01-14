@@ -4,36 +4,44 @@
       <div class="mainarea">
         <div class="app">
           <el-tabs style="margin-top: 50px; align-items: center;">
-              <el-table class="roomtable" v-loading="loading"
-              :data="schoolTabledata.slice((currentPage - 1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage"
-              border
-              header-cell-class-name="tableStyle"
-              >
-                <el-table-column label="考点名称" align="center" prop="schoolName" width="120px"/>
-                <el-table-column label="考点类型" align="center" prop="typeOfExaminationSite" width="120px"/>
-                <el-table-column
+            <el-scrollbar
+                wrapClass="scrollbar-wrap"
+                style="height: 480px"
+                ref="scrollbarContainer">
+                <div>
+                  <el-table class="roomtable" v-loading="loading"
+                  :data="schoolTabledata.slice((currentPage - 1)*pagesize,currentPage*pagesize)" :stripe="stripe" :current-page.sync="currentPage"
+                  border
+                  header-cell-class-name="tableStyle"
+                  height="350"
+                  >
+                    <el-table-column label="考点名称" align="center" prop="schoolName" width="120px"/>
+                    <el-table-column label="考点类型" align="center" prop="typeOfExaminationSite" width="120px"/>
+                    <el-table-column
+                        align="center"
+                        prop="tag"
+                        label="排考状态"
+                        width="120px"
+                        filter-placement="bottom-end">
+                        <template>
+                          <el-tag
+                            :type="tags !== '未排考'? 'success' : 'danger'"
+                            disable-transitions>{{tags}}</el-tag>
+                        </template>
+                      </el-table-column>
+                    <el-table-column
                     align="center"
-                    prop="tag"
-                    label="排考状态"
-                    width="120px"
-                    filter-placement="bottom-end">
-                    <template>
-                      <el-tag
-                        :type="tags !== '未排考'? 'success' : 'danger'"
-                        disable-transitions>{{tags}}</el-tag>
+                    fixed="right"
+                    label="操作"
+                    width="100">
+                    <template slot-scope="scope">
+                      <el-button @click="handleClick(scope.$index, scope.row)" type="text" size="small" >查看</el-button>
+                      <!-- <el-button type="text" size="small">编辑</el-button> -->
                     </template>
-                  </el-table-column>
-                <el-table-column
-                align="center"
-                fixed="right"
-                label="操作"
-                width="100">
-                <template slot-scope="scope">
-                  <el-button @click="handleClick(scope.$index, scope.row)" type="text" size="small" >查看</el-button>
-                  <!-- <el-button type="text" size="small">编辑</el-button> -->
-                </template>
-                </el-table-column>
-              </el-table>
+                    </el-table-column>
+                  </el-table>
+                </div>
+                </el-scrollbar>
               <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -42,31 +50,40 @@
                 :page-size="pagesize"
                 class="pagination"
                 layout="total, sizes, prev, pager, next, jumper"
+                style="margin-top: 1%;"
                 :total="schoolTabledata.length">
               </el-pagination>
-            <el-dialog title="第一次排考" :visible.sync="firstarrange" width="80%">
+            <el-dialog title="第一次排考" :visible.sync="firstarrange" width="60%" style="margin-left: 15%;">
               <el-tabs>
                 <el-tab-pane>
                   <span slot="label"><i class="el-icon-price-tag"></i> 考场安排</span>
-                  <el-table
-                    :data="roomTable.slice((currentPage2 - 1)*pagesize2,currentPage2*pagesize2)" :stripe="stripe" :current-page.sync="pagesize2"
-                    style="width: 100%">
-                    <el-table-column
-                      prop="floor.building"
-                      label="教学楼"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="floor.floorStep"
-                      label="楼层"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="examRoom.roomNum"
-                      label="房间号"
-                      width="180">
-                    </el-table-column>
-                  </el-table>
+                  <el-scrollbar
+                      wrapClass="scrollbar-wrap"
+                      style="height:350px"
+                      ref="scrollbarContainer">
+                      <div>
+                        <el-table
+                          :data="roomTable.slice((currentPage2 - 1)*pagesize2,currentPage2*pagesize2)" :stripe="stripe" :current-page.sync="pagesize2"
+                          style="width: 100%"
+                          height="350">
+                          <el-table-column
+                            prop="floor.building"
+                            label="教学楼"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="floor.floorStep"
+                            label="楼层"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="examRoom.roomNum"
+                            label="房间号"
+                            width="180">
+                          </el-table-column>
+                        </el-table>
+                      </div>
+                      </el-scrollbar>
                   <el-pagination
                     @size-change="handleSizeChange2"
                     @current-change="handleCurrentChange2"
@@ -80,35 +97,43 @@
                 </el-tab-pane>
                 <el-tab-pane>
                   <span slot="label"><i class="el-icon-user"></i> 监考组安排</span>
-                  <el-table
-                    :data="invigilatorTable.slice((currentPage3 - 1)*pagesize3,currentPage*pagesize3)" :stripe="stripe" :current-page.sync="pagesize3"
-                    style="width: 100%">
-                    <el-table-column
-                      prop="invigilatorGroupId"
-                      label="监考组编号"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="schoolName"
-                      label="监考考点"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="examinerName"
-                      label="主考人"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="firstInvigilatorName"
-                      label="监考人1"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="secondInvigilatorName"
-                      label="监考人2"
-                      width="180">
-                    </el-table-column>
-                  </el-table>
+                  <el-scrollbar
+                      wrapClass="scrollbar-wrap"
+                      style="height:360px"
+                      ref="scrollbarContainer">
+                      <div>
+                        <el-table
+                          :data="invigilatorTable.slice((currentPage3 - 1)*pagesize3,currentPage*pagesize3)" :stripe="stripe" :current-page.sync="pagesize3"
+                          style="width: 100%"
+                          height="360">
+                          <el-table-column
+                            prop="invigilatorGroupId"
+                            label="监考组编号"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="schoolName"
+                            label="监考考点"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="examinerName"
+                            label="主考人"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="firstInvigilatorName"
+                            label="监考人1"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="secondInvigilatorName"
+                            label="监考人2"
+                            width="180">
+                          </el-table-column>
+                        </el-table>
+                      </div>
+                      </el-scrollbar>
                   <el-pagination
                     @size-change="handleSizeChange3"
                     @current-change="handleCurrentChange3"
@@ -122,30 +147,38 @@
                 </el-tab-pane>
                 <el-tab-pane>
                   <span slot="label"><i class="el-icon-s-custom"></i> 巡考组安排</span>
-                  <el-table
-                    :data="inspectionTable.slice((currentPage4 - 1)*pagesize4,currentPage4*pagesize4)" :stripe="stripe" :current-page.sync="pagesize4"
-                    style="width: 100%">
-                    <el-table-column
-                      prop="inspectionTeamId"
-                      label="巡考组编号"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="schoolName"
-                      label="巡考考点"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="firstInspectionPersonName"
-                      label="巡考人1"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="secondInspectionPersonName"
-                      label="巡考人2"
-                      width="180">
-                    </el-table-column>
-                  </el-table>
+                  <el-scrollbar
+                      wrapClass="scrollbar-wrap"
+                      style="height:360px"
+                      ref="scrollbarContainer">
+                      <div>
+                        <el-table
+                          :data="inspectionTable.slice((currentPage4 - 1)*pagesize4,currentPage4*pagesize4)" :stripe="stripe" :current-page.sync="pagesize4"
+                          style="width: 100%"
+                          height="360">
+                          <el-table-column
+                            prop="inspectionTeamId"
+                            label="巡考组编号"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="schoolName"
+                            label="巡考考点"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="firstInspectionPersonName"
+                            label="巡考人1"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="secondInspectionPersonName"
+                            label="巡考人2"
+                            width="180">
+                          </el-table-column>
+                        </el-table>
+                      </div>
+                      </el-scrollbar>
                   <el-pagination
                     @size-change="handleSizeChange4"
                     @current-change="handleCurrentChange4"
@@ -159,29 +192,37 @@
                 </el-tab-pane>
               </el-tabs>
             </el-dialog>
-            <el-dialog title="第二次排考" :visible.sync="secondarrange" width="80%">
+            <el-dialog title="第二次排考" :visible.sync="secondarrange" width="60%" style="margin-left: 20%;">
               <el-tabs>
                 <el-tab-pane>
                   <span slot="label"><i class="el-icon-price-tag"></i> 考场安排</span>
-                  <el-table
-                    :data="roomTable2.slice((currentPage7 - 1)*pagesize7,currentPage7*pagesize7)" :stripe="stripe" :current-page.sync="pagesize7"
-                    style="width: 100%">
-                    <el-table-column
-                      prop="floor.building"
-                      label="教学楼"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="floor.floorStep"
-                      label="楼层"
-                      width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="examRoom.roomNum"
-                      label="房间号"
-                      width="180">
-                    </el-table-column>
-                  </el-table>
+                  <el-scrollbar
+                      wrapClass="scrollbar-wrap"
+                      style="height:350px"
+                      ref="scrollbarContainer">
+                      <div>
+                        <el-table class="roomtable2"
+                          :data="RoomTable2.slice((currentPage7 - 1)*pagesize7,currentPage7*pagesize7)" :stripe="stripe" :current-page.sync="pagesize7"
+                          style="width: 100%"
+                          height="350">
+                          <el-table-column
+                            prop="floor.building"
+                            label="教学楼"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="floor.floorStep"
+                            label="楼层"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="examRoom.roomNum"
+                            label="房间号"
+                            width="180">
+                          </el-table-column>
+                        </el-table>
+                      </div>
+                  </el-scrollbar>
                   <el-pagination
                     @size-change="handleSizeChange7"
                     @current-change="handleCurrentChange7"
@@ -195,53 +236,61 @@
                 </el-tab-pane>
                 <el-tab-pane>
                   <span slot="label"><i class="el-icon-user"></i> 监考组安排</span>
-                  <el-table
-                  v-loading="jiankaoloading"
-                    :data="invigilatorTable2.slice((currentPage5 - 1)*pagesize5,currentPage5*pagesize5)" :stripe="stripe" :current-page.sync="pagesize5"
-                    style="width: 100%">
-                    <el-table-column
-                      label="考试科目"
-                      width="80">
-                      <template slot-scope="scope">
-                        {{ scope.row.sessions === 1 ? '语文' : (scope.row.sessions === 2? '数学' : (scope.row.sessions === 3 ? '英语' : '综合')) }}
-                      </template>
-                    </el-table-column>
-                    <el-table-column
-                      prop="schoolName"
-                      label="监考考点"
-                      width="130">
-                    </el-table-column>
-                    <el-table-column
-                      prop="building"
-                      label="监考楼"
-                      width="130">
-                    </el-table-column>
-                    <el-table-column
-                      prop="floorStep"
-                      label="监考楼层"
-                      width="130">
-                    </el-table-column>
-                    <el-table-column
-                      prop="roomNum"
-                      label="房间号"
-                      width="130">
-                    </el-table-column>
-                    <el-table-column
-                      prop="examinerName"
-                      label="主考人"
-                      width="80">
-                    </el-table-column>
-                    <el-table-column
-                      prop="firstInvigilatorName"
-                      label="监考人1"
-                      width="80">
-                    </el-table-column>
-                    <el-table-column
-                      prop="secondInvigilatorName"
-                      label="监考人2"
-                      width="80">
-                    </el-table-column>
-                  </el-table>
+                  <el-scrollbar
+                      wrapClass="scrollbar-wrap"
+                      style="height:350px"
+                      ref="scrollbarContainer">
+                      <div>
+                        <el-table
+                        v-loading="jiankaoloading"
+                          :data="InvigilatorTable2.slice((currentPage5 - 1)*pagesize5,currentPage5*pagesize5)" :stripe="stripe" :current-page.sync="pagesize5"
+                          style="width: 100%"
+                          height="350">
+                          <el-table-column
+                            label="考试科目"
+                            width="80">
+                            <template slot-scope="scope">
+                              {{ scope.row.sessions === 1 ? '语文' : (scope.row.sessions === 2? '数学' : (scope.row.sessions === 3 ? '英语' : '综合')) }}
+                            </template>
+                          </el-table-column>
+                          <el-table-column
+                            prop="schoolName"
+                            label="监考考点"
+                            width="130">
+                          </el-table-column>
+                          <el-table-column
+                            prop="building"
+                            label="监考楼"
+                            width="130">
+                          </el-table-column>
+                          <el-table-column
+                            prop="floorStep"
+                            label="监考楼层"
+                            width="130">
+                          </el-table-column>
+                          <el-table-column
+                            prop="roomNum"
+                            label="房间号"
+                            width="130">
+                          </el-table-column>
+                          <el-table-column
+                            prop="examinerName"
+                            label="主考人"
+                            width="80">
+                          </el-table-column>
+                          <el-table-column
+                            prop="firstInvigilatorName"
+                            label="监考人1"
+                            width="80">
+                          </el-table-column>
+                          <el-table-column
+                            prop="secondInvigilatorName"
+                            label="监考人2"
+                            width="80">
+                          </el-table-column>
+                        </el-table>
+                    </div>
+                  </el-scrollbar>
                   <el-pagination
                     @size-change="handleSizeChange5"
                     @current-change="handleCurrentChange5"
@@ -252,45 +301,57 @@
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="invigilatorTable2.length">
                   </el-pagination>
+                  <div class="search">
+                      <el-input v-model="search" placeholder="请输入"
+                      suffix-icon="el-icon-search"></el-input>
+                  </div>
                 </el-tab-pane>
                 <el-tab-pane>
                   <span slot="label"><i class="el-icon-s-custom"></i> 巡考组安排</span>
-                  <el-table
-                    :data="inspectionTable2.slice((currentPage6 - 1)*pagesize6,currentPage6*pagesize6)" :stripe="stripe" :current-page.sync="pagesize6"
-                    style="width: 100%">
-                    <el-table-column
-                      label="考试科目"
-                      width="80">
-                      <template slot-scope="scope">
-                        {{ scope.row.sessions === 1 ? '语文' : (scope.row.sessions === 2? '数学' : (scope.row.sessions === 3 ? '英语' : '综合')) }}
-                      </template>
-                    </el-table-column>
-                    <el-table-column
-                      prop="inspectionTeamId"
-                      label="巡考组编号"
-                      width="100">
-                    </el-table-column>
-                    <el-table-column
-                      prop="schoolName"
-                      label="巡考考点"
-                      width="120">
-                    </el-table-column>
-                    <el-table-column
-                      prop="floorStep"
-                      label="巡考楼层"
-                      width="100">
-                    </el-table-column>
-                    <el-table-column
-                      prop="firstInspectionPersonName"
-                      label="巡考人1"
-                      width="100">
-                    </el-table-column>
-                    <el-table-column
-                      prop="secondInspectionPersonName"
-                      label="巡考人2"
-                      width="100">
-                    </el-table-column>
-                  </el-table>
+                  <el-scrollbar
+                      wrapClass="scrollbar-wrap"
+                      style="height:350px"
+                      ref="scrollbarContainer">
+                      <div>
+                        <el-table
+                          :data="InspectionTable2.slice((currentPage6 - 1)*pagesize6,currentPage6*pagesize6)" :stripe="stripe" :current-page.sync="pagesize6"
+                          style="width: 100%"
+                          height="350">
+                          <el-table-column
+                            label="考试科目"
+                            width="80">
+                            <template slot-scope="scope">
+                              {{ scope.row.sessions === 1 ? '语文' : (scope.row.sessions === 2? '数学' : (scope.row.sessions === 3 ? '英语' : '综合')) }}
+                            </template>
+                          </el-table-column>
+                          <el-table-column
+                            prop="inspectionTeamId"
+                            label="巡考组编号"
+                            width="100">
+                          </el-table-column>
+                          <el-table-column
+                            prop="schoolName"
+                            label="巡考考点"
+                            width="120">
+                          </el-table-column>
+                          <el-table-column
+                            prop="floorStep"
+                            label="巡考楼层"
+                            width="100">
+                          </el-table-column>
+                          <el-table-column
+                            prop="firstInspectionPersonName"
+                            label="巡考人1"
+                            width="100">
+                          </el-table-column>
+                          <el-table-column
+                            prop="secondInspectionPersonName"
+                            label="巡考人2"
+                            width="100">
+                          </el-table-column>
+                        </el-table>
+                      </div>
+                      </el-scrollbar>
                   <el-pagination
                     @size-change="handleSizeChange6"
                     @current-change="handleCurrentChange6"
@@ -301,11 +362,15 @@
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="inspectionTable2.length">
                   </el-pagination>
+                  <div class="search">
+                      <el-input v-model="search" placeholder="请输入"
+                      suffix-icon="el-icon-search"></el-input>
+                  </div>
                 </el-tab-pane>
               </el-tabs>
             </el-dialog>
             </el-tabs>
-          <div class="submit" style="display: flex;justify-content: center;">
+          <div class="submit" style="display: flex;justify-content: center; margin-top: 1.5%;">
             <el-button size="medium" @click="Autoallocation" type="success">自动分配</el-button>
             <el-button size="medium" @click="Cancelarrange" type="danger">重置排考</el-button>
           </div>
@@ -362,6 +427,7 @@ export default {
       secondarrange: false,
       eduId: this.$store.state.eduId,
       tags: '',
+      search: '',
       arrangeexamstate: '',
       schoolTabledata: [],
       invigilatorTable: [],
@@ -389,6 +455,41 @@ export default {
       edulevel: Number,
       roomTable: [],
       errorMessage: this.$store.state.errorMessage
+    }
+  },
+  computed: {
+    RoomTable2: function () {
+      var search = this.search
+      if (search) {
+        return this.roomTable2.filter(function (dataNews) {
+          return Object.keys(dataNews).some(function (key) {
+            return String(dataNews[key]).toLowerCase().indexOf(search) > -1
+          })
+        })
+      }
+      return this.roomTable2
+    },
+    InvigilatorTable2: function () {
+      var search = this.search
+      if (search) {
+        return this.invigilatorTable2.filter(function (dataNews) {
+          return Object.keys(dataNews).some(function (key) {
+            return String(dataNews[key]).toLowerCase().indexOf(search) > -1
+          })
+        })
+      }
+      return this.invigilatorTable2
+    },
+    InspectionTable2: function () {
+      var search = this.search
+      if (search) {
+        return this.inspectionTable2.filter(function (dataNews) {
+          return Object.keys(dataNews).some(function (key) {
+            return String(dataNews[key]).toLowerCase().indexOf(search) > -1
+          })
+        })
+      }
+      return this.inspectionTable2
     }
   },
   created () {
@@ -751,5 +852,13 @@ export default {
   }
   .firstarrange{
     margin-left: 10%;
+  }
+  .search{
+    width: 200px;
+    margin-top: -4%;
+    float: right;
+  }
+ .input.el-input__inner{
+    height: 20px;
   }
 </style>

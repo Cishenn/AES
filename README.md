@@ -1,20 +1,73 @@
-#This is README.md
+This is README.md
 ===================
 
 ## Project Structure
-Project master branch has two directories
+Repository owns two parts:
 
-Frontend codes place in frontend directory
+- Frontend is placed in ./frontend
 
-Backend codes place in backend directory
+- Backend is placed in ./backend
 
-## Tips
-Our project has added commit-message in .git/hooks to inspect commit message
+## Commit Tips
+Project has added commit-message in ./.git/hooks to inspect commit message
 
-Commit message should like "Added some new feature. Ref #999"
+Commit message should refer like "Added function feature. Ref #999"
 
-## 完成了数据库的创建
-2020.12.28
+## References link(参考文档连接)
 
-## 进行前后端接口的讨论
-2020.12.30
+https://www.yuque.com/softwarejunior/vv6w86
+
+Contains:
+
+- 概要设计说明书
+- 部署文档([快速部署](#deploy-rapidly))
+- 需求分析报告
+- 使用说明书
+- 系统测试计划报告
+- 详细设计说明书
+
+## Deploy Rapidly
+
+1. ### clone repository
+
+```shell
+git clone https://se.jisuanke.com/exam-schedular/ranshaonidemeng/arrange_examination_system.git
+```
+
+2. ### cd ./frontend
+
+```shell
+npm install
+npm run serve
+```
+
+3. ### open backend with intellij IDEA
+
+**Maven reload project**
+
+![image-20210114172849619](./docs/assets/image-20210114172849619.png)
+
+
+
+***And the process maybe slow, provided your network is bad.***
+
+![image-20210114173126406](./docs/assets/image-20210114173126406.png)
+
+4. ### config environment variables in Intellij IDEA
+
+![image-20210114173343654](./docs/assets/image-20210114173343654.png)
+
+
+environment variables: ***`DATABASE_URL=localhost:localhost:3306;USER=root;PASSWORD=123`***
+
+![image-20210114173404309](./docs/assets/image-20210114173404309.png)
+
+
+
+**Backend configure is done**
+
+![image-20210114173645264](./docs/assets/image-20210114173645264.png)
+
+5. ### Configure mysql with **navigator**
+
+![navigator](./docs/assets/navigator.png)

@@ -1,5 +1,6 @@
 package com.praticaltraining.rsndm.controller;
 
+import com.praticaltraining.rsndm.biz.ExamStaffBiz;
 import com.praticaltraining.rsndm.biz.StatusNotesBiz;
 import com.praticaltraining.rsndm.entity.StatusNotes;
 import com.praticaltraining.rsndm.entity.ViolationRecord;
@@ -17,6 +18,8 @@ import java.util.Map;
 public class StatusNotesController {
     @Autowired
     private StatusNotesBiz statusNotesBiz;
+    @Autowired
+    private ExamStaffBiz examStaffBiz;
 
     @GetMapping("/StatusNotes")
     @ResponseBody
@@ -25,5 +28,28 @@ public class StatusNotesController {
         Map<String,List<StatusNotes>> result = new HashMap<>();
         result.put("StatusNotes",statusNotesBiz.getAllByEsId(esId));
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/StatusNotesToSchool")
+    @ResponseBody
+    @CrossOrigin
+    ResponseEntity<Map<String, List<StatusNotes>>> queryAllBySchoolId(int schoolId){
+        Map<String,List<StatusNotes>> result = new HashMap<>();
+        List<StatusNotes> res=statusNotesBiz.getAllBySchool(schoolId);
+        for(int i=0;i<res.size();i++){
+            res.get(i).setFromName(examStaffBiz.getName(res.get(i).getEsId()));
+        }
+        result.put("StatusNotes",res);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/StatusNotesSloved")
+    @ResponseBody
+    @CrossOrigin
+    void StatusNotesSloved(int esId,int stateId,int auditState){
+        statusNotesBiz.updateAuditState(stateId,auditState);
+        if(auditState==2) {
+            examStaffBiz.updateToFeedBackSolved(esId);
+        }
     }
 }

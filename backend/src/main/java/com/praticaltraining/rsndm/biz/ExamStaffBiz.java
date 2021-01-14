@@ -52,4 +52,6 @@ public interface ExamStaffBiz {
 
     List<ExamStaff> getAllByHigerEduId(int eduId);
 
+    void updateToFeedBackSolved(int esId);
+
 }

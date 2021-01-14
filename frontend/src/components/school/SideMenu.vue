@@ -8,12 +8,16 @@
     <el-menu :default-active="$route.path" class="sideNav" :router="true" text-color="gray" active-text-color="#000"
       border>
       <el-menu-item index="/school/teacherInfo">
-        <i class="el-icon-menu"></i>
+        <i class="el-icon-s-custom"></i>
         <span class="menuText">考务人员</span>
       </el-menu-item>
       <el-menu-item index="/school/roomInfo">
-        <i class="el-icon-menu"></i>
+        <i class="el-icon-s-home"></i>
         <span class="menuText">考场信息</span>
+      </el-menu-item>
+      <el-menu-item index="/school/handlefeedback">
+        <i class="el-icon-s-check"></i>
+        <span class="menuText">处理反馈</span>
       </el-menu-item>
     </el-menu>
   </div>

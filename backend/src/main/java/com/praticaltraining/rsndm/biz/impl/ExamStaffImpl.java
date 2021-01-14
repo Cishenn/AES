@@ -208,4 +208,12 @@ public class ExamStaffImpl implements ExamStaffBiz {
         List<ExamStaff> res = examStaffMapper.getAllByHigerEduId(eduId);
         return res;
     }
+
+    @Override
+    public void updateToFeedBackSolved(int esId) {
+        int res=examStaffMapper.updateToFeedBackSolved(esId);
+        if(res==0){
+            throw new ExamStaffException("updateToFeedBackSolved error");
+        }
+    }
 }
