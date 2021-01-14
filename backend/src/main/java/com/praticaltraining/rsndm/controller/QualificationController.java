@@ -25,6 +25,8 @@ public class QualificationController {
     private InspectionTeamArrangementBiz inspectionTeamArrangementBiz;
     @Autowired
     private InvigilatorGroupArrangementBiz invigilatorGroupArrangementBiz;
+    @Autowired
+    private EnrollmentDepartmentBiz enrollmentDepartmentBiz;
 
 
     @RequestMapping(value = "/qualification",method= RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
@@ -32,6 +34,7 @@ public class QualificationController {
     Qualification getQualification(int esId){
         Qualification qua=new Qualification();
         if(inspectionTeamBiz.getOneByEsId(esId)!=null){
+            qua.setDeployLevel(enrollmentDepartmentBiz.getArrangeLevel(schoolBiz.getEduId(examStaffBiz.getSchoolId(esId))));
             qua.setType(1);
             InspectionTeam it=inspectionTeamBiz.getOneByEsId(esId);
             qua.setGroupId(it.getInspectionTeamId());
@@ -40,6 +43,7 @@ public class QualificationController {
             qua.setName(examStaffBiz.getName(esId));
         }else if(invigilatorGroupBiz.getOneByEsId(esId)!=null){
             qua.setType(2);
+            qua.setDeployLevel(enrollmentDepartmentBiz.getArrangeLevel(schoolBiz.getEduId(examStaffBiz.getSchoolId(esId))));
             InvigilatorGroup it=invigilatorGroupBiz.getOneByEsId(esId);
             qua.setGroupId(it.getInvigilatorGroupId());
             List<InvigilatorGroupArrangement> allArrange=invigilatorGroupArrangementBiz.getAllInvigilatorGroupArrangementOfOneInvigilatorGroup(it.getInvigilatorGroupId());

@@ -8,4 +8,5 @@ public class Qualification {
     int type;
     String name;
     String school;
+    int deployLevel;
 }
