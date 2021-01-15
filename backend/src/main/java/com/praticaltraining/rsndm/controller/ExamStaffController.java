@@ -1,6 +1,8 @@
 package com.praticaltraining.rsndm.controller;
 
+import com.praticaltraining.rsndm.biz.EnrollmentDepartmentBiz;
 import com.praticaltraining.rsndm.biz.ExamStaffBiz;
+import com.praticaltraining.rsndm.biz.SchoolBiz;
 import com.praticaltraining.rsndm.entity.ExamStaff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,10 @@ public class ExamStaffController {
 
     @Autowired
     private ExamStaffBiz examStaffBiz;
+    @Autowired
+    private EnrollmentDepartmentBiz enrollmentDepartmentBiz;
+    @Autowired
+    private SchoolBiz schoolBiz;
 
     @GetMapping("/exStaff/exStaffId")
     @ResponseBody
@@ -106,8 +112,12 @@ public class ExamStaffController {
     @PostMapping("/feedback")
     @ResponseBody
     @CrossOrigin
-    void addStateMessage(int esId, String stateMessage){
+    int addStateMessage(int esId, String stateMessage){
+        if(enrollmentDepartmentBiz.getArrangeLevel(schoolBiz.getEduId(examStaffBiz.getSchoolId(esId)))>0){
+            return -1;
+        }
         examStaffBiz.addStateMessage(esId, stateMessage);
+        return 1;
     }
 
     @GetMapping("/countSelect/schoolId")
