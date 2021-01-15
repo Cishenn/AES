@@ -54,4 +54,5 @@ public interface ExamStaffBiz {
 
     void updateToFeedBackSolved(int esId);
 
+    void clearVerify(int esId);
 }

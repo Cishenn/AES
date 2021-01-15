@@ -57,4 +57,6 @@ public interface ExamStaffMapper {
     List<ExamStaff> getAllByHigerEduId(int eduId);
 
     int updateToFeedBackSolved(int esId);
+
+    int clearVerify(int esId);
 }

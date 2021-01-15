@@ -216,4 +216,12 @@ public class ExamStaffImpl implements ExamStaffBiz {
             throw new ExamStaffException("updateToFeedBackSolved error");
         }
     }
+
+    @Override
+    public void clearVerify(int esId) {
+        int res=examStaffMapper.clearVerify(esId);
+        if(res==0){
+            throw new ExamStaffException("clearVerify error");
+        }
+    }
 }

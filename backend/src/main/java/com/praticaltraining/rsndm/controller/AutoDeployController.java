@@ -691,11 +691,19 @@ public class AutoDeployController {
             temp.setYear(year);
             temp.setHsMessage("参与"+String.valueOf(year)+"高考监考");
             historyBiz.createHistory(temp);
+
+            //参与监考考务人员审核状态清除
+            examStaffBiz.clearVerify(allIG.get(i).getExaminerId());
+            examStaffBiz.clearVerify(allIG.get(i).getFirstInvigilatorId());
+            examStaffBiz.clearVerify(allIG.get(i).getSecondInvigilatorId());
         }
 
-        //巡考组历史记录载入
+
+
+
         List<Integer> allEduBelong = enrollmentDepartmentBiz.eduIdAllBelong(eduId);
         for (int i = 0; i < allEduBelong.size(); i++){
+            //巡考组历史记录载入
             List<InspectionTeam> allIT=inspectionTeamBiz.getAllByEduId(allEduBelong.get(i));
             for(int j=0;j<allIT.size();j++){
                 History temp=new History();
@@ -708,7 +716,17 @@ public class AutoDeployController {
                 temp.setYear(year);
                 temp.setHsMessage("参与"+String.valueOf(year)+"高考巡考");
                 historyBiz.createHistory(temp);
+
+                //参与巡考考务人员审核状态清除
+                examStaffBiz.clearVerify(allIT.get(j).getFirstInspectionPersonId());
+                examStaffBiz.clearVerify(allIT.get(j).getSecondInspectionPersonId());
             }
+            //学校审核状态清除
+            List<School> allSchool=schoolBiz.getByEduId(allEduBelong.get(i));
+            for(int j=0;j<allSchool.size();j++){
+                schoolBiz.examineExRoom(allSchool.get(j).getSchoolId(),0);
+            }
+
         }
 
         //更新考务人员表状态

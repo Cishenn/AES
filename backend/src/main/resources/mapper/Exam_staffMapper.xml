@@ -58,6 +58,12 @@
         WHERE esId = #{esId}
     </update>
 
+    <update id="clearVerify" parameterType="ExamStaff">
+        UPDATE exam_staff SET
+        eduExamine=0
+        WHERE esId = #{esId}
+    </update>
+
 </mapper>
 
 
